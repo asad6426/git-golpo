@@ -9,3 +9,5 @@ Git ও GitHub শেখার ইন্টারঅ্যাকটিভ পা
 ক্লাস ৩: https://asad6426.github.io/git-golpo/class-3/
 
 ক্লাস 4: https://asad6426.github.io/git-golpo/class-4/
+
+ক্লাস 5: https://asad6426.github.io/git-golpo/class-5/

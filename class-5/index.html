@@ -1,0 +1,1917 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{color-scheme:light}body{margin:0}img{max-width:100%}</style>
+</head>
+<body>
+<title>গিটের গল্প: ক্লাস ৫</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Galada&family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout concept: a Dhaka rickshaw-painted comic. Summary map first, then one chapter at a time:
+   story panel -> why -> commands -> working terminal -> quiz. */
+:root{
+  --bg:#EAF5F2; --paper:#FFFFFF; --soft:#D5EBE6; --ink:#1B1A3D; --mute:#55587A; --line:#1B1A3D;
+  --pink:#CF1F6B; --teal:#0B7F7B; --sun:#F4B400; --sky:#BFE6EE; --orange:#E8622A; --good:#0A8A4A; --bad:#C92A2A;
+  --pinktint:#FBE3EE; --suntint:#FFF3CC; --tealtint:#D6F0EE;
+  --term:#14132E; --termfg:#E9E8F8; --termdim:#8C8BB0; --termr:#FF6B7A; --termg:#5BE09A; --termy:#FFD25E; --termb:#7DB6FF; --termc:#6CE3DF; --termm:#FFB3D3;
+  --display:"Galada","Hind Siliguri",serif; --body:"Hind Siliguri","Noto Sans Bengali",system-ui,sans-serif; --mono:"JetBrains Mono","Hind Siliguri",Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#151433; --paper:#211F47; --soft:#2C2A58; --ink:#F3F2FF; --mute:#B4B3D6; --line:#0B0A20;
+  --pink:#FF5C9E; --teal:#3ED0C8; --sun:#FFC933; --sky:#2B4F70; --orange:#FF8A52; --good:#49D88E; --bad:#FF7272;
+  --pinktint:#45193B; --suntint:#44391A; --tealtint:#143F45; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#151433; --paper:#211F47; --soft:#2C2A58; --ink:#F3F2FF; --mute:#B4B3D6; --line:#0B0A20;
+  --pink:#FF5C9E; --teal:#3ED0C8; --sun:#FFC933; --sky:#2B4F70; --orange:#FF8A52; --good:#49D88E; --bad:#FF7272;
+  --pinktint:#45193B; --suntint:#44391A; --tealtint:#143F45; color-scheme:dark}
+[hidden]{display:none!important}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.65;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 60px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--ink)}
+.wrap{max-width:1020px;margin-inline:auto}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.2;text-wrap:balance;margin:0}
+h1{font-size:clamp(46px,9vw,84px);color:var(--pink)}
+h2{font-size:clamp(32px,5.5vw,48px)}
+h3{font-size:27px;color:var(--teal)}
+p{margin:0;max-width:68ch}
+code,.mono{font-family:var(--mono);font-size:.88em}
+a{color:var(--teal);font-weight:600}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--bg);display:flex;gap:12px;align-items:center;padding-block:10px;border-bottom:3px solid var(--ink);margin-bottom:22px;flex-wrap:wrap}
+.brand{font-family:var(--display);font-size:25px;color:var(--pink);background:none;border:0;padding:0;line-height:1}
+.dots{display:flex;gap:4px;flex-wrap:wrap;flex:1;min-width:200px}
+.dot{width:29px;height:29px;border-radius:50%;border:2px solid var(--ink);background:var(--paper);font-size:13px;font-weight:700;display:grid;place-items:center;padding:0;line-height:1}
+.dot.done{background:var(--good);color:#fff}
+.dot.on{background:var(--sun);color:#1B1A3D}
+.meter{font-size:14px;font-weight:600;color:var(--mute);white-space:nowrap}
+
+/* zigzag ribbon: rickshaw panel border */
+.zig{height:14px;background:linear-gradient(135deg,var(--pink) 25%,transparent 25%) -7px 0/14px 14px,linear-gradient(225deg,var(--pink) 25%,transparent 25%) -7px 0/14px 14px,linear-gradient(315deg,var(--sun) 25%,transparent 25%) 0 0/14px 14px,linear-gradient(45deg,var(--sun) 25%,var(--teal) 25%) 0 0/14px 14px}
+
+/* hero */
+.hero{display:grid;gap:14px;margin-bottom:26px}
+.lead{font-size:20px;max-width:60ch}
+.how{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-weight:600;font-size:15px}
+.how span{background:var(--paper);border:2px solid var(--ink);padding:3px 11px;border-radius:999px}
+.how i{font-style:normal;color:var(--pink)}
+.cta{background:var(--pink);color:#fff;border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);padding:8px 22px;border-radius:10px;font-weight:700;font-size:18px;justify-self:start}
+:root[data-theme="dark"] .cta{color:#1B1A3D}
+.cta:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
+section.block{margin-block:30px;display:grid;gap:14px}
+.route{display:grid;gap:0;border:3px solid var(--ink);border-radius:14px;overflow:hidden;background:var(--paper)}
+.rt{display:grid;grid-template-columns:50px minmax(0,1fr) auto;gap:4px 12px;padding:11px 14px;background:none;border:0;border-bottom:2px dashed var(--soft);text-align:left;align-items:start;width:100%}
+.rt:last-child{border-bottom:0}
+.rt:hover{background:var(--suntint)}
+.rt .n{width:38px;height:38px;border-radius:50%;background:var(--teal);color:#fff;display:grid;place-items:center;font-weight:700;border:2px solid var(--ink)}
+.rt.done .n{background:var(--good)}
+.rt b{font-size:18px}
+.rt small{color:var(--mute);display:block;font-size:14.5px;line-height:1.45}
+.rt .ts{font-family:var(--mono);font-size:12px;color:var(--mute);white-space:nowrap}
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+.chip{font-family:var(--mono);font-size:12.5px;background:var(--tealtint);padding:0 7px;border-radius:5px;line-height:1.7}
+.tbl{overflow-x:auto;border:3px solid var(--ink);border-radius:12px;background:var(--paper)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:15.5px}
+th{background:var(--ink);color:var(--bg);text-align:left;padding:7px 10px;font-weight:600}
+td{padding:7px 10px;border-top:1px solid var(--soft);vertical-align:top}
+td code{white-space:nowrap;color:var(--pink);font-weight:600}
+tr.grp td{background:var(--suntint);font-weight:700}
+.style-list{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
+.style-list div{background:var(--paper);border:2px solid var(--ink);border-radius:10px;padding:11px 14px}
+.style-list b{display:block;color:var(--pink)}
+
+/* chapter */
+.chap-head{display:grid;gap:6px;margin-bottom:14px}
+.eyebrow{font-weight:600;color:var(--mute);font-size:15px}
+.eyebrow .mono{background:var(--suntint);padding:1px 7px;border-radius:5px;color:var(--ink)}
+.part{margin-block:28px;display:grid;gap:12px}
+.part>h3{display:flex;gap:9px;align-items:baseline}
+
+/* stage */
+.stage-box{border:4px solid var(--ink);border-radius:16px;overflow:hidden;background:var(--paper);box-shadow:6px 6px 0 var(--ink)}
+svg.stage{display:block;width:100%;height:auto;background:var(--sky)}
+.stage text{font-family:var(--body);fill:#1B1A3D;font-weight:600}
+.actor{transition:transform .8s cubic-bezier(.3,1.3,.5,1),opacity .4s}
+.actor.hide{opacity:0}
+.talk .inner{animation:bob .55s ease-in-out infinite alternate}
+@keyframes bob{to{transform:translateY(-6px)}}
+.blink{animation:blink 3.6s infinite;transform-box:fill-box;transform-origin:center}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
+.led{fill:#2FD27F;animation:led 1.2s steps(2) infinite}
+.down .led{fill:#FF3B3B;animation-duration:.35s}
+@keyframes led{50%{opacity:.35}}
+.ring{animation:ring .25s linear infinite alternate;transform-box:fill-box;transform-origin:center}
+@keyframes ring{from{transform:rotate(-9deg)}to{transform:rotate(9deg)}}
+.bad .paper{fill:#FFC7C7}.good .paper{fill:#BDF2D2}.gold .paper{fill:#FFE28A}
+.bubble{padding:13px 16px;min-height:92px;border-top:4px solid var(--ink);display:grid;gap:2px;align-content:start}
+.bubble b{color:var(--pink);font-size:15px}
+.bubble p{font-size:18px}
+.scene-ctl{display:flex;gap:8px;align-items:center;padding:0 16px 13px;flex-wrap:wrap}
+.btn{background:var(--paper);border:2px solid var(--ink);border-radius:8px;padding:3px 13px;font-weight:600;font-size:15px}
+.btn:hover:not(:disabled){background:var(--suntint)}
+.btn:disabled{opacity:.45;cursor:default}
+.btn.pri{background:var(--sun);color:#1B1A3D}
+.count{font-size:14px;color:var(--mute);margin-left:auto;font-variant-numeric:tabular-nums}
+details.all{padding:0 16px 12px;font-size:15.5px}
+details.all summary{cursor:pointer;color:var(--mute);font-weight:600}
+details.all ol{margin:6px 0 0;padding-left:22px}
+
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.card{background:var(--paper);border:2px solid var(--ink);border-radius:12px;padding:12px 15px;min-width:0}
+.card.pink{background:var(--pinktint)}.card.sun{background:var(--suntint)}.card.teal{background:var(--tealtint)}
+.card h4{margin:0 0 3px;font-size:17.5px;font-weight:700}
+.card ul{margin:0;padding-left:20px}
+.card p+p{margin-top:6px}
+.note{border-left:0;background:var(--suntint);border:2px dashed var(--ink);border-radius:10px;padding:9px 14px;font-size:15.5px}
+.cmdlist{display:grid;gap:8px}
+.cmd{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:4px 14px;background:var(--paper);border:2px solid var(--ink);border-radius:10px;padding:9px 13px}
+.cmd code{color:var(--pink);font-weight:600;overflow-wrap:anywhere;font-size:14.5px}
+.cmd span{font-size:15.5px}
+@media (max-width:640px){.cmd{grid-template-columns:minmax(0,1fr)}}
+
+/* terminal */
+.lab{display:grid;gap:12px;grid-template-columns:minmax(0,1fr) 290px;align-items:start}
+@media (max-width:820px){.lab{grid-template-columns:minmax(0,1fr)}.lab .miss{order:-1}}
+.term{background:var(--term);color:var(--termfg);border-radius:12px;border:3px solid var(--ink);overflow:hidden;font-family:var(--mono);font-size:13.5px;line-height:1.5;display:flex;flex-direction:column;min-width:0;position:relative}
+.term-bar{display:flex;align-items:center;gap:7px;padding:5px 10px;background:#25234C;color:#C9C8E8;font-size:12px}
+.term-bar i{width:10px;height:10px;border-radius:50%;background:var(--pink);display:block}
+.term-bar i+i{background:#F4B400}.term-bar i+i+i{background:#2FD27F}
+.term-bar button{margin-left:auto;background:none;border:1px solid #6A69A0;color:#E9E8F8;border-radius:5px;padding:0 8px;font-size:12px}
+.t-out{height:330px;overflow:auto;padding:9px 11px;white-space:pre-wrap;overflow-wrap:anywhere}
+.t-line{display:flex;gap:7px;padding:6px 11px 8px;border-top:1px solid #33315E;align-items:baseline;flex-wrap:wrap}
+.t-line label{color:var(--termg);font-weight:600;white-space:nowrap;overflow-wrap:anywhere}
+.t-line input{flex:1;min-width:120px;background:none;border:0;color:var(--termfg);font:inherit;outline:0;caret-color:var(--termg)}
+.pr{color:var(--termg);font-weight:600}.r{color:var(--termr)}.g{color:var(--termg)}.y{color:var(--termy)}.b{color:var(--termb);font-weight:600}.c{color:var(--termc)}.dim{color:var(--termdim)}
+.m{color:var(--termm);font-family:var(--body);font-size:14.5px;display:block;margin-block:2px}
+.editor{position:absolute;inset:0;background:var(--term);display:flex;flex-direction:column;z-index:2}
+.editor .ehead{padding:3px 10px;background:#E9E8F8;color:#14132E;font-size:12.5px;overflow-wrap:anywhere}
+.editor textarea{flex:1;background:none;border:0;color:var(--termfg);font:inherit;padding:8px 10px;resize:none;outline:0;min-height:160px}
+.editor textarea.normal{caret-color:transparent}
+.ehelp{font-family:var(--body);font-size:13.5px;padding:3px 10px;color:var(--termm)}
+.ebar{display:flex;gap:6px;padding:6px 10px;align-items:center;flex-wrap:wrap;border-top:1px solid #33315E}
+.ebar button{background:#2C2A58;color:#E9E8F8;border:1px solid #6A69A0;border-radius:5px;padding:1px 9px;font-size:12.5px;font-family:var(--mono)}
+.ebar .mode{font-weight:600;color:var(--termy)}
+.ebar input{background:none;border:0;border-bottom:1px solid #6A69A0;color:var(--termfg);font:inherit;width:90px;outline:0}
+.miss{background:var(--paper);border:3px solid var(--ink);border-radius:12px;padding:11px 12px;display:grid;gap:6px;min-width:0}
+.miss h4{margin:0;font-size:17px}
+.miss ol{list-style:none;margin:0;padding:0;display:grid;gap:5px}
+.miss li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:7px;font-size:14.8px;line-height:1.4;opacity:.5}
+.miss li.cur{opacity:1;background:var(--suntint);margin-inline:-5px;padding:5px;border-radius:7px}
+.miss li.ok{opacity:1}
+.miss li.ok .tick{background:var(--good);color:#fff;animation:pop .35s}
+@keyframes pop{0%{transform:scale(.3)}70%{transform:scale(1.25)}}
+.tick{width:21px;height:21px;border-radius:50%;border:2px solid var(--ink);font-size:12px;display:grid;place-items:center;font-weight:700}
+.hintbtn{font-size:12.5px;background:none;border:0;padding:0;color:var(--teal);font-weight:700;text-decoration:underline;display:block;text-align:left;overflow-wrap:anywhere}
+.hintcmd{font-family:var(--mono);font-size:12.5px;display:block;text-align:left;background:var(--ink);color:var(--bg);border:0;border-radius:5px;padding:2px 7px;margin-top:3px;overflow-wrap:anywhere;width:100%}
+.win{background:var(--tealtint);border:2px solid var(--ink);border-radius:8px;padding:6px 10px;font-weight:600;font-size:15px}
+
+/* four zones */
+.zones-wrap{position:relative;margin-top:2px}
+.zones{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+@media (max-width:640px){.zones{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.zone{border:3px solid var(--ink);border-radius:10px;background:var(--paper);min-height:128px;padding:6px 7px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.zone h5{margin:0;font-size:14px;font-weight:700;line-height:1.25}
+.zone small{font-size:11.5px;color:var(--mute);line-height:1.25}
+.z1 h5{color:var(--bad)}.z2 h5{color:var(--good)}.z3 h5{color:var(--teal)}.z4 h5{color:var(--orange)}
+.fc{font-family:var(--mono);font-size:11.5px;border-radius:5px;padding:1px 6px;background:var(--soft);overflow-wrap:anywhere;line-height:1.45}
+.fc.red{background:var(--bad);color:#fff}.fc.grn{background:var(--good);color:#fff}
+.flyer{position:absolute;z-index:3;font-family:var(--mono);font-size:12px;background:var(--sun);color:#1B1A3D;border:2px solid #1B1A3D;border-radius:6px;padding:0 7px;transition:left .75s cubic-bezier(.4,0,.2,1),top .75s cubic-bezier(.4,0,.2,1),opacity .2s .65s;pointer-events:none;white-space:nowrap}
+.graph{overflow-x:auto;border:2px solid var(--ink);border-radius:10px;background:var(--paper);padding:4px;margin-top:8px}
+.graph text{font-family:var(--mono);font-size:11px;fill:var(--ink)}
+.graph .msg{fill:var(--mute);font-size:10px;font-family:var(--body)}
+
+/* quiz */
+.quiz{display:grid;gap:12px}
+.q{background:var(--paper);border:2px solid var(--ink);border-radius:12px;padding:11px 14px;display:grid;gap:7px}
+.q p{font-weight:600}
+.opts{display:grid;gap:5px}
+.opt{text-align:left;background:var(--bg);border:2px solid var(--ink);border-radius:8px;padding:4px 11px;font-size:15.5px;overflow-wrap:anywhere}
+.opt:hover:not(:disabled){background:var(--suntint)}
+.opt.yes{background:var(--good);color:#fff}.opt.no{background:var(--bad);color:#fff;text-decoration:line-through}
+.exp{font-size:15px;background:var(--tealtint);border-radius:7px;padding:5px 10px}
+.foot-nav{display:flex;justify-content:space-between;gap:10px;margin-top:34px;flex-wrap:wrap}
+
+/* widgets */
+.tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}
+.tab{background:var(--paper);border:2px solid var(--ink);border-radius:8px;padding:2px 11px;font-weight:600;font-size:15px}
+.tab.on{background:var(--ink);color:var(--bg)}
+.dns{font-family:var(--mono);font-size:13.5px;background:var(--term);color:var(--termfg);border-radius:9px;padding:9px 12px;overflow-x:auto;white-space:pre;line-height:1.55}
+.dns .add{background:#16523A;color:#CFFFE4;display:inline-block;min-width:100%}.dns .del{background:#5C1E2E;color:#FFD6DE;display:inline-block;min-width:100%}
+input[type=range]{width:100%;accent-color:var(--pink)}
+.meta{display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 10px;font-size:15.5px}
+.meta b{color:var(--mute);font-weight:500}
+.dl{font-family:var(--mono);font-size:13.5px;background:var(--term);color:var(--termfg);border-radius:9px;padding:6px;display:grid}
+.dl button{all:unset;cursor:pointer;padding:1px 7px;border-radius:4px;overflow-wrap:anywhere}
+.dl button:hover,.dl button.on{background:#38366B}
+.dl button:focus-visible{outline:2px solid var(--pink)}
+.files{display:grid;gap:4px;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));margin-bottom:8px}
+.files button{font-family:var(--mono);font-size:13px;background:var(--paper);border:2px solid var(--ink);border-radius:7px;padding:2px 6px}
+.files button.on{background:var(--sun);color:#1B1A3D}
+.seq{overflow-x:auto;border:3px solid var(--ink);border-radius:12px;background:var(--paper);padding:6px}
+.seq svg{display:block;width:100%;min-width:560px;height:auto}
+.seq text{font-family:var(--body);font-weight:600}
+.ign{display:grid;gap:4px}
+.ign div{display:flex;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:13.5px;background:var(--bg);border-radius:6px;padding:2px 9px;flex-wrap:wrap}
+.tagy{color:var(--bad);font-family:var(--body);font-weight:700}.tagn{color:var(--good);font-family:var(--body);font-weight:700}
+input.txt{font:inherit;font-family:var(--mono);font-size:14px;padding:4px 9px;border:2px solid var(--ink);border-radius:7px;background:var(--paper);color:var(--ink);width:100%}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <button class="brand" id="home">গিটের গল্প</button>
+    <div class="dots" id="dots"></div>
+    <div class="meter" id="meter"></div>
+  </header>
+  <main id="view"></main>
+</div>
+
+<script>
+"use strict";
+/* ============ tiny helpers ============ */
+const $=(s,r=document)=>r.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt=s=>esc(s).replace(/`([^`]+)`/g,'<code>$1</code>');
+const h=(html)=>{const t=document.createElement('template');t.innerHTML=html.trim();return t.content.firstChild};
+const bn=n=>String(n).replace(/\d/g,d=>'০১২৩৪৫৬৭৮৯'[d]);
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+function sha1(str){
+  const b=new TextEncoder().encode(str),l=b.length,w=new Uint32Array(((l+8>>6)+1)*16);
+  for(let i=0;i<l;i++)w[i>>2]|=b[i]<<(24-(i%4)*8);
+  w[l>>2]|=0x80<<(24-(l%4)*8);w[w.length-1]=l*8;
+  let a=0x67452301,c=0xEFCDAB89,d=0x98BADCFE,e=0x10325476,f=0xC3D2E1F0;const x=new Uint32Array(80);
+  const R=(v,n)=>(v<<n)|(v>>>(32-n));
+  for(let i=0;i<w.length;i+=16){
+    let A=a,B=c,C=d,D=e,E=f;
+    for(let t=0;t<80;t++){
+      x[t]=t<16?w[i+t]:R(x[t-3]^x[t-8]^x[t-14]^x[t-16],1);
+      const F=t<20?(B&C)|(~B&D):t<40?B^C^D:t<60?(B&C)|(B&D)|(C&D):B^C^D;
+      const K=t<20?0x5A827999:t<40?0x6ED9EBA1:t<60?0x8F1BBCDC:0xCA62C1D6;
+      const T=(R(A,5)+F+E+K+x[t])|0;E=D;D=C;C=R(B,30);B=A;A=T;
+    }
+    a=(a+A)|0;c=(c+B)|0;d=(d+C)|0;e=(e+D)|0;f=(f+E)|0;
+  }
+  return [a,c,d,e,f].map(v=>(v>>>0).toString(16).padStart(8,'0')).join('');
+}
+
+/* ============ the Git + shell simulator ============ */
+const lines=c=>c===''?[]:c.replace(/\n$/,'').split('\n');
+function lcs(a,b){
+  const n=a.length,m=b.length,t=Array.from({length:n+1},()=>new Array(m+1).fill(0));
+  for(let i=n-1;i>=0;i--)for(let j=m-1;j>=0;j--)t[i][j]=a[i]===b[j]?t[i+1][j+1]+1:Math.max(t[i+1][j],t[i][j+1]);
+  const o=[];let i=0,j=0;
+  while(i<n||j<m){
+    if(i<n&&j<m&&a[i]===b[j]){o.push(['=',a[i]]);i++;j++}
+    else if(j<m&&(i>=n||t[i][j+1]>=t[i+1][j])){o.push(['+',b[j]]);j++}
+    else{o.push(['-',a[i]]);i++}
+  }
+  return o;
+}
+function unified(a,b,na,nb){
+  const A=lines(a),B=lines(b),o=lcs(A,B);
+  if(!o.some(x=>x[0]!=='='))return '';
+  const r=(s,c)=>c===1?`${s}`:`${s},${c}`;
+  return [`--- ${na}\t2026-03-06 22:45:02.701219850 +0600`,`+++ ${nb}\t2026-03-06 22:47:24.410934129 +0600`,
+    `@@ -${r(A.length?1:0,A.length)} +${r(B.length?1:0,B.length)} @@`,...o.map(x=>(x[0]==='='?' ':x[0])+x[1])].join('\n')+'\n';
+}
+function normalDiff(a,b){
+  const o=lcs(lines(a),lines(b));let i=0,j=0,k=0;const out=[];
+  const rg=(s,e)=>s===e?`${s}`:`${s},${e}`;
+  while(k<o.length){
+    if(o[k][0]==='='){i++;j++;k++;continue}
+    const d=[],p=[];while(k<o.length&&o[k][0]!=='='){(o[k][0]==='-'?d:p).push(o[k][1]);k++}
+    const op=d.length&&p.length?'c':d.length?'d':'a';
+    const ra=d.length?rg(i+1,i+d.length):`${i}`,rb=p.length?rg(j+1,j+p.length):`${j}`;
+    out.push(`${ra}${op}${rb}`);d.forEach(x=>out.push('< '+x));if(op==='c')out.push('---');p.forEach(x=>out.push('> '+x));
+    i+=d.length;j+=p.length;
+  }
+  return out.join('\n');
+}
+/* Replacement Sim methods for Class 2. Spliced over the Class 1 versions by build-c2.js */
+const LOG_NOW=Date.UTC(2025,2,20,17,30);
+function fmtDate(t){const d=new Date(t+6*3600e3),D=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];const p=n=>String(n).padStart(2,'0');return `${D[d.getUTCDay()]} ${M[d.getUTCMonth()]} ${d.getUTCDate()} ${p(d.getUTCHours())}:${p(d.getUTCMinutes())}:${p(d.getUTCSeconds())} ${d.getUTCFullYear()} +0600`}
+function relDate(t,now){const s=Math.max(60,Math.round((now-t)/1000));const u=(n,w)=>`${n} ${w}${n>1?'s':''} ago`;if(s<3600)return u(Math.round(s/60),'minute');if(s<86400)return u(Math.round(s/3600),'hour');const d=Math.round(s/86400);if(d<14)return u(d,'day');return u(Math.round(d/7),'week')}
+function parseWhen(v,now){v=String(v).trim().toLowerCase();if(v==='yesterday')return now-86400e3;if(v==='today')return now-now%86400e3;const m=/^(\d+)\s*(minute|hour|day|week|month)s?( ago)?$/.exec(v);if(m){const k={minute:60e3,hour:3600e3,day:86400e3,week:7*86400e3,month:30*86400e3}[m[2]];return now-m[1]*k}const d=Date.parse(v);return isNaN(d)?null:d}
+const C2={
+  gitLog(r,a,push){
+    const fail=(m,c)=>this.fail(push,m,c);
+    if(!r.refs[r.head])return fail(`fatal: your current branch '${r.head}' does not have any commits yet`,'আগে একটা commit করো।');
+    let lall=false,lp=false,lstat=false,one=false,graph=false,merges=false,noMerges=false,n=null,author=null,pretty=null,since=null,until=null,path=null;const revs=[];
+    for(let i=0;i<a.length;i++){const x=a[i];
+      if(x==='--'){path=a[i+1];break}
+      else if(x==='--oneline')one=true;else if(x==='--graph')graph=true;else if(x==='--merges')merges=true;else if(x==='--no-merges')noMerges=true;
+      else if(x==='--all'){lall=true}else if(x==='--decorate'){}
+      else if(x==='-p'||x==='--patch')lp=true;else if(x==='--stat')lstat=true;
+      else if(x==='-n')n=+a[++i];else if(/^-n\d+$/.test(x))n=+x.slice(2);else if(/^-\d+$/.test(x))n=+x.slice(1);else if(x.startsWith('--max-count='))n=+x.split('=')[1];
+      else if(x.startsWith('--author='))author=x.slice(9);else if(x.startsWith('--pretty=format:'))pretty=x.slice(16);else if(x.startsWith('--format='))pretty=x.slice(9);
+      else if(x.startsWith('--since=')||x.startsWith('--after='))since=parseWhen(x.split('=')[1],LOG_NOW);else if(x.startsWith('--until=')||x.startsWith('--before='))until=parseWhen(x.split('=')[1],LOG_NOW);
+      else if(x.startsWith('-'))return fail(`fatal: unrecognized argument: ${x}`);else revs.push(x);
+    }
+    const sv=r.known?{refs:r.known}:null;
+    const res=x=>{if(x==='HEAD')return r.refs[r.head];if(r.refs[x])return r.refs[x];if(x.startsWith('origin/')&&sv&&sv.refs[x.slice(7)])return sv.refs[x.slice(7)];const h=Object.keys(this.commits).find(s=>x.length>=4&&s.startsWith(x));return h||null};
+    let set;
+    if(revs[0]&&revs[0].includes('..')){const [A,B]=revs[0].split('..');const sa=res(A||'HEAD'),sb=res(B||'HEAD');if(!sa||!sb)return fail(`fatal: ambiguous argument '${revs[0]}': unknown revision or path not in the working tree.`,'branch-এর নাম ঠিক আছে কিনা git branch দিয়ে দেখো।');const X=this.anc(sa);set=[...this.anc(sb)].filter(z=>!X.has(z))}
+    else if(revs[0]){const s=res(revs[0]);if(!s){if((this.cwd===r.root?'':this.cwd.slice(r.root.length+1)+'/')+revs[0] in this.tree(r)){path=revs[0];set=[...this.anc(r.refs[r.head])]}else return fail(`fatal: ambiguous argument '${revs[0]}': unknown revision or path not in the working tree.`,'branch-এর নাম ঠিক আছে কিনা git branch দিয়ে দেখো।')}else set=[...this.anc(s)]}
+    else if(lall){const u=new Set();Object.values(r.refs).forEach(z=>this.anc(z).forEach(y=>u.add(y)));Object.values(r.known||{}).forEach(z=>this.anc(z).forEach(y=>u.add(y)));set=[...u]}
+    else set=[...this.anc(r.refs[r.head])];
+    let l=set.map(x=>this.commits[x]).sort((p,q)=>q.n-p.n);
+    if(merges)l=l.filter(c=>c.parents.length>1);if(noMerges)l=l.filter(c=>c.parents.length<2);
+    if(author)l=l.filter(c=>(c.author+' <'+c.email+'>').toLowerCase().includes(author.toLowerCase()));
+    if(since!=null)l=l.filter(c=>c.t>=since);if(until!=null)l=l.filter(c=>c.t<=until);
+    if(path){const rel=(this.cwd===r.root?'':this.cwd.slice(r.root.length+1)+'/')+path;l=l.filter(c=>{if(!c.parents.length)return c.tree[rel]!==undefined;return c.parents.every(p=>this.commits[p].tree[rel]!==c.tree[rel])})}
+    if(n!=null)l=l.slice(0,n);
+    if(!l.length){push('(এই শর্তে কোনো commit পাওয়া যায়নি)','m');return}
+    const deco=c=>{const b=Object.keys(r.refs).filter(k=>k!=='HEAD'&&r.refs[k]===c.sha).sort((x,y)=>(y===r.head)-(x===r.head)).map(k=>k===r.head?`HEAD -> ${k}`:k);if(r.head==='HEAD'&&r.refs.HEAD===c.sha)b.unshift('HEAD');if(sv)Object.keys(sv.refs).filter(k=>sv.refs[k]===c.sha).forEach(k=>b.push('origin/'+k));Object.keys(r.tags||{}).filter(t=>r.tags[t]===c.sha).forEach(t=>b.push('tag: '+t));return b.length?` (${b.join(', ')})`:''};
+    const now=Math.max(LOG_NOW,this.clock||0)+60e3;
+    l.forEach((c,i)=>{
+      const pre=graph?'* ':'',cont=graph?'| ':'';
+      if(pretty!=null){push(pre+pretty.replace(/%H/g,c.sha).replace(/%h/g,c.sha.slice(0,7)).replace(/%an/g,c.author).replace(/%ae/g,c.email).replace(/%ar/g,relDate(c.t,now)).replace(/%ad/g,fmtDate(c.t)).replace(/%s/g,c.msg).replace(/%d/g,deco(c)));}
+      else if(one){push(`${pre}${c.sha.slice(0,7)}${deco(c)} ${c.msg}`,'y')}
+      else{push(`${pre}commit ${c.sha}${deco(c)}`,'y');if(c.parents.length>1)push(`${cont}Merge: ${c.parents.map(p=>p.slice(0,7)).join(' ')}`);push(`${cont}Author: ${c.author} <${c.email}>`);push(`${cont}Date:   ${fmtDate(c.t)}`);push(cont);push(`${cont}    ${c.msg}`);if(c.body){push(cont);c.body.split('\n').forEach(x=>push(`${cont}    ${x}`))}if(i<l.length-1)push(cont)}
+      if(lstat){push('');C3.statLines.call(this,c).forEach(x=>push(x))}
+      if(lp){push('');C3.patch.call(this,c).forEach(o=>push(o.t,o.c))}
+      if(graph&&c.parents.length>1)push('|\\');
+    });
+    if(graph&&l.some(c=>c.parents.length>1))push('আসল Git-এ শাখাগুলো পাশাপাশি আঁকা হয়। এখানে সরল করে দেখানো, নিচের ছবিতে সঠিক রূপ আছে।','m');
+  },
+  gitMerge(r,a,push){
+    const fail=(m,c)=>this.fail(push,m,c);
+    if(a.includes('--continue')){if(!r.merge)return fail('fatal: There is no merge in progress (MERGE_HEAD missing).','--squash সাধারণ merge শুরু করে না। status দেখো; Staging-এ থাকলে দরকার git commit।');if(r.merge.conf.length)return fail('error: Committing is not possible because you have unmerged files.');const sh=this.commit(r,r.merge.msg||`Merge branch into ${r.head}`);push(`[${r.head} ${sh.slice(0,7)}] ${this.commits[sh].msg}`);return}
+    if(a.includes('--abort')){
+      if(!r.merge||!r.merge.bak)return fail('fatal: There is no merge to abort (MERGE_HEAD missing).');
+      Object.keys(this.wt(r)).forEach(k=>delete this.fs[r.root+'/'+k]);Object.entries(r.merge.bak.wt).forEach(([k,v])=>{let c=r.root;k.split('/').slice(0,-1).forEach(s=>{c+='/'+s;this.mk(c)});this.put(r.root+'/'+k,v)});
+      r.index=r.merge.bak.index;r.merge=null;push('(merge বাতিল হয়েছে, সব আগের অবস্থায় ফিরে গেছে)','m');return;
+    }
+    const noff=a.includes('--no-ff'),squash=a.includes('--squash'),nocommit=a.includes('--no-commit');let customMsg=null;const names=[];
+    let strat=null,xopt=null;for(let i=0;i<a.length;i++){if(a[i]==='-m'){customMsg=a[++i];continue}if(a[i]==='-s'){strat=a[++i];continue}if(a[i].startsWith('--strategy=')){strat=a[i].split('=')[1];continue}if(a[i]==='-X'){xopt=a[++i];continue}if(a[i].startsWith('--strategy-option=')){xopt=a[i].split('=')[1];continue}if(!a[i].startsWith('-'))names.push(a[i])}
+    const resolveName=n=>r.refs[n]?n:(n.startsWith('origin/')&&r.known&&r.known[n.slice(7)]?n:null);
+    names.forEach(n=>{if(!r.refs[n]&&n.startsWith('origin/')&&r.known&&r.known[n.slice(7)]){r.refs[n]=r.known[n.slice(7)];r._tmpRefs=(r._tmpRefs||[]).concat(n)}});
+    const cleanTmp=()=>{(r._tmpRefs||[]).forEach(n=>delete r.refs[n]);r._tmpRefs=[]};
+    try{
+    const fresh=names.filter(n=>r.refs[n]&&!this.anc(r.refs[r.head]).has(r.refs[n]));
+    if(names.length>1&&fresh.length>1){const s0=this.status(r);if(s0.st.length||s0.un.length)return fail('error: Your local changes would be overwritten by merge.\nAborting');let T={...this.tree(r)};const hd=this.commits[r.refs[r.head]].tree;for(const n of fresh){const y=this.commits[r.refs[n]].tree,bs=this.commits[this.base(r.refs[r.head],r.refs[n])].tree;for(const k of new Set([...Object.keys(bs),...Object.keys(y)])){if(y[k]!==bs[k]){if(T[k]!==bs[k]&&T[k]!==y[k])return fail(`Trying simple merge with ${n}\nSimple merge did not work, trying automatic merge.\nCONFLICT in ${k}\nShould not be doing an octopus.`,'Octopus শুধু পরিষ্কার merge-এর জন্য। আলাদা করে merge করো।');if(y[k]===undefined)delete T[k];else T[k]=y[k]}}}Object.entries(T).forEach(([k,v])=>{let c=r.root;k.split('/').slice(0,-1).forEach(z=>{c+='/'+z;this.mk(c)});this.put(r.root+'/'+k,v)});r.index={...T};r.merge={other:r.refs[fresh[0]],others:fresh.slice(1).map(n=>r.refs[n]),conf:[]};const sh=this.commit(r,customMsg||`Merge branches ${fresh.map(n=>`'${n}'`).join(' and ')} into ${r.head}`);fresh.forEach(n=>push(`Trying simple merge with ${n}`));push("Merge made by the 'octopus' strategy.");this.fly=[{t:sh.slice(0,7),from:2,to:0}];return}
+    if(!names.length)return fail('fatal: No remote for the current branch.','কোন branch মেলাবে বলো: git merge dev');
+    if(r.merge&&r.merge.conf.length)return fail('error: Merging is not possible because you have unmerged files.','আগে কনফ্লিক্ট ঠিক করো, অথবা git merge --abort দাও।');
+    if(!this.cfg['user.name'])return fail('Author identity unknown');
+    let said=false;
+    for(const o of names){
+      if(!r.refs[o])return fail(`merge: ${o} - not something we can merge`,'এই নামে branch নেই। অন্যের branch হলে আগে git fetch origin দাও।');
+      const A=r.refs[r.head],B=r.refs[o];if(!A)return fail('fatal: এই branch-এ এখনো commit নেই।');
+      const s=this.status(r);if(s.st.length||s.un.length)return fail(`error: Your local changes to the following files would be overwritten by merge:\n  ${[...s.st,...s.un].map(x=>x[1]).join('\n  ')}\nMerge with strategy ort failed.`,'Staging-এ বা ফাইলে অসমাপ্ত কাজ আছে। আগে commit বা stash করো। ক্লাসেও এটাই হয়েছিল।');
+      if(this.anc(A).has(B)){if(!said){push('Already up to date.');said=true}continue}
+      const stat=(x,y)=>{const l=[];let ins=0,del=0;new Set([...Object.keys(x),...Object.keys(y)]).forEach(k=>{if(x[k]!==y[k]){let i=0,d=0;lcs(lines(x[k]||''),lines(y[k]||'')).forEach(z=>{if(z[0]==='+')i++;if(z[0]==='-')d++});ins+=i;del+=d;l.push(` ${k} | ${i+d} ${'+'.repeat(i)}${'-'.repeat(d)}`)}});return {l,ins,del}};
+      const sum=S=>` ${S.l.length} file${S.l.length>1?'s':''} changed, ${S.ins} insertion${S.ins!==1?'s':''}(+), ${S.del} deletion${S.del!==1?'s':''}(-)`;
+      const wr=(k,v)=>{let c=r.root;k.split('/').slice(0,-1).forEach(x=>{c+='/'+x;this.mk(c)});this.put(r.root+'/'+k,v)};
+      if(this.anc(B).has(A)&&!noff&&!squash&&strat!=='ours'){
+        const oldT=this.tree(r),t=this.commits[B].tree,S=stat(oldT,t);
+        push(`Updating ${A.slice(0,7)}..${B.slice(0,7)}\nFast-forward`);S.l.forEach(x=>push(x));push(sum(S));
+        Object.keys(t).filter(k=>!(k in oldT)).forEach(k=>push(` create mode 100644 ${k}`));
+        Object.keys(oldT).forEach(k=>{if(!(k in t))delete this.fs[r.root+'/'+k]});Object.keys(t).forEach(k=>wr(k,t[k]));
+        r.refs[r.head]=B;r.index={...t};this.fly=[{t:o,from:2,to:0}];this.sync(r);continue;
+      }
+      const bak={wt:this.wt(r),index:{...r.index}};
+      const bs=this.commits[this.base(A,B)].tree,x=this.commits[A].tree,y=this.commits[B].tree,m={},conf=[];
+      new Set([...Object.keys(bs),...Object.keys(x),...Object.keys(y)]).forEach(k=>{
+        if(x[k]===y[k]){if(x[k]!==undefined)m[k]=x[k]}
+        else if(x[k]===bs[k]){if(y[k]!==undefined)m[k]=y[k]}
+        else if(y[k]===bs[k]){if(x[k]!==undefined)m[k]=x[k]}
+        else if(xopt==='theirs'){if(y[k]!==undefined)m[k]=y[k]}
+        else if(xopt==='ours'){if(x[k]!==undefined)m[k]=x[k]}
+        else{conf.push(k);m[k]=`<<<<<<< HEAD\n${x[k]||''}=======\n${y[k]||''}>>>>>>> ${o}\n`}
+      });
+      if(strat==='ours'){Object.keys(m).forEach(k=>delete m[k]);Object.assign(m,x);conf.length=0}
+      Object.entries(m).forEach(([k,v])=>wr(k,v));Object.keys(x).forEach(k=>{if(!(k in m))delete this.fs[r.root+'/'+k]});
+      r.index={...m};
+      if(squash){const S=stat(x,m);if(conf.length){r.merge={other:null,conf,bak,squash:true}}push('Squash commit -- not updating HEAD');S.l.forEach(z=>push(z));push(sum(S));push('Automatic merge went well; stopped before committing as requested');this.fly=[{t:o,from:2,to:1}];continue}
+      r.merge={other:B,conf,bak,msg:customMsg||`Merge branch '${o}' into ${r.head}`};
+      if(conf.length){conf.forEach(k=>push(`Auto-merging ${k}\nCONFLICT (content): Merge conflict in ${k}`,'r'));push('Automatic merge failed; fix conflicts and then commit the result.','r');push('দুই branch একই লাইন বদলেছে। ফাইল খুলে <<<< ==== >>>> চিহ্ন মুছে ঠিক করো, তারপর git add আর git commit। অথবা git merge --abort দিয়ে বাতিল করো।','m');return}
+      if(nocommit){push('Automatic merge went well; stopped before committing as requested');this.fly=[{t:o,from:2,to:1}];continue}
+      const S=stat(x,m);const sha=this.commit(r,customMsg||`Merge branch '${o}' into ${r.head}`);
+      push(`Merge made by the '${strat||'ort'}' strategy.`);S.l.forEach(z=>push(z));push(sum(S));this.fly=[{t:sha.slice(0,7),from:2,to:0}];
+    }
+    }finally{cleanTmp()}
+  },
+};
+
+/* Class 3 additions to the simulator: undo tools, stash, tags, amend, diff. */
+const C3={
+  rev(r,x){
+    if(!x)return null;
+    let m=/^(.+?)((?:~\d*|\^)+)$/.exec(x),base=x,steps=0;
+    if(m){base=m[1];(m[2].match(/~\d*|\^/g)||[]).forEach(t=>{steps+=t==='^'||t==='~'?1:+t.slice(1)})}
+    let s=null;
+    const rl=/^HEAD@\{(\d+)\}$/.exec(base);
+    if(rl)s=(r.reflog||[])[+rl[1]]?r.reflog[+rl[1]].sha:null;
+    else if(base==='HEAD')s=r.refs[r.head];
+    else if(r.refs[base])s=r.refs[base];
+    else if(base.startsWith('origin/')&&r.known&&r.known[base.slice(7)])s=r.known[base.slice(7)];
+    else if(r.tags&&r.tags[base])s=r.tags[base];
+    else if(/^[0-9a-f]{4,40}$/.test(base)){const h=Object.keys(this.commits).filter(z=>z.startsWith(base));if(h.length===1)s=h[0]}
+    for(let i=0;i<steps&&s;i++)s=this.commits[s].parents[0]||null;
+    return s||null;
+  },
+  badRev(push,x){this.fail(push,`fatal: ambiguous argument '${x}': unknown revision or path not in the working tree.`,/^[0-9a-f]{1,3}$/.test(x)?'Hash-এর অন্তত ৪টা অক্ষর লাগে, আর সেটা যেন একটাই commit-এর সাথে মেলে।':'নামটা ঠিক আছে কিনা দেখো। git log --oneline দিয়ে hash নাও।')},
+  patch(c){const pt=c.parents[0]?this.commits[c.parents[0]].tree:{},o=[];new Set([...Object.keys(pt),...Object.keys(c.tree)]).forEach(k=>{if(pt[k]!==c.tree[k]){o.push({t:`diff --git a/${k} b/${k}`});unified(pt[k]||'',c.tree[k]||'',pt[k]===undefined?'/dev/null':'a/'+k,c.tree[k]===undefined?'/dev/null':'b/'+k).trim().split('\n').forEach(l=>o.push({t:l.split('\t')[0],c:/^\+(?!\+\+)/.test(l)?'g':/^-(?!--)/.test(l)?'r':/^@@/.test(l)?'c':''}))}});return o},
+  statLines(c){const pt=c.parents[0]?this.commits[c.parents[0]].tree:{},o=[];let I=0,D=0,n=0;new Set([...Object.keys(pt),...Object.keys(c.tree)]).forEach(k=>{if(pt[k]!==c.tree[k]){let i=0,d=0;lcs(lines(pt[k]||''),lines(c.tree[k]||'')).forEach(z=>{if(z[0]==='+')i++;if(z[0]==='-')d++});I+=i;D+=d;n++;o.push(` ${k} | ${i+d} ${'+'.repeat(i)}${'-'.repeat(d)}`)}});o.push(` ${n} file${n!==1?'s':''} changed, ${I} insertion${I!==1?'s':''}(+), ${D} deletion${D!==1?'s':''}(-)`);return o},
+  wr(r,k,v){let c=r.root;k.split('/').slice(0,-1).forEach(x=>{c+='/'+x;this.mk(c)});this.put(r.root+'/'+k,v)},
+  rm(r,k){delete this.fs[r.root+'/'+k]},
+  show(r,a,push){
+    const x=a.find(z=>!z.startsWith('-'))||'HEAD',s=C3.rev.call(this,r,x);
+    if(!s)return C3.badRev.call(this,push,x);
+    const c=this.commits[s];push(`commit ${c.sha}`,'y');if(c.parents.length>1)push(`Merge: ${c.parents.map(p=>p.slice(0,7)).join(' ')}`);push(`Author: ${c.author} <${c.email}>\nDate:   ${fmtDate(c.t)}\n\n    ${c.msg}`);if(c.body)c.body.split('\n').forEach(l=>push('    '+l));push('');C3.patch.call(this,c).forEach(o=>push(o.t,o.c));
+  },
+  diff(r,a,push){
+    const staged=a.includes('--staged')||a.includes('--cached'),rest=a.filter(x=>!x.startsWith('-'));
+    if(r.merge&&r.merge.conf.length&&!staged){r.merge.conf.forEach(k=>{push(`diff --cc ${k}`);push(`--- a/${k}\n+++ b/${k}`);lines(this.fs[r.root+'/'+k].c).forEach(l=>push('++'+l,/^(<<<<<<<|=======|>>>>>>>)/.test(l)?'y':''))});return}
+    let A,B,na='a/',nb='b/';
+    if(staged){A=this.tree(r);B=r.index}else{A=r.index;B=this.wt(r);Object.keys(B).forEach(k=>{if(!(k in A))delete B[k]})}
+    if(rest.length===2&&C3.rev.call(this,r,rest[0])&&C3.rev.call(this,r,rest[1])){A=this.commits[C3.rev.call(this,r,rest[0])].tree;B=this.commits[C3.rev.call(this,r,rest[1])].tree}
+    else if(rest.length===1&&C3.rev.call(this,r,rest[0])){A=this.commits[C3.rev.call(this,r,rest[0])].tree;B=this.wt(r)}
+    let any=false;
+    const only=rest.length&&!C3.rev.call(this,r,rest[0])?rest:null;
+    new Set([...Object.keys(A),...Object.keys(B)]).forEach(k=>{if(only&&!only.includes(k))return;if(A[k]!==B[k]){any=true;push(`diff --git a/${k} b/${k}`);unified(A[k]||'',B[k]||'',A[k]===undefined?'/dev/null':na+k,B[k]===undefined?'/dev/null':nb+k).trim().split('\n').forEach(l=>push(l.split('\t')[0],/^\+(?!\+\+)/.test(l)?'g':/^-(?!--)/.test(l)?'r':/^@@/.test(l)?'c':''))}});
+    if(!any)push(staged?'(staging-এ নতুন কিছু নেই, তাই --staged কিছু দেখায়নি)':'(কোনো পার্থক্য নেই। staging-এ তোলা বদল দেখতে git diff --staged)','m');
+  },
+  addPatch(r,push){
+    const wt=this.wt(r),q=Object.keys(r.index).filter(k=>k in wt&&wt[k]!==r.index[k]);
+    if(!q.length){push('No changes.');return}
+    const ask=()=>{const k=q[0];push(`diff --git a/${k} b/${k}`);unified(r.index[k],wt[k],'a/'+k,'b/'+k).trim().split('\n').forEach(l=>push(l.split('\t')[0],/^\+(?!\+\+)/.test(l)?'g':/^-(?!--)/.test(l)?'r':/^@@/.test(l)?'c':''));push('(1/1) Stage this hunk [y,n,q,a,d,e,?]? ','c');push('y লিখলে নেবে, n লিখলে বাদ, q লিখলে থামবে। (আসল Git ফাইলকে আরও ছোট hunk-এ ভাগ করে, এখানে পুরো ফাইল এক hunk।)','m')};
+    this.pending=(line,res,p)=>{const v=line.trim().toLowerCase();const k=q[0];
+      if(v==='y'||v==='a'){r.index[k]=wt[k];q.shift()}else if(v==='n'||v==='d'){q.shift()}else if(v==='q'){q.length=0}else{p('y, n অথবা q লেখো।','m');return}
+      if(q.length){const push2=p;const sv=push;const k2=q[0];push2(`diff --git a/${k2} b/${k2}`);unified(r.index[k2],wt[k2],'a/'+k2,'b/'+k2).trim().split('\n').forEach(l=>push2(l.split('\t')[0]));push2('Stage this hunk [y,n,q]? ','c')}else this.pending=null};
+    ask();
+  },
+  amend(r,a,res,push){
+    const old=r.refs[r.head];if(!old)return this.fail(push,'fatal: You have nothing to amend.','আগে একটা commit লাগবে।');
+    const c=this.commits[old];
+    const finish=(msg)=>{const mp=String(msg).split('\n');const sum=Object.entries(r.index).sort().map(e=>e.join(':')).join('|');const sha=sha1('amend'+sum+msg+(++this.tick));
+      this.commits[sha]={sha,msg:mp[0],body:mp.slice(1).join('\n').trim(),parents:[...c.parents],tree:{...r.index},lane:r.head,n:this.tick,t:c.t,author:c.author,email:c.email};
+      r.refs[r.head]=sha;this.obj(r,sha);this.sync(r);this.fly=[{t:sha.slice(0,7),from:1,to:2}];
+      return [{t:`[${r.head} ${sha.slice(0,7)}] ${mp[0]}`},{t:` Date: ${fmtDate(c.t)}`},...C3.statLines.call(this,this.commits[sha]).slice(-1).map(t=>({t}))]};
+    if(a.some(x=>/^-[a-z]*a$/.test(x))){const w=this.wt(r);Object.keys(r.index).forEach(k=>{if(k in w)r.index[k]=w[k];else delete r.index[k]})}
+    const mi=a.indexOf('-m');
+    if(a.includes('--no-edit')){finish(c.msg+(c.body?'\n\n'+c.body:'')).forEach(o=>push(o.t));return}
+    if(mi>=0){if(!a[mi+1])return this.fail(push,"error: switch `m' requires a value");finish(a[mi+1]).forEach(o=>push(o.t));return}
+    const tpl=`${c.msg}${c.body?'\n\n'+c.body:''}\n\n# Please enter the commit message for your changes. Lines starting\n# with '#' will be ignored, and an empty message aborts the commit.\n#\n# On branch ${r.head}\n#\n`;
+    res.editor={kind:'nano',path:r.root+'/.git/COMMIT_EDITMSG',name:'.git/COMMIT_EDITMSG',init:tpl,commit:true,onSave:(t)=>{const m=t.split('\n').filter(l=>!l.startsWith('#')).join('\n').trim();if(!m)return [{t:'Aborting commit due to empty commit message.',c:'r'}];return finish(m)}};
+  },
+  mv(r,a,push){
+    const p=a.filter(x=>!x.startsWith('-'));if(p.length<2)return this.fail(push,'usage: git mv <source> <destination>');
+    const rel=this.cwd===r.root?'':this.cwd.slice(r.root.length+1)+'/',s=rel+p[0],d=rel+p[1];
+    if(!(s in r.index))return this.fail(push,`fatal: not under version control, source=${p[0]}, destination=${p[1]}`,'ফাইলটা আগে commit বা add করা থাকতে হবে।');
+    C3.wr.call(this,r,d,this.fs[r.root+'/'+s].c);C3.rm.call(this,r,s);r.index[d]=r.index[s];delete r.index[s];
+  },
+  restore(r,a,push){
+    const st=a.includes('--staged'),f=a.filter(x=>!x.startsWith('-'));if(!f.length)return this.fail(push,'fatal: you must specify path(s) to restore');
+    const rel=this.cwd===r.root?'':this.cwd.slice(r.root.length+1)+'/',head=this.tree(r);
+    for(const x of f){const k=rel+x;
+      if(st){if(!(k in r.index)&&!(k in head))return this.fail(push,`error: pathspec '${x}' did not match any file(s) known to git`);if(k in head)r.index[k]=head[k];else delete r.index[k]}
+      else{if(!(k in r.index))return this.fail(push,`error: pathspec '${x}' did not match any file(s) known to git`);C3.wr.call(this,r,k,r.index[k])}}
+  },
+  reset(r,a,push){
+    const fl=a.filter(x=>x.startsWith('--')),rest=a.filter(x=>!x.startsWith('-'));
+    let mode=fl.includes('--hard')?'hard':fl.includes('--soft')?'soft':'mixed',target='HEAD',files=[];
+    if(rest.length){if(C3.rev.call(this,r,rest[0])){target=rest[0];files=rest.slice(1)}else if(/^(HEAD|[0-9a-f]{1,40}$)/.test(rest[0])){return C3.badRev.call(this,push,rest[0])}else files=rest}
+    const s=C3.rev.call(this,r,target);if(!s)return C3.badRev.call(this,push,target);
+    const T=this.commits[s].tree;
+    const report=()=>{const u=this.status(r).un;if(u.length){push('Unstaged changes after reset:');u.forEach(([k,p])=>push(`${k==='deleted'?'D':'M'}\t${p}`))}};
+    if(files.length){const rel=this.cwd===r.root?'':this.cwd.slice(r.root.length+1)+'/';files.forEach(x=>{const k=rel+x;if(k in T)r.index[k]=T[k];else delete r.index[k]});report();return}
+    const old=this.tree(r);
+    r.refs[r.head]=s;r.merge=null;this.sync(r);
+    if(mode==='soft'){this.fly=[{t:s.slice(0,7),from:2,to:1}];return}
+    r.index={...T};
+    if(mode==='mixed'){this.fly=[{t:s.slice(0,7),from:2,to:0}];report();return}
+    const w=this.wt(r);Object.keys(old).forEach(k=>{if(!(k in T)&&k in w)C3.rm.call(this,r,k)});Object.keys(w).forEach(k=>{if(k in old&&!(k in T))C3.rm.call(this,r,k)});Object.entries(T).forEach(([k,v])=>C3.wr.call(this,r,k,v));
+    const c=this.commits[s];push(`HEAD is now at ${s.slice(0,7)} ${c.msg}`);this.fly=[{t:s.slice(0,7),from:2,to:0}];
+  },
+  revert(r,a,push){
+    const rest=a.filter(x=>!x.startsWith('-'));if(!rest.length)return this.fail(push,'usage: git revert <commit>');
+    if(!this.cfg['user.name'])return this.fail(push,'Author identity unknown');
+    const st=this.status(r);if(st.st.length||st.un.length)return this.fail(push,'error: your local changes would be overwritten by revert.\nhint: commit your changes or stash them to proceed.\nfatal: revert failed','আগে commit করো অথবা git stash দাও।');
+    let list=[];
+    if(rest[0].includes('..')){const [x,y]=rest[0].split('..');const sx=C3.rev.call(this,r,x),sy=C3.rev.call(this,r,y||'HEAD');if(!sx||!sy)return C3.badRev.call(this,push,rest[0]);const X=this.anc(sx);list=[...this.anc(sy)].filter(z=>!X.has(z)).map(z=>this.commits[z]).sort((p,q)=>q.n-p.n)}
+    else{const s=C3.rev.call(this,r,rest[0]);if(!s)return C3.badRev.call(this,push,rest[0]);list=[this.commits[s]]}
+    for(const c of list){
+      const pt=c.parents[0]?this.commits[c.parents[0]].tree:{};const cur=this.tree(r);let conflict=null;
+      new Set([...Object.keys(pt),...Object.keys(c.tree)]).forEach(k=>{if(pt[k]!==c.tree[k]&&cur[k]!==c.tree[k])conflict=k});
+      if(conflict)return this.fail(push,`error: could not revert ${c.sha.slice(0,7)}... ${c.msg}\nCONFLICT (content): Merge conflict in ${conflict}`,'পরের commit-গুলো একই জায়গা বদলেছে। তাই আগে পরেরটা revert করো, অথবা HEAD~2..HEAD ধরনের রেঞ্জ দাও।');
+      const nt={...cur};new Set([...Object.keys(pt),...Object.keys(c.tree)]).forEach(k=>{if(pt[k]!==c.tree[k]){if(k in pt)nt[k]=pt[k];else delete nt[k]}});
+      Object.keys(cur).forEach(k=>{if(!(k in nt))C3.rm.call(this,r,k)});Object.entries(nt).forEach(([k,v])=>C3.wr.call(this,r,k,v));r.index={...nt};
+      const sha=this.commit(r,`Revert "${c.msg}"\n\nThis reverts commit ${c.sha}.`);push(`[${r.head} ${sha.slice(0,7)}] Revert "${c.msg}"`);C3.statLines.call(this,this.commits[sha]).slice(-1).forEach(l=>push(l));
+      Object.keys(pt).length;Object.keys(c.tree).filter(k=>!(k in pt)).forEach(k=>push(` delete mode 100644 ${k}`));this.fly=[{t:sha.slice(0,7),from:2,to:0}];
+    }
+    push('আসল Git এখানে এডিটর খুলে message দেখায় (ক্লাসে nano খুলেছিল)। সিমুলেটর সরাসরি commit করে।','m');
+  },
+  stash(r,a,push){
+    r.stashes=r.stashes||[];const sub=a[0];
+    if(sub&&!['push','save','list','pop','apply','drop','show','clear'].includes(sub)&&!sub.startsWith('-')){return this.fail(push,`fatal: subcommand wasn't specified; 'push' can't be assumed due to unexpected token '${sub}'`,'stash-এ hash দেওয়া যায় না। ক্লাসেও এই error এসেছিল। শুধু git stash লেখো।')}
+    if(sub&&sub.startsWith('-')&&sub!=='-m'&&sub!=='-u')return this.fail(push,`error: unknown option '${sub.replace(/^-+/,'')}'`,'তালিকা দেখতে লাগবে git stash list।');
+    if(sub==='list'){r.stashes.forEach((s,i)=>push(`stash@{${i}}: ${s.label}`));if(!r.stashes.length)push('(stash খালি)','m');return}
+    if(sub==='clear'){r.stashes=[];return}
+    if(sub==='drop'){if(!r.stashes.length)return this.fail(push,'No stash entries found.');r.stashes.shift();push('Dropped refs/stash@{0}');return}
+    if(sub==='show'){if(!r.stashes.length)return this.fail(push,'No stash entries found.');Object.keys(r.stashes[0].wt).forEach(k=>push(` ${k} | changed`));return}
+    if(sub==='pop'||sub==='apply'){
+      if(!r.stashes.length)return this.fail(push,'No stash entries found.');
+      const s=r.stashes[0];Object.entries(s.wt).forEach(([k,v])=>C3.wr.call(this,r,k,v));s.del.forEach(k=>C3.rm.call(this,r,k));
+      if(sub==='pop'){r.stashes.shift()}
+      this.gitStatus(r,push);if(sub==='pop')push(`Dropped refs/stash@{0}`);this.fly=[{t:'stash',from:2,to:0}];return;
+    }
+    const st=this.status(r);if(!st.st.length&&!st.un.length){push('No local changes to save');push('Git শুধু চেনা ফাইলের বদল stash করে। কিছু বদলাওনি, অথবা ফাইলটা একদম নতুন।','m');return}
+    const head=this.tree(r),w=this.wt(r),sv={},del=[];
+    Object.keys(r.index).forEach(k=>{if(k in w&&w[k]!==head[k])sv[k]=w[k];if(!(k in w))del.push(k)});Object.keys(head).forEach(k=>{if(!(k in r.index))del.push(k)});
+    const c=this.commits[r.refs[r.head]];const label=`WIP on ${r.head}: ${c.sha.slice(0,7)} ${c.msg}`;
+    r.stashes.unshift({wt:sv,del,label});
+    Object.keys(r.index).forEach(k=>{if(!(k in head))C3.rm.call(this,r,k)});Object.entries(head).forEach(([k,v])=>C3.wr.call(this,r,k,v));r.index={...head};
+    push(`Saved working directory and index state ${label}`);this.fly=[{t:'stash',from:0,to:2}];
+  },
+  tag(r,a,push){
+    r.tags=r.tags||{};
+    if(a[0]==='-d'){if(!r.tags[a[1]])return this.fail(push,`error: tag '${a[1]}' not found.`);delete r.tags[a[1]];push(`Deleted tag '${a[1]}'`);return}
+    const m=a.indexOf('-m');const names=a.filter((x,i)=>!x.startsWith('-')&&(m<0||i!==m+1));
+    if(!names.length){Object.keys(r.tags).sort().forEach(t=>push(t));return}
+    const n=names[0];if(r.tags[n])return this.fail(push,`fatal: tag '${n}' already exists`);
+    const s=C3.rev.call(this,r,names[1]||'HEAD');if(!s)return C3.badRev.call(this,push,names[1]||'HEAD');r.tags[n]=s;
+  },
+};
+
+/* Class 4 additions: fetch and remote-tracking, teammates' commits, detached HEAD, reflog, rebase for pull. */
+const C4={
+  knownSync(r){if(r.remotes.origin&&this.servers[r.remotes.origin])r.known={...this.servers[r.remotes.origin].refs}},
+  log(r,msg,sha){(r.reflog=r.reflog||[]).unshift({sha:sha||r.refs[r.head],msg})},
+  fetch(r,a,push){
+    const url=r.remotes[a[0]||'origin'];if(!url)return this.fail(push,`fatal: '${a[0]||'origin'}' does not appear to be a git repository\nfatal: Could not read from remote repository.`,'আগে git remote add origin URL দাও।');
+    const sv=this.server(url),old=r.known||{},neu=[],upd=[];
+    Object.entries(sv.refs).forEach(([b,s])=>{if(!old[b])neu.push(b);else if(old[b]!==s)upd.push(b)});
+    if(neu.length||upd.length){push(`remote: Enumerating objects: 4, done.\nUnpacking objects: 100% (3/3), done.\nFrom ${url.replace('git@github.com:','github.com:')}`);neu.forEach(b=>push(` * [new branch]      ${b.padEnd(10)} -> origin/${b}`));upd.forEach(b=>push(`   ${old[b].slice(0,7)}..${sv.refs[b].slice(0,7)}  ${b.padEnd(10)} -> origin/${b}`))}
+    C4.knownSync.call(this,r);this.fly=neu.length||upd.length?[{t:'origin/*',from:3,to:2}]:[];
+    push('fetch শুধু খবর আনে: তোমার ফাইল বা branch বদলায় না।','m');
+  },
+  remoteCommit(a){
+    const r=this.repo,sv=this.servers[r.remotes.origin],[b,f,msg,content,author]=a;
+    const par=sv.refs[b]||sv.refs.main;const tree={...this.commits[par].tree,[f]:content+'\n'};
+    const sha=sha1('remote'+b+f+msg+(++this.tick));this.clock+=240e3;
+    this.commits[sha]={sha,msg,body:'',parents:[par],tree,lane:b,n:this.tick,t:this.clock,author:author||'Jamil',email:(author||'jamil').toLowerCase()+'@kathal.example'};sv.refs[b]=sha;
+  },
+  detach(r,sha,name,push){
+    const was=r.head;r.refs.HEAD=sha;
+    if(!this.switchTo(r,'HEAD',push)){delete r.refs.HEAD;return}
+    push(`Note: switching to '${name}'.\n\nYou are in 'detached HEAD' state. You can look around, make experimental\nchanges and commit them, and you can discard any commits you make in this\nstate without impacting any branches by switching back to a branch.\n\nHEAD is now at ${sha.slice(0,7)} ${this.commits[sha].msg}`,'y');
+    C4.log.call(this,r,`checkout: moving from ${was} to ${sha.slice(0,7)}`,sha);this.sync(r);
+  },
+  leaveDetached(r,from,to,push){
+    if(from==='HEAD'&&r.head!=='HEAD'&&r.refs.HEAD){
+      const s=r.refs.HEAD;delete r.refs.HEAD;
+      const reach=new Set();Object.values(r.refs).forEach(x=>this.anc(x).forEach(y=>reach.add(y)));
+      const lost=[...this.anc(s)].filter(x=>!reach.has(x));
+      if(lost.length){push(`Warning: you are leaving ${lost.length} commit${lost.length>1?'s':''} behind, not connected to\nany of your branches:\n\n  ${s.slice(0,7)} ${this.commits[s].msg}\n\nIf you want to keep it by creating a new branch, this may be a good time\nto do so with:\n\n git branch <new-branch-name> ${s.slice(0,7)}`,'y');push(`এই commit এখন কোনো branch-এ নেই। git reflog দিয়ে hash খুঁজে ফেরানো যায়।`,'m')}
+    }
+  },
+  reflog(r,push){(r.reflog||[]).forEach((e,i)=>{const c=this.commits[e.sha];push(`${e.sha.slice(0,7)} HEAD@{${i}}: ${e.msg}`,'y')});if(!(r.reflog||[]).length)push('(reflog এখনো খালি)','m')},
+  /* replay local commits on top of a new base; used by git pull --rebase */
+  replay(r,onto,label,push){
+    const head=r.refs[r.head],A=this.anc(onto),mine=[...this.anc(head)].filter(x=>!A.has(x)).map(x=>this.commits[x]).sort((p,q)=>p.n-q.n);
+    if(!mine.length){return true}
+    let tip=onto,tree={...this.commits[onto].tree};
+    for(const c of mine){
+      const pt=c.parents[0]?this.commits[c.parents[0]].tree:{};let bad=null;
+      new Set([...Object.keys(pt),...Object.keys(c.tree)]).forEach(k=>{if(pt[k]!==c.tree[k]&&tree[k]!==pt[k]&&tree[k]!==c.tree[k])bad=k});
+      if(bad){this.fail(push,`CONFLICT (content): Merge conflict in ${bad}\nerror: could not apply ${c.sha.slice(0,7)}... ${c.msg}`,'দুই পক্ষ একই লাইন বদলেছে। সিমুলেটরে conflict সহ rebase নেই; git pull --no-rebase দিয়ে merge করো।');return false}
+      new Set([...Object.keys(pt),...Object.keys(c.tree)]).forEach(k=>{if(pt[k]!==c.tree[k]){if(k in c.tree)tree[k]=c.tree[k];else delete tree[k]}});
+      const sha=sha1('rebase'+c.sha+tip+(++this.tick));this.clock+=60e3;
+      this.commits[sha]={...c,sha,parents:[tip],tree:{...tree},lane:r.head,n:this.tick,t:this.clock};tip=sha;
+    }
+    const w=this.wt(r),cur=this.tree(r);Object.keys(cur).forEach(k=>{if(!(k in tree)&&k in w)delete this.fs[r.root+'/'+k]});Object.entries(tree).forEach(([k,v])=>C3.wr.call(this,r,k,v));
+    r.refs[r.head]=tip;r.index={...tree};this.sync(r);push(`Successfully rebased and updated refs/heads/${r.head}.`);return true;
+  },
+  pull(r,a,push){
+    const rem=a.find(x=>!x.startsWith('-'))||'origin',url=r.remotes[rem];
+    if(!url)return this.fail(push,'fatal: No remote repository specified.','আগে git remote add origin URL দাও।');
+    const sv=this.server(url),t=sv.refs[r.head],me=r.refs[r.head];C4.knownSync.call(this,r);
+    if(!t){push(`Already up to date.`);return}
+    if(me===t||(me&&this.anc(me).has(t))){push('Already up to date.');return}
+    const applyFF=()=>{const tr=this.commits[t].tree,cur=this.tree(r);Object.keys(cur).forEach(k=>{if(!(k in tr))delete this.fs[r.root+'/'+k]});Object.entries(tr).forEach(([k,v])=>C3.wr.call(this,r,k,v));r.refs[r.head]=t;r.index={...tr};this.sync(r);this.fly=[{t:t.slice(0,7),from:3,to:2}];C4.log.call(this,r,`pull: Fast-forward`,t)};
+    if(!me||this.anc(t).has(me)){const s=this.status(r);if(s.st.length||s.un.length)return this.fail(push,'error: Your local changes would be overwritten by merge.\nPlease commit your changes or stash them before you merge.\nAborting','আগে commit করো অথবা git stash দাও।');push(`Updating ${(me||'').slice(0,7)}..${t.slice(0,7)}\nFast-forward`);applyFF();return}
+    if(a.includes('--rebase')||a.includes('-r')){const ok=C4.replay.call(this,r,t,'pull',push);if(ok){C4.log.call(this,r,`pull --rebase: finished`);this.fly=[{t:t.slice(0,7),from:3,to:2}]}return}
+    if(a.includes('--no-rebase')||a.includes('--ff')){r.refs['origin/'+r.head]=t;const nm='origin/'+r.head;this.gitMerge(r,[nm,'-m',`Merge branch '${r.head}' of ${url}`],push);delete r.refs[nm];this.sync(r);return}
+    this.fail(push,`hint: You have divergent branches and need to specify how to reconcile them.\nhint:   git pull --no-rebase  (merge)\nhint:   git pull --rebase     (rebase)\nfatal: Need to specify how to reconcile divergent branches.`,'দুই পক্ষেই নতুন commit। কোন রাস্তা নেবে Git-কে বলে দাও।');
+  },
+};
+
+/* Class 5 additions: rebase with conflicts, remote details, annotated tags, SSH practice, credential cache. */
+const C5={
+  rebase(r,a,push){
+    const fail=(m,c)=>this.fail(push,m,c);
+    if(a.includes('--abort')){if(!r.rb)return fail('fatal: No rebase in progress?');const b=r.rb;Object.keys(this.wt(r)).forEach(k=>delete this.fs[r.root+'/'+k]);Object.entries(b.wt).forEach(([k,v])=>C3.wr.call(this,r,k,v));r.index=b.index;r.refs[r.head]=b.orig;r.rb=null;this.sync(r);push('(rebase বাতিল, আগের অবস্থায় ফিরে গেছে)','m');return}
+    if(a.includes('--continue')){
+      if(!r.rb)return fail('fatal: No rebase in progress?');
+      const k=r.rb.conf;if(this.status(r).un.some(x=>x[1]===k)||/^<<<<<<< /m.test(r.index[k]||''))return fail(`${k}: needs merge\nYou must edit all merge conflicts and then mark them as resolved using git add`,'চিহ্ন মুছে ঠিক করো, তারপর git add, তারপর আবার --continue।');
+      const c=r.rb.todo.shift();const sha=sha1('rebase'+c.sha+r.rb.tip+(++this.tick));this.clock+=60e3;
+      this.commits[sha]={...c,sha,parents:[r.rb.tip],tree:{...r.index},lane:r.head,n:this.tick,t:this.clock};r.rb.tip=sha;r.rb.conf=null;
+      push(`[detached HEAD ${sha.slice(0,7)}] ${c.msg}`);return C5.step.call(this,r,push);
+    }
+    const name=a.find(x=>!x.startsWith('-'));if(!name)return fail('fatal: No rebase target.','কার ওপরে বসাবে বলো: git rebase main');
+    if(r.rb)return fail('fatal: It seems that there is already a rebase-merge directory.','আগে git rebase --continue অথবা --abort দাও।');
+    const onto=C3.rev.call(this,r,name);if(!onto)return fail(`fatal: invalid upstream '${name}'`,'অন্যের branch হলে আগে git fetch origin দাও।');
+    const st=this.status(r);if(st.st.length||st.un.length)return fail('error: cannot rebase: You have unstaged changes.\nerror: Please commit or stash them.','আগে commit বা stash করো।');
+    const head=r.refs[r.head];if(this.anc(head).has(onto)){push(`Current branch ${r.head} is up to date.`);return}
+    const A=this.anc(onto),todo=[...this.anc(head)].filter(x=>!A.has(x)).map(x=>this.commits[x]).filter(c=>c.parents.length<2).sort((p,q)=>p.n-q.n);
+    r.rb={orig:head,wt:this.wt(r),index:{...r.index},todo,tip:onto,conf:null};
+    const T=this.commits[onto].tree,cur=this.tree(r);Object.keys(cur).forEach(k=>{if(!(k in T))C3.rm.call(this,r,k)});Object.entries(T).forEach(([k,v])=>C3.wr.call(this,r,k,v));r.index={...T};
+    return C5.step.call(this,r,push);
+  },
+  step(r,push){
+    const b=r.rb;
+    while(b.todo.length){
+      const c=b.todo[0],pt=c.parents[0]?this.commits[c.parents[0]].tree:{};let bad=null,tree={...r.index};
+      new Set([...Object.keys(pt),...Object.keys(c.tree)]).forEach(k=>{if(pt[k]!==c.tree[k]){if(tree[k]!==pt[k]&&tree[k]!==c.tree[k])bad=k;else if(k in c.tree)tree[k]=c.tree[k];else delete tree[k]}});
+      if(bad){
+        const m=`<<<<<<< HEAD\n${r.index[bad]||''}=======\n${c.tree[bad]||''}>>>>>>> ${c.sha.slice(0,7)} (${c.msg})\n`;C3.wr.call(this,r,bad,m);r.index[bad]=m;b.conf=bad;
+        push(`Auto-merging ${bad}\nCONFLICT (content): Merge conflict in ${bad}\nerror: could not apply ${c.sha.slice(0,7)}... ${c.msg}\nhint: Resolve all conflicts manually, mark them as resolved with\nhint: "git add/rm <conflicted_files>", then run "git rebase --continue".`,'r');this.ok=true;return;
+      }
+      const sha=sha1('rebase'+c.sha+b.tip+(++this.tick));this.clock+=60e3;
+      this.commits[sha]={...c,sha,parents:[b.tip],tree:{...tree},lane:r.head,n:this.tick,t:this.clock};b.tip=sha;b.todo.shift();
+      Object.keys(r.index).forEach(k=>{if(!(k in tree))C3.rm.call(this,r,k)});Object.entries(tree).forEach(([k,v])=>C3.wr.call(this,r,k,v));r.index=tree;
+    }
+    r.refs[r.head]=b.tip;r.rb=null;this.sync(r);push(`Successfully rebased and updated refs/heads/${r.head}.`);C4.log.call(this,r,'rebase: finished');this.fly=[{t:b.tip.slice(0,7),from:2,to:0}];
+  },
+  remoteShow(r,a,push){
+    const n=a[0]||'origin',url=r.remotes[n];if(!url)return this.fail(push,`error: No such remote '${n}'`);
+    const sv=this.server(url),br=Object.keys(sv.refs).sort();
+    push(`* remote ${n}\n  Fetch URL: ${url}\n  Push  URL: ${url}\n  HEAD branch: main\n  Remote branch${br.length>1?'es':''}:`);br.forEach(b=>push(`    ${b.padEnd(14)} ${r.known&&r.known[b]?'tracked':'new (next fetch will store in remotes/origin)'}`));
+    const lb=Object.keys(r.upstream||{}).filter(b=>r.refs[b]);if(lb.length){push("  Local branch configured for 'git pull':");lb.forEach(b=>push(`    ${b} merges with remote ${b}`));push("  Local ref configured for 'git push':");lb.forEach(b=>push(`    ${b} pushes to ${b} (${sv.refs[b]===r.refs[b]?'up to date':'local out of date'})`))}
+  },
+  ssh(cmd,a,push,sim){
+    const home=sim.home;
+    if(cmd==='ssh-keygen'){
+      const ci=a.indexOf('-C');if(ci<0||!a[ci+1])return sim.fail(push,'ssh-keygen: ইমেইল দাও','লিখতে হবে: ssh-keygen -t rsa -b 4096 -C "you@example.com"');
+      sim.mk(home+'/.ssh');sim.put(home+'/.ssh/id_rsa','-----BEGIN OPENSSH PRIVATE KEY-----\n(গোপন চাবি: কাউকে দেবে না)\n-----END OPENSSH PRIVATE KEY-----\n');
+      const pk=sha1(a[ci+1]).repeat(2);sim.put(home+'/.ssh/id_rsa.pub',`ssh-rsa AAAAB3Nza${pk} ${a[ci+1]}\n`);
+      push(`Generating public/private rsa key pair.\nYour identification has been saved in ${home}/.ssh/id_rsa\nYour public key has been saved in ${home}/.ssh/id_rsa.pub\nThe key fingerprint is:\nSHA256:${pk.slice(0,43)} ${a[ci+1]}`);return;
+    }
+    if(cmd==='ssh-agent'){sim.agent=true;push('Agent pid 4821');return}
+    if(cmd==='ssh-add'){if(!sim.agent)return sim.fail(push,'Could not open a connection to your authentication agent.','আগে ssh-agent -s চালাও।');if(!sim.isFile(home+'/.ssh/id_rsa'))return sim.fail(push,`${a[0]||'~/.ssh/id_rsa'}: No such file or directory`,'আগে ssh-keygen দিয়ে key বানাও।');sim.keyAdded=true;push(`Identity added: ${home}/.ssh/id_rsa`);return}
+    if(cmd==='pbcopy'||cmd==='xclip'||cmd==='clip'){if(!sim.isFile(home+'/.ssh/id_rsa.pub'))return sim.fail(push,'id_rsa.pub নেই','আগে ssh-keygen দাও।');sim.copied=true;push('(public key কপি হয়েছে। এবার GitHub → Settings → SSH and GPG keys → New SSH key-তে paste করো।)','m');return}
+    if(cmd==='gh-add-key'){if(!sim.copied)return sim.fail(push,'আগে key কপি করো');sim.ghKey=true;push('(GitHub-এ key যোগ হলো।)','m');return}
+    if(cmd==='ssh'){if(a.join(' ').includes('git@github.com')){if(sim.ghKey&&sim.keyAdded){push("Hi rafi! You've successfully authenticated, but GitHub does not provide shell access.");return}return sim.fail(push,'git@github.com: Permission denied (publickey).','GitHub তোমার public key চেনে না, অথবা agent-এ key যোগ হয়নি।')}return sim.fail(push,'ssh: সিমুলেটরে শুধু ssh -T git@github.com চলে')}
+  },
+};
+
+const STAMP='Mar  6 23:12';
+class Sim{
+  constructor(){
+    this.home='/home/rafi';this.cwd=this.home+'/practice';
+    this.fs={'/':{d:1},'/home':{d:1},'/home/rafi':{d:1},'/home/rafi/practice':{d:1}};
+    this.repos={};this.commits={};this.servers={};this.cfg={};this.tick=0;this.ok=true;this.fly=[];this.clock=LOG_NOW-3600e3;
+  }
+  /* paths */
+  norm(p){
+    if(!p)return this.cwd;
+    if(p==='~'||p.startsWith('~/'))p=this.home+p.slice(1);
+    if(!p.startsWith('/'))p=this.cwd+'/'+p;
+    const o=[];p.split('/').forEach(s=>{if(s===''||s==='.')return;if(s==='..')o.pop();else o.push(s)});
+    return '/'+o.join('/');
+  }
+  kids(d){const pre=d==='/'?'/':d+'/';return Object.keys(this.fs).filter(k=>k!=='/'&&k.startsWith(pre)&&!k.slice(pre.length).includes('/')).map(k=>k.slice(pre.length)).sort()}
+  isDir(p){return this.fs[p]&&this.fs[p].d}
+  isFile(p){return this.fs[p]&&!this.fs[p].d}
+  f(p){const n=this.norm(p);return this.isFile(n)?this.fs[n].c:null}
+  put(p,c,ro){const par=p.slice(0,p.lastIndexOf('/'))||'/';if(!this.isDir(par))return false;this.fs[p]={c,ro:!!ro};return true}
+  rmrf(p){Object.keys(this.fs).forEach(k=>{if(k===p||k.startsWith(p+'/'))delete this.fs[k]})}
+  mk(p){if(!this.fs[p])this.fs[p]={d:1}}
+  rootOf(p=this.cwd){let c=p;while(c&&c!=='/'){if(this.repos[c])return c;c=c.slice(0,c.lastIndexOf('/'))}return null}
+  get repo(){const r=this.rootOf();return r?this.repos[r]:null}
+  /* repo internals */
+  newRepo(root){
+    const g=root+'/.git';this.mk(g);['branches','hooks','info','objects','objects/info','objects/pack','refs','refs/heads','refs/tags'].forEach(d=>this.mk(g+'/'+d));
+    this.put(g+'/description','Unnamed repository; edit this file to name the repository.\n');
+    this.put(g+'/info/exclude','# git ls-files --others --exclude-from=.git/info/exclude\n');
+    const r={root,head:'master',refs:{},index:{},remotes:{},upstream:{},merge:null};this.repos[root]=r;this.sync(r);return r;
+  }
+  sync(r){
+    const g=r.root+'/.git';this.put(g+'/HEAD',r.head==='HEAD'?`${r.refs.HEAD}\n`:`ref: refs/heads/${r.head}\n`);
+    let c='[core]\n\trepositoryformatversion = 0\n\tfilemode = true\n\tbare = false\n';
+    Object.entries(r.remotes).forEach(([n,u])=>c+=`[remote "${n}"]\n\turl = ${u}\n\tfetch = +refs/heads/*:refs/remotes/${n}/*\n`);Object.keys(r.upstream||{}).forEach(b=>c+=`[branch "${b}"]\n\tremote = origin\n\tmerge = refs/heads/${b}\n`);this.put(g+'/config',c);
+    Object.keys(this.fs).filter(k=>k.startsWith(g+'/refs/heads/')).forEach(k=>delete this.fs[k]);
+    Object.entries(r.refs).filter(([b])=>b!=='HEAD').forEach(([b,s])=>{let par=g+'/refs/heads';b.split('/').slice(0,-1).forEach(x=>{par+='/'+x;this.mk(par)});this.put(g+'/refs/heads/'+b,s+'\n')});
+  }
+  obj(r,sha){const d=r.root+'/.git/objects/'+sha.slice(0,2);this.mk(d);this.put(d+'/'+sha.slice(2),'xK\uFFFD\uFFFDOR02\uFFFD'+sha.slice(5,9)+',V\uFFFDD\uFFFD\uFFFDT\uFFFD\uFFFD4\uFFFD\uFFFDH\u0001\uFFFD\uFFFD',true)}
+  tree(r,b){const s=r.refs[b||r.head];return s?{...this.commits[s].tree}:{}}
+  wt(r){const o={},pre=r.root+'/';Object.keys(this.fs).forEach(k=>{if(k.startsWith(pre)&&!this.fs[k].d){const rel=k.slice(pre.length);if(rel==='.git'||rel.startsWith('.git/'))return;o[rel]=this.fs[k].c}});return o}
+  ignored(r,path){
+    const c=this.fs[r.root+'/.gitignore'];if(!c)return false;
+    return Sim.isIgn(lines(c.c).map(x=>x.trim()).filter(x=>x&&!x.startsWith('#')),path);
+  }
+  static isIgn(P,path){let y=false;P.forEach(p=>{if(p.startsWith('!')){if(Sim.match(p.slice(1),path))y=false}else if(Sim.match(p,path))y=true});return y}
+  static match(p,path){
+    if(p.includes('**')){const q=p.replace(/^\//,'').replace(/[.+^${}()|[\]\\]/g,'\\$&').replace(/\*\*\//g,'\u0001').replace(/\/\*\*/g,'\u0002').replace(/\*/g,'[^/]*').replace(/\u0001/g,'(?:.*/)?').replace(/\u0002/g,'/.*');return new RegExp('^'+q+'$').test(path)}
+    const dir=p.endsWith('/');if(dir)p=p.slice(0,-1);
+    const rx=s=>new RegExp('^'+s.replace(/[.+^${}()|[\]\\]/g,'\\$&').replace(/\*/g,'[^/]*')+'$');
+    const segs=path.split('/');
+    if(p.includes('/')){const q=p.replace(/^\//,'');const n=q.split('/').length;return rx(q).test(segs.slice(0,n).join('/'))&&(!dir||segs.length>n)}
+    return segs.some((s,i)=>rx(p).test(s)&&(!dir||i<segs.length-1));
+  }
+  status(r){
+    const head=this.tree(r),idx=r.index,wt=this.wt(r),st=[],un=[],ut=[];
+    new Set([...Object.keys(head),...Object.keys(idx)]).forEach(p=>{if(!(p in idx))st.push(['deleted',p]);else if(!(p in head))st.push(['new file',p]);else if(head[p]!==idx[p])st.push(['modified',p])});
+    Object.keys(idx).forEach(p=>{if(!(p in wt))un.push(['deleted',p]);else if(wt[p]!==idx[p])un.push(['modified',p])});
+    Object.keys(wt).forEach(p=>{if(!(p in idx)&&!this.ignored(r,p))ut.push(p)});
+    const tracked=Object.keys(idx);
+    const shown=[...new Set(ut.map(p=>{if(!p.includes('/'))return p;const s=p.split('/')[0];return tracked.some(t=>t.startsWith(s+'/'))?p:s+'/'}))].sort();
+    return {st:st.sort(),un:un.sort(),ut,shown};
+  }
+  commit(r,msg,author){
+    const sum=Object.entries(r.index).sort().map(e=>e.join(':')).join('|');
+    const parents=[];if(r.refs[r.head])parents.push(r.refs[r.head]);if(r.merge&&r.merge.other){parents.push(r.merge.other);(r.merge.others||[]).forEach(z=>parents.push(z))}
+    const sha=sha1('commit'+sum+msg+parents.join()+(++this.tick));
+    const mp=String(msg).split('\n'),body=mp.slice(1).join('\n').trim();this.clock+=240e3;
+    this.commits[sha]={sha,msg:mp[0],body,parents,tree:{...r.index},lane:r.head,n:this.tick,t:this.clock,author:author||this.cfg['user.name']||'',email:this.cfg['user.email']||''};
+    r.refs[r.head]=sha;r.merge=null;this.obj(r,sha);this.sync(r);C4.log.call(this,r,`commit: ${mp[0]}`,sha);return sha;
+  }
+  anc(s){const o=new Set(),q=[s];while(q.length){const x=q.pop();if(x&&!o.has(x)){o.add(x);q.push(...this.commits[x].parents)}}return o}
+  base(a,b){const A=this.anc(a);const q=[b],seen=new Set();let best=null;while(q.length){const x=q.shift();if(seen.has(x))continue;seen.add(x);if(A.has(x)&&(!best||this.commits[x].n>this.commits[best].n))best=x;q.push(...this.commits[x].parents)}return best}
+  server(url){if(!this.servers[url])this.servers[url]={url,refs:{}};return this.servers[url]}
+  seed(url,files,msgs){
+    const s=this.server(url);if(s.refs.main)return s;let par=null,tree={};
+    msgs.forEach((m,i)=>{Object.assign(tree,files[i]);const sha=sha1('seed'+url+m+(++this.tick));this.commits[sha]={sha,msg:m,parents:par?[par]:[],tree:{...tree},lane:'main',n:this.tick,t:LOG_NOW-86400e3*(5-i),author:'Tonni',email:'tonni@kathal.example'};par=sha});
+    s.refs.main=par;return s;
+  }
+  /* run one line of shell */
+  exec(line){
+    const res={out:[],editor:null};this.ok=true;this.fly=[];
+    const push=(t,c)=>res.out.push({t,c});
+    if(this.pending){this.pending(line,res,push);return res}
+    line=line.trim();
+    if(!line||line.startsWith('#'))return res;
+    const parts=[];{let cur='',q=null;for(let i=0;i<line.length;i++){const c=line[i];if(q){if(c===q)q=null;cur+=c;continue}if(c==='"'||c==="'"){q=c;cur+=c;continue}if(c===';'){parts.push(cur);cur='';continue}if(c==='&'&&line[i+1]==='&'){parts.push(cur);cur='';i++;continue}cur+=c}parts.push(cur)}
+    for(const part of parts.map(x=>x.trim()).filter(Boolean)){
+      this.run(part,res,push);
+      if(res.editor||(!this.ok))break;
+    }
+    return res;
+  }
+  tokens(s){
+    const o=[];let cur='',q=null,has=false;
+    for(let i=0;i<s.length;i++){
+      const c=s[i];
+      if(q){if(c===q)q=null;else cur+=c;continue}
+      if(c==='"'||c==="'"){q=c;has=true;continue}
+      if(/\s/.test(c)){if(cur||has){o.push(cur);cur='';has=false}continue}
+      if(c==='>'||c==='<'){if(cur||has){o.push(cur);cur='';has=false}if(c==='>'&&s[i+1]==='>'){o.push({op:'>>'});i++}else o.push({op:c});continue}
+      cur+=c;
+    }
+    if(cur||has)o.push(cur);return o;
+  }
+  run(line,res,push){
+    const tk=this.tokens(line),args=[];let outF=null,app=false,inF=null;
+    for(let i=0;i<tk.length;i++){
+      const t=tk[i];
+      if(typeof t==='object'){
+        const nx=tk[++i];
+        if(typeof nx!=='string'){push('bash: syntax error near unexpected token `newline\'','r');this.ok=false;return}
+        if(t.op==='<')inF=nx;else{outF=nx;app=t.op==='>>'}
+      }else args.push(t);
+    }
+    const cmd=args.shift();if(!cmd)return;
+    const before=res.out.length;
+    this.dispatch(cmd,args,res,push,inF);
+    if(outF&&this.ok&&!res.editor){
+      const txt=res.out.splice(before).map(o=>o.t).join('\n');
+      const p=this.norm(outF);const body=txt&&!txt.endsWith('\n')?txt+'\n':txt;
+      const prev=app&&this.isFile(p)?this.fs[p].c:'';
+      if(!this.put(p,prev+body)){push(`bash: ${outF}: No such file or directory`,'r');this.ok=false}
+    }
+  }
+  fail(push,msg,coach){push(msg,'r');if(coach)push(coach,'m');this.ok=false}
+  dispatch(cmd,a,res,push,inF){
+    const fail=(m,c)=>this.fail(push,m,c);
+    switch(cmd){
+      case 'clear':res.clear=true;return;
+      case 'pwd':push(this.cwd);return;
+      case 'help':push('এখানে চলে: pwd ls ll cd mkdir touch cat echo cp mv rm vim nano diff patch sudo clear\nআর git: init status add commit log branch checkout switch merge remote push pull clone config rm diff','m');return;
+      case 'ls':case 'll':return this.ls(cmd,a,push);
+      case 'cd':{
+        const n=this.norm(a[0]||'~');if(!this.fs[n])return fail(`bash: cd: ${a[0]}: No such file or directory`);
+        if(!this.isDir(n))return fail(`bash: cd: ${a[0]}: Not a directory`);this.cwd=n;return;
+      }
+      case 'mkdir':{
+        const p=a.filter(x=>!x.startsWith('-'));if(!p.length)return fail('mkdir: missing operand');
+        for(const x of p){const n=this.norm(x);if(this.fs[n])return fail(`mkdir: cannot create directory '${x}': File exists`);
+          if(a.includes('-p')){let c='';n.split('/').slice(1).forEach(s=>{c+='/'+s;this.mk(c)})}
+          else{const par=n.slice(0,n.lastIndexOf('/'))||'/';if(!this.isDir(par))return fail(`mkdir: cannot create directory '${x}': No such file or directory`);this.mk(n)}}
+        return;
+      }
+      case 'touch':{if(!a.length)return fail('touch: missing file operand');for(const x of a){const n=this.norm(x);if(!this.fs[n]&&!this.put(n,''))return fail(`touch: cannot touch '${x}': No such file or directory`)}return}
+      case 'cat':{if(!a.length)return fail('cat: missing file operand');for(const x of a){const n=this.norm(x);if(!this.fs[n])return fail(`cat: ${x}: No such file or directory`);if(this.isDir(n))return fail(`cat: ${x}: Is a directory`);if(this.fs[n].c)push(this.fs[n].c.replace(/\n$/,''))}return}
+      case 'echo':push(a.join(' '));return;
+      case 'cp':{
+        if(a.length<2)return fail('cp: missing destination file operand');
+        const s=this.norm(a[0]);let d=this.norm(a[1]);if(!this.isFile(s))return fail(`cp: cannot stat '${a[0]}': No such file or directory`);
+        if(this.isDir(d))d+='/'+s.split('/').pop();this.put(d,this.fs[s].c);return;
+      }
+      case 'mv':{
+        if(a.length<2)return fail('mv: missing destination file operand');
+        const s=this.norm(a[0]);let d=this.norm(a[1]);if(!this.isFile(s))return fail(`mv: cannot stat '${a[0]}': No such file or directory`);
+        if(this.isDir(d))d+='/'+s.split('/').pop();this.put(d,this.fs[s].c);delete this.fs[s];return;
+      }
+      case 'rm':{
+        const p=a.filter(x=>!x.startsWith('-'));const rec=a.some(x=>/^-.*r/.test(x));if(!p.length)return fail('rm: missing operand');
+        for(const x of p){const n=this.norm(x);if(!this.fs[n])return fail(`rm: cannot remove '${x}': No such file or directory`);if(this.isDir(n)&&!rec)return fail(`rm: cannot remove '${x}': Is a directory`);this.rmrf(n);if(this.repos[n])delete this.repos[n]}return;
+      }
+      case 'vim':case 'vi':case 'nano':{
+        if(!a[0])return fail(`${cmd}: ফাইলের নাম দাও`,'যেমন: vim filename.txt');
+        const n=this.norm(a[0]);if(this.isDir(n))return fail(`"${a[0]}" is a directory`);
+        res.editor={kind:cmd==='nano'?'nano':'vim',path:n,name:a[0],init:this.isFile(n)?this.fs[n].c:'',onSave:(t)=>{this.put(n,t)}};return;
+      }
+      case 'diff':{
+        const f=a.filter(x=>!x.startsWith('-')),u=a.includes('-u');if(f.length<2)return fail('diff: missing operand','দুইটা ফাইলের নাম দিতে হবে: diff পুরোনো নতুন');
+        const x=this.f(f[0]),y=this.f(f[1]);if(x==null)return fail(`diff: ${f[0]}: No such file or directory`);if(y==null)return fail(`diff: ${f[1]}: No such file or directory`);
+        const o=u?unified(x,y,f[0],f[1]).replace(/\n$/,''):normalDiff(x,y);
+        if(!o)push('(দুটো ফাইল হুবহু এক, তাই diff কিছু দেখায়নি)','m');else o.split('\n').forEach(l=>push(l,/^(\+(?!\+\+)|>)/.test(l)?'g':/^(-(?!--)|<)/.test(l)?'r':/^@@/.test(l)?'c':''));return;
+      }
+      case 'patch':{
+        if(!a[0])return fail('patch: ফাইলের নাম দাও','লিখতে হবে: patch filename.txt < change.diff');
+        if(!inF)return fail('patch: **** Only garbage was found in the patch input.','`<` চিহ্নটা ভুলে গেছ। ক্লাসেও প্রথমে `>` লেখা হয়ে গিয়েছিল! লিখতে হবে: patch filename.txt < change.diff');
+        const t=this.f(a[0]),d=this.f(inF);if(t==null)return fail(`patch: can't find file ${a[0]}`);if(d==null)return fail(`bash: ${inF}: No such file or directory`);
+        const L=lines(d),T=lines(t),o=[];let pos=0,any=false,bad=false;
+        for(let i=0;i<L.length;i++){
+          const m=/^@@ -(\d+)(?:,(\d+))? \+/.exec(L[i]);if(!m)continue;any=true;
+          const cnt=m[2]===undefined?1:+m[2],st=cnt===0?+m[1]:+m[1]-1;while(pos<st)o.push(T[pos++]);
+          for(i++;i<L.length&&!/^@@ /.test(L[i]);i++){
+            const c=L[i][0],v=L[i].slice(1);
+            if(c==='+')o.push(v);else if(c===' '||c==='-'){if(T[pos]!==v)bad=true;pos++;if(c===' ')o.push(v)}
+          }i--;
+        }
+        if(!any)return fail('patch: **** Only garbage was found in the patch input.');
+        push(`patching file ${a[0]}`);
+        if(bad){push('Hunk #1 FAILED at 1.\n1 out of 1 hunk FAILED','r');push('প্যাচটা ফাইলের সাথে মিলছে না। সম্ভবত আগেই লাগানো হয়ে গেছে।','m');return}
+        while(pos<T.length)o.push(T[pos++]);this.put(this.norm(a[0]),o.length?o.join('\n')+'\n':'');return;
+      }
+      case 'sudo':{
+        if(a.join(' ')==='apt install git'||a.join(' ')==='apt install git -y'){push(`[sudo] password for rafi:\nReading package lists... Done\nBuilding dependency tree... Done\nReading state information... Done\ngit is already the newest version (1:2.43.0-1ubuntu7.2).\n0 upgraded, 0 newly installed, 0 to remove and 142 not upgraded.`);return}
+        return fail('sudo: সিমুলেটরে শুধু sudo apt install git চলে');
+      }
+      case 'ssh-keygen':case 'ssh-add':case 'ssh-agent':case 'ssh':case 'pbcopy':case 'gh-add-key':return C5.ssh(cmd,a,push,this);
+      case 'eval':{if(a.join(' ').includes('ssh-agent'))return C5.ssh('ssh-agent',[],push,this);return fail('eval: সিমুলেটরে শুধু eval "$(ssh-agent -s)" চলে')}
+      case 'code':push('(আসল মেশিনে এটা VS Code খোলে। এখানে vim বা echo দিয়ে ফাইল লেখো।)','m');return;
+      case '__remote':C4.remoteCommit.call(this,a);return;
+      case '__clock':this.clock=LOG_NOW-(+a[0])*86400e3;return;
+      case 'git':return this.git(a,res,push);
+      default:return fail(`${cmd}: command not found`,`বানানটা দেখো। সব কমান্ডের তালিকা দেখতে help লেখো।`);
+    }
+  }
+  ls(cmd,a,push){
+    const fl=a.filter(x=>x.startsWith('-')).join(''),tg=a.find(x=>!x.startsWith('-')),long=cmd==='ll'||fl.includes('l'),all=cmd==='ll'||fl.includes('a');
+    const n=this.norm(tg);if(!this.fs[n])return this.fail(push,`ls: cannot access '${tg}': No such file or directory`);
+    if(this.isFile(n)){push(tg);return}
+    let names=this.kids(n);if(!all)names=names.filter(x=>!x.startsWith('.'));
+    if(!long){if(names.length)res_ls(names.map(x=>({x,d:this.isDir(n+'/'+x)})),push);return}
+    const dd=(x,d)=>`${d?'drwxrwxr-x':(this.fs[n+'/'+x]&&this.fs[n+'/'+x].ro?'-r--r--r--':'-rw-rw-r--')} ${d?2:1} rafi rafi ${String(d?4096:new TextEncoder().encode((this.fs[n+'/'+x]||{c:''}).c).length).padStart(4)} ${STAMP} `;
+    push(`total ${names.length*4+8}`);
+    if(all){push(dd('.',1)+(cmd==='ll'?'./':'.'));push(dd('..',1)+(cmd==='ll'?'../':'..'))}
+    names.forEach(x=>{const d=this.isDir(n+'/'+x);push(dd(x,d)+x+(d&&cmd==='ll'?'/':''),d?'b':'')});
+  }
+  git(a,res,push){
+    const rb=this.repo,before=rb?rb.refs[rb.head]:null,bh=rb?rb.head:null;
+    const out=this.git0(a,res,push);
+    const ra=this.repo;
+    if(ra&&ra===rb&&a[0]!=='commit'&&a[0]!=='checkout'&&a[0]!=='revert'&&a[0]!=='pull'&&ra.head===bh&&ra.refs[ra.head]&&ra.refs[ra.head]!==before&&!(ra.reflog&&ra.reflog[0]&&ra.reflog[0].sha===ra.refs[ra.head]))C4.log.call(this,ra,`${a[0]}: ${a.slice(1).join(' ')}`);
+    return out;
+  }
+  git0(a,res,push){
+    const fail=(m,c)=>this.fail(push,m,c),sub=a[0],r=this.repo;
+    const NR='fatal: not a git repository (or any of the parent directories): .git',NRc='এই ফোল্ডারে এখনো git init করা হয়নি, অথবা তুমি ভুল ফোল্ডারে আছ। pwd দিয়ে দেখো।';
+    if(!sub)return push('usage: git <command>. উদাহরণ: git status','m');
+    if(sub==='--version'||sub==='-v'||sub==='version'){push('git version 2.43.0');return}
+    if(sub==='--help'||sub==='help'||a.includes('--help')){push(`usage: git ${a[0]==='--help'?'<command>':a[0]} [options]`);push('আসল মেশিনে এটা পুরো ম্যানুয়াল দেখায়। ক্লাসের টিপ: যেকোনো কমান্ড আটকে গেলে --help দাও।','m');return}
+    switch(sub){
+      case 'init':{
+        if(a[1]&&!a[1].startsWith('-')){const d=this.norm(a[1]);if(!this.fs[d]){let c='';d.split('/').slice(1).forEach(x=>{c+='/'+x;this.mk(c)})}this.newRepo(d);push(`Initialized empty Git repository in ${d}/.git/`);return}
+        if(this.repos[this.cwd]){push(`Reinitialized existing Git repository in ${this.cwd}/.git/`);return}
+        ['Using \'master\' as the name for the initial branch. This default branch name','is subject to change. To configure the initial branch name to use in all','of your new repositories, which will suppress this warning, call:','','\tgit config --global init.defaultBranch <name>','','Names commonly chosen instead of \'master\' are \'main\', \'trunk\' and','\'development\'. The just-created branch can be renamed via this command:','','\tgit branch -m <name>'].forEach(l=>push('hint: '+l,'y'));
+        this.newRepo(this.cwd);push(`Initialized empty Git repository in ${this.cwd}/.git/`);return;
+      }
+      case 'config':return this.gitConfig(a.slice(1),push);
+      case 'clone':return this.gitClone(a.slice(1),push);
+    }
+    if(!r)return fail(NR,NRc);
+    switch(sub){
+      case 'status':return this.gitStatus(r,push);
+      case 'add':{
+        if(a[1]==='-p'||a[1]==='--patch')return C3.addPatch.call(this,r,push);
+        const p=a.slice(1);if(!p.length)return fail('Nothing specified, nothing added.','কী add করবে বলো: git add . অথবা git add ফাইলের-নাম');
+        const wt=this.wt(r),rel=this.cwd===r.root?'':this.cwd.slice(r.root.length+1)+'/';let mv=[];
+        for(const x of p){
+          const all=x==='.'||x==='-A'||x==='--all',pre=all?(x==='.'?rel:''):null,q=all?null:rel+x.replace(/^\.\//,'').replace(/\/$/,'');
+          const hit=Object.keys(wt).filter(k=>all?k.startsWith(pre):k===q||k.startsWith(q+'/')||(x.includes('*')&&Sim.match(rel+x,k)));
+          const del=Object.keys(r.index).filter(k=>!(k in wt)&&(all?k.startsWith(pre):k===q));
+          if(!all&&!hit.length&&!del.length)return fail(`fatal: pathspec '${x}' did not match any files`,'এই নামে ফাইল নেই। ls দিয়ে দেখো।');
+          if(!all&&hit.length&&hit.every(k=>this.ignored(r,k))){push(`The following paths are ignored by one of your .gitignore files:\n${x}`,'y');continue}
+          hit.forEach(k=>{if(this.ignored(r,k)&&!(k in r.index))return;if(r.index[k]!==wt[k])mv.push(k);r.index[k]=wt[k];const sha=sha1(`blob ${new TextEncoder().encode(wt[k]).length}\0${wt[k]}`);this.obj(r,sha)});
+          del.forEach(k=>delete r.index[k]);
+        }
+        if(r.merge)r.merge.conf=r.merge.conf.filter(k=>!(k in r.index)||/^<<<<<<< /m.test(r.index[k]));
+        this.fly=mv.slice(0,3).map(t=>({t,from:0,to:1}));return;
+      }
+      case 'rm':{
+        const c=a.includes('--cached'),f=a.slice(1).filter(x=>!x.startsWith('-'));if(!f.length)return fail('usage: git rm --cached <file>');
+        const rel=this.cwd===r.root?'':this.cwd.slice(r.root.length+1)+'/';
+        for(const x of f){const k=rel+x;if(!(k in r.index))return fail(`fatal: pathspec '${x}' did not match any files`);delete r.index[k];push(`rm '${x}'`);if(!c)delete this.fs[r.root+'/'+k];else this.fly.push({t:x,from:1,to:0})}return;
+      }
+      case 'commit':return this.gitCommit(r,a.slice(1),res,push);
+      case 'log':return this.gitLog(r,a.slice(1),push);
+      case 'branch':return this.gitBranch(r,a.slice(1),push);
+      case 'checkout':case 'switch':return this.gitCheckout(r,sub,a.slice(1),push);
+      case 'merge':return this.gitMerge(r,a.slice(1),push);
+      case 'remote':return this.gitRemote(r,a.slice(1),push);
+      case 'push':return this.gitPush(r,a.slice(1),push);
+      case 'pull':return C4.pull.call(this,r,a.slice(1),push);
+      case 'diff':return C3.diff.call(this,r,a.slice(1),push);
+      case 'reset':return C3.reset.call(this,r,a.slice(1),push);
+      case 'restore':return C3.restore.call(this,r,a.slice(1),push);
+      case 'revert':return C3.revert.call(this,r,a.slice(1),push);
+      case 'stash':return C3.stash.call(this,r,a.slice(1),push);
+      case 'tag':return C3.tag.call(this,r,a.slice(1),push);
+      case 'mv':return C3.mv.call(this,r,a.slice(1),push);
+      case 'show':return C3.show.call(this,r,a.slice(1),push);
+      case 'fetch':return C4.fetch.call(this,r,a.slice(1),push);
+      case 'reflog':return C4.reflog.call(this,r,push);
+      case 'rebase':return C5.rebase.call(this,r,a.slice(1),push);
+      case 'revert-placeholder':
+        push(`git ${sub} এই ক্লাসে পড়ানো হয়নি। পরের ক্লাসগুলোতে আসবে, তাই সিমুলেটরে রাখা হয়নি।`,'m');return;
+      default:return fail(`git: '${sub}' is not a git command. See 'git --help'.`);
+    }
+  }
+  gitConfig(a,push){
+    const fl=a.filter(x=>x.startsWith('--')),rest=a.filter(x=>!x.startsWith('--'));
+    if(fl.includes('--list')||a.includes('-l')){Object.entries(this.cfg).forEach(([k,v])=>push(`${k}=${v}`));if(!Object.keys(this.cfg).length)push('(এখনো কিছু সেট করা হয়নি)','m');return}
+    if(fl.includes('--edit')){push('# ~/.gitconfig');const e=Object.entries(this.cfg);e.forEach(([k,v])=>push(`${k} = ${v}`));push('আসল মেশিনে এটা এডিটরে ~/.gitconfig ফাইল খোলে। সব সেটিং এক জায়গায় হাতে বদলানো যায়।','m');return}
+    if(!rest.length)return this.fail(push,'usage: git config [--global] <name> [<value>]');
+    if(rest.length===1){if(this.cfg[rest[0]])push(this.cfg[rest[0]]);return}
+    this.cfg[rest[0]]=rest.slice(1).join(' ');
+  }
+  gitStatus(r,push){
+    const s=this.status(r),hc=!!r.refs[r.head];
+    if(r.rb&&r.rb.conf){push(`interactive rebase in progress; onto ${r.rb.tip.slice(0,7)}\nYou are currently rebasing branch '${r.head}'.\n  (fix conflicts and then run "git rebase --continue")\n  (use "git rebase --abort" to check out the original branch)\n\nUnmerged paths:`);push(`\tboth modified:   ${r.rb.conf}`,'r');push('');return}
+    push(r.head==='HEAD'?`HEAD detached at ${r.refs.HEAD.slice(0,7)}`:`On branch ${r.head}`);
+    const srv=r.upstream[r.head]&&r.known;
+    if(srv&&hc){const rs=srv[r.head];if(rs===r.refs[r.head])push(`Your branch is up to date with 'origin/${r.head}'.`);else if(rs&&this.anc(r.refs[r.head]).has(rs)){const n=[...this.anc(r.refs[r.head])].filter(x=>!this.anc(rs).has(x)).length;push(`Your branch is ahead of 'origin/${r.head}' by ${n} commit${n>1?'s':''}.\n  (use "git push" to publish your local commits)`)}}
+    if(!hc)push('\nNo commits yet');
+    if(r.merge&&r.merge.conf.length){push('\nYou have unmerged paths.\n  (fix conflicts and run "git commit")\n  (use "git merge --abort" to abort the merge)\n\nUnmerged paths:');r.merge.conf.forEach(k=>push(`\tboth modified:   ${k}`,'r'));push('');return}
+    if(s.st.length){push('\nChanges to be committed:\n  (use "git restore --staged <file>..." to unstage)');s.st.forEach(([k,p])=>push(`\t${(k+':').padEnd(12)}${p}`,'g'))}
+    if(s.un.length){push('\nChanges not staged for commit:\n  (use "git add <file>..." to update what will be committed)\n  (use "git restore <file>..." to discard changes in working directory)');s.un.forEach(([k,p])=>push(`\t${(k+':').padEnd(12)}${p}`,'r'))}
+    if(s.shown.length){push('\nUntracked files:\n  (use "git add <file>..." to include in what will be committed)');s.shown.forEach(p=>push('\t'+p,'r'))}
+    push('');
+    if(!s.st.length){
+      if(s.un.length)push('no changes added to commit (use "git add" and/or "git commit -a")');
+      else if(s.shown.length)push('nothing added to commit but untracked files present (use "git add" to track)');
+      else if(!hc)push('nothing to commit (create/copy files and use "git add" to track)');
+      else push('nothing to commit, working tree clean');
+    }
+  }
+  gitCommit(r,a,res,push){
+    if(a.includes('--amend')&&this.cfg['user.name']&&this.cfg['user.email'])return C3.amend.call(this,r,a,res,push);
+    if(!this.cfg['user.name']||!this.cfg['user.email']){
+      return this.fail(push,`Author identity unknown\n\n*** Please tell me who you are.\n\nRun\n\n  git config --global user.email "you@example.com"\n  git config --global user.name "Your Name"`,'আগে পরিচয়পত্র বানাও। git বুঝতে চায় ছবিটা কে তুলছে।');
+    }
+    if(a.some(x=>/^-[a-z]*a/.test(x))){const w=this.wt(r);Object.keys(r.index).forEach(k=>{if(k in w)r.index[k]=w[k];else delete r.index[k]})}
+    const s=this.status(r);
+    if(!s.st.length&&!r.merge){
+      if(s.un.length){this.fail(push,`no changes added to commit (use "git add" and/or "git commit -a")`,'আগে git add দিয়ে ফাইলকে staging-এ তোলো।');return}
+      if(s.ut.length){this.fail(push,`On branch ${r.head}\n\nUntracked files:\n\t${s.shown.join('\n\t')}\n\nnothing added to commit but untracked files present (use "git add" to track)`,'-a শুধু আগে থেকে চেনা ফাইল তোলে। নতুন ফাইলের জন্য git add লাগবে।');return}
+      this.fail(push,`On branch ${r.head}\nnothing to commit, working tree clean`,'নতুন কিছু বদলাওনি, তাই ছবি তোলার কিছু নেই।');return;
+    }
+    if(r.merge&&r.merge.conf.length)return this.fail(push,'error: Committing is not possible because you have unmerged files.','কনফ্লিক্ট ঠিক করে git add দাও, তারপর commit।');
+    const finish=(msg)=>{
+      const root=!r.refs[r.head],oldT=this.tree(r);const sha=this.commit(r,msg);
+      let ins=0,del=0,cr=[];Object.keys(r.index).forEach(k=>{if(!(k in oldT))cr.push(k);lcs(lines(oldT[k]||''),lines(r.index[k])).forEach(x=>{if(x[0]==='+')ins++;if(x[0]==='-')del++})});
+      const n=new Set([...Object.keys(r.index).filter(k=>oldT[k]!==r.index[k]),...Object.keys(oldT).filter(k=>!(k in r.index))]).size;
+      const o=[`[${r.head}${root?' (root-commit)':''} ${sha.slice(0,7)}] ${String(msg).split('\n')[0]}`,` ${n} file${n>1?'s':''} changed, ${ins} insertion${ins!==1?'s':''}(+), ${del} deletion${del!==1?'s':''}(-)`,...cr.map(k=>` create mode 100644 ${k}`),...Object.keys(oldT).filter(k=>!(k in r.index)).map(k=>` delete mode 100644 ${k}`)];
+      this.fly=[{t:sha.slice(0,7),from:1,to:2}];return n?o:o.slice(0,1);
+    };
+    const mi=a.findIndex(x=>x==='-m'||x==='-am');
+    if(mi>=0){
+      const msg=a[mi+1];if(!msg)return this.fail(push,"error: switch `m' requires a value",'মেসেজটা উদ্ধৃতিতে দাও: git commit -m "My first commit"');
+      finish(msg).forEach(l=>push(l));return;
+    }
+    const tpl=`\n# Please enter the commit message for your changes. Lines starting\n# with '#' will be ignored, and an empty message aborts the commit.\n#\n# On branch ${r.head}\n#\n# Changes to be committed:\n${s.st.map(([k,p])=>`#\t${k}:   ${p}`).join('\n')}\n#\n`;
+    res.editor={kind:'nano',path:r.root+'/.git/COMMIT_EDITMSG',name:'.git/COMMIT_EDITMSG',init:tpl,commit:true,onSave:(t)=>{
+      const m=t.split('\n').filter(l=>!l.startsWith('#')).join('\n').trim();
+      if(!m)return [{t:'Aborting commit due to empty commit message.',c:'r'}];
+      return finish(m).map(x=>({t:x}));
+    }};
+  }
+  gitLog(r,a,push){return C2.gitLog.call(this,r,a,push)}
+  gitBranch(r,a,push){
+    const fail=(m,c)=>this.fail(push,m,c);
+    if(a[0]==='-m'||a[0]==='-M'){
+      const nm=a[2]||a[1],old=a[2]?a[1]:r.head;if(!nm)return fail('fatal: branch name required');if(nm===old)return;
+      if(r.refs[old]){r.refs[nm]=r.refs[old];delete r.refs[old];Object.values(this.commits).forEach(c=>{if(c.lane===old)c.lane=nm})}
+      if(r.head===old)r.head=nm;this.sync(r);return;
+    }
+    if(a[0]==='-d'||a[0]==='-D'){
+      const b=a[1];if(!r.refs[b])return fail(`error: branch '${b}' not found.`);if(b===r.head)return fail(`error: Cannot delete branch '${b}' checked out`);
+      if(a[0]==='-d'&&!this.anc(r.refs[r.head]).has(r.refs[b]))return fail(`error: The branch '${b}' is not fully merged.\nIf you are sure you want to delete it, run 'git branch -D ${b}'.`);
+      push(`Deleted branch ${b} (was ${r.refs[b].slice(0,7)}).`);delete r.refs[b];this.sync(r);return;
+    }
+    const names=a.filter(x=>!x.startsWith('-'));
+    if(a.includes('-r')){Object.keys(r.known||{}).sort().forEach(b=>push('  origin/'+b,'r'));return}
+    if(!names.length){
+      const l=Object.keys(r.refs).filter(b=>b!=='HEAD').sort();if(r.head==='HEAD')push(`* (HEAD detached at ${r.refs.HEAD.slice(0,7)})`,'g');if(!l.length)return;
+      l.forEach(b=>b===r.head?push('* '+b,'g'):push('  '+b));
+      if(a.includes('-a')&&r.known)Object.keys(r.known).forEach(b=>push('  remotes/origin/'+b,'r'));
+      return;
+    }
+    const nb=names[0],src=names[1]||r.head;
+    if(r.refs[nb])return fail(`fatal: a branch named '${nb}' already exists`);
+    if(!r.refs[src])return fail(`fatal: not a valid object name: '${src}'`,'আগে অন্তত একটা commit লাগবে। commit ছাড়া branch বানানোর কিছু নেই।');
+    r.refs[nb]=r.refs[src];this.sync(r);
+  }
+  gitCheckout(r,sub,a,push){
+    const from=r.head,fromSha=r.refs[r.head];
+    const fin=()=>{if(r.head!==from){C4.leaveDetached.call(this,r,from,r.head,push);this.sync(r);if(r.head!=='HEAD')C4.log.call(this,r,`checkout: moving from ${from==='HEAD'?fromSha.slice(0,7):from} to ${r.head}`)}};
+    const out=this.gitCheckout0(r,sub,a,push);fin();return out;
+  }
+  gitCheckout0(r,sub,a,push){
+    const fail=(m,c)=>this.fail(push,m,c);
+    if(sub==='checkout'&&a[0]&&a[0]!=='-b'&&a[0]!=='--'&&!r.refs[a[0]]&&!(r.known&&r.known[a[0]])&&!(a[0] in r.index)){const sh=C3.rev.call(this,r,a[0]);if(sh)return C4.detach.call(this,r,sh,a[0],push)}
+    const nw=a[0]==='-b'||a[0]==='-c';
+    if(!nw&&sub==='checkout'){
+      const f=a[0]==='--'?a[1]:a[0];
+      if(f&&!r.refs[f]){const rel=this.cwd===r.root?'':this.cwd.slice(r.root.length+1)+'/';if((rel+f) in r.index){{const same=this.f(f)===r.index[rel+f];this.put(r.root+'/'+rel+f,r.index[rel+f]);push(`Updated ${same?0:1} path${same?'s':''} from the index`)}return}}
+    }
+    const name=nw?a[1]:a[0];if(!name)return fail('fatal: branch name required');
+    if(nw){
+      if(r.refs[name])return fail(`fatal: a branch named '${name}' already exists`);
+      const src=a[2]||r.head;const srcSha=r.refs[src]||C3.rev.call(this,r,src);if(!srcSha)return fail(`fatal: '${src}' is not a commit and a branch '${name}' cannot be created from it`,'আগে একটা commit করো।');
+      r.refs[src]=r.refs[src]||srcSha;const tmpSrc=!Object.prototype.hasOwnProperty.call(r.refs,src)||(src.includes('~')||src.includes('@')||src.includes('^')||src.startsWith('origin/')||/^[0-9a-f]{4,40}$/.test(src));
+      if(src===r.head){r.refs[name]=r.refs[src];r.head=name;this.sync(r);push(`Switched to a new branch '${name}'`);return}
+      r.refs[name]=r.refs[src];if(tmpSrc)delete r.refs[src];
+      if(!this.switchTo(r,name,push))delete r.refs[name];else push(`Switched to a new branch '${name}'`);this.sync(r);return;
+    }
+    if(!r.refs[name]){
+      const sv=r.known;
+      if(sv&&sv[name]){r.refs[name]=sv[name];r.upstream[name]=1;this.switchTo(r,name,push);push(`Switched to a new branch '${name}'\nbranch '${name}' set up to track 'origin/${name}'.`);this.sync(r);return}
+      return fail(`error: pathspec '${name}' did not match any file(s) known to git`,'এই নামে branch নেই। অন্যের branch হলে আগে git fetch origin দাও।');
+    }
+    if(name===r.head){push(`Already on '${name}'`);return}
+    if(this.switchTo(r,name,push))push(`Switched to branch '${name}'`);this.sync(r);
+  }
+  switchTo(r,name,push){
+    const cur=this.tree(r),tgt=this.tree(r,name),wt=this.wt(r);
+    const dirty=Object.keys(tgt).filter(p=>p in r.index&&wt[p]!==r.index[p]&&tgt[p]!==r.index[p]);
+    if(dirty.length){this.fail(push,`error: Your local changes to the following files would be overwritten by checkout:\n\t${dirty.join('\n\t')}\nPlease commit your changes or stash them before you switch branches.\nAborting`,'আগে commit করো, তারপর branch বদলাও।');return false}
+    const ni={...tgt};
+    Object.keys(r.index).forEach(p=>{if(r.index[p]!==cur[p])ni[p]=r.index[p]});
+    Object.keys(cur).forEach(p=>{if(!(p in tgt)&&wt[p]===cur[p]&&r.index[p]===cur[p])delete this.fs[r.root+'/'+p]});
+    Object.keys(tgt).forEach(p=>{if(cur[p]!==tgt[p]||!(p in wt)){const parts=p.split('/');let c=r.root;parts.slice(0,-1).forEach(s=>{c+='/'+s;this.mk(c)});this.put(r.root+'/'+p,tgt[p])}});
+    r.index=ni;r.head=name;this.fly=[{t:name,from:2,to:0}];return true;
+  }
+  gitMerge(r,a,push){return C2.gitMerge.call(this,r,a,push)}
+  gitRemote(r,a,push){
+    if(a[0]==='show')return C5.remoteShow.call(this,r,a.slice(1),push);
+    if(a[0]==='update'){C4.knownSync.call(this,r);push('Fetching origin');return}
+    if(!a.length||a[0]==='-v'){Object.entries(r.remotes).forEach(([n,u])=>{if(a[0]==='-v'){push(`${n}\t${u} (fetch)`);push(`${n}\t${u} (push)`)}else push(n)});return}
+    if(a[0]==='add'){
+      if(a.length<3)return this.fail(push,'usage: git remote add <name> <url>');if(r.remotes[a[1]])return this.fail(push,`error: remote ${a[1]} already exists.`);
+      r.remotes[a[1]]=a[2];this.server(a[2]);this.sync(r);return;
+    }
+    if(a[0]==='remove'||a[0]==='rm'){delete r.remotes[a[1]];this.sync(r);return}
+    if(a[0]==='set-url'){r.remotes[a[1]]=a[2];this.server(a[2]);this.sync(r);return}
+    this.fail(push,`error: Unknown subcommand: ${a[0]}`);
+  }
+  gitPush(r,a,push){
+    const fail=(m,c)=>this.fail(push,m,c),u=a.includes('-u')||a.includes('--set-upstream'),p=a.filter(x=>!x.startsWith('-'));
+    if(a.includes('--tags')&&!p.length&&r.tags&&r.remotes.origin){const sv=this.server(r.remotes.origin);sv.tags=sv.tags||{};const nw=Object.keys(r.tags).filter(t=>!sv.tags[t]);if(!nw.length){push('Everything up-to-date');return}push(`To ${r.remotes.origin}`);nw.forEach(t=>{sv.tags[t]=r.tags[t];push(` * [new tag]         ${t} -> ${t}`)});return}
+    if(a.includes('--delete')||a.includes('-d')){const url=r.remotes[p[0]||'origin'];if(!url)return fail(`fatal: '${p[0]}' does not appear to be a git repository`);const sv=this.server(url);if(!p[1]||!sv.refs[p[1]])return fail(`error: unable to delete '${p[1]}': remote ref does not exist`);delete sv.refs[p[1]];push(`To ${url}\n - [deleted]         ${p[1]}`);return}
+    const rem=p[0]||'origin',br=p[1]||r.head;
+    if(r.tags&&(r.tags[br]||a.includes('--tags'))&&r.remotes[rem]){const sv=this.server(r.remotes[rem]);sv.tags=sv.tags||{};const list=a.includes('--tags')?Object.keys(r.tags):[br];push(`To ${r.remotes[rem]}`);list.forEach(t=>{sv.tags[t]=r.tags[t];push(` * [new tag]         ${t} -> ${t}`)});return}
+    if(!r.remotes[rem])return fail(p[0]?`fatal: '${rem}' does not appear to be a git repository\nfatal: Could not read from remote repository.`:'fatal: No configured push destination.\nEither specify the URL from the command-line or configure a remote repository using\n\n    git remote add <name> <url>','আগে git remote add origin URL দিয়ে ঠিকানা জানাও।');
+    if(!p.length&&!r.upstream[br])return fail(`fatal: The current branch ${br} has no upstream branch.\nTo push the current branch and set the remote as upstream, use\n\n    git push --set-upstream origin ${br}\n`,'প্রথমবার -u দিতে হয়: git push -u origin '+br);
+    if(!r.refs[br])return fail(`error: src refspec ${br} does not match any\nerror: failed to push some refs to '${r.remotes[rem]}'`,`তোমার ${br} নামে branch নেই। git branch দিয়ে দেখো, হয়তো এখনো master নামে আছে। git branch -m main দাও।`);
+    const sv=this.server(r.remotes[rem]),old=sv.refs[br],nw=r.refs[br];
+    if(old===nw){push('Everything up-to-date');return}
+    if(old&&!this.anc(nw).has(old))return fail(`! [rejected]        ${br} -> ${br} (fetch first)\nerror: failed to push some refs to '${r.remotes[rem]}'`,'রিমোটে নতুন কিছু আছে। আগে git pull করো।');
+    const cnt=old?[...this.anc(nw)].filter(x=>!this.anc(old).has(x)).length:this.anc(nw).size;
+    push(`Enumerating objects: ${cnt*3}, done.\nWriting objects: 100% (${cnt*3}/${cnt*3}), done.\nTotal ${cnt*3} (delta 0), reused 0 (delta 0)\nTo ${r.remotes[rem]}`);
+    if(!old&&br!=='main'&&br!=='master')push(`remote:\nremote: Create a pull request for '${br}' on GitHub by visiting:\nremote:      ${r.remotes[rem].replace('git@github.com:','https://github.com/').replace(/\.git$/,'')}/pull/new/${br}\nremote:`);
+    push(old?`   ${old.slice(0,7)}..${nw.slice(0,7)}  ${br} -> ${br}`:` * [new branch]      ${br} -> ${br}`);
+    sv.refs[br]=nw;C4.knownSync.call(this,r);
+    if(u){r.upstream[br]=1;this.sync(r);push(`branch '${br}' set up to track '${rem}/${br}'.`)}
+    this.fly=[{t:nw.slice(0,7),from:2,to:3}];
+  }
+  gitPull(r,a,push){
+    if(!r.remotes.origin)return this.fail(push,'fatal: No remote repository specified.','আগে git remote add origin URL দাও।');
+    const sv=this.servers[r.remotes.origin],t=sv.refs[r.head];
+    if(!t||t===r.refs[r.head]||(r.refs[r.head]&&this.anc(r.refs[r.head]).has(t))){push('Already up to date.');return}
+    if(r.refs[r.head]&&!this.anc(t).has(r.refs[r.head]))return this.fail(push,'fatal: Need to specify how to reconcile divergent branches.');
+    const tr=this.commits[t].tree;Object.entries(tr).forEach(([k,v])=>this.put(r.root+'/'+k,v));r.refs[r.head]=t;r.index={...tr};this.sync(r);push(`Updating..\nFast-forward`);this.fly=[{t:t.slice(0,7),from:3,to:2}];
+  }
+  gitClone(a,push){
+    const fail=(m,c)=>this.fail(push,m,c);const bi=a.indexOf('--branch');let br=null;const v=[...a];if(bi>=0){br=v[bi+1];v.splice(bi,2)}
+    const url=v.find(x=>!x.startsWith('-'));if(!url)return fail('fatal: You must specify a repository to clone.');
+    if(!/^https?:\/\/|^git@/.test(url))return fail(`fatal: repository '${url}' does not exist`,'পুরো URL দাও: https://github.com/username/repository-name');
+    const name=v[v.indexOf(url)+1]||url.replace(/\.git$/,'').split('/').pop();const dest=this.norm(name);
+    if(this.fs[dest])return fail(`fatal: destination path '${name}' already exists and is not an empty directory.`);
+    const fresh=!this.servers[url];const sv=this.seed(url,[{'README.md':'# '+name+'\n','app.sh':'#!/bin/bash\necho "payment app running"\n'},{'config.env':'PORT=8080\n'}],['Initial commit','Add production config']);
+    if(fresh){const tree={...this.commits[sv.refs.main].tree,'table.html':'<table></table>\n'};const sh=sha1('side'+url+(++this.tick));this.commits[sh]={sha:sh,msg:'Tabulized Version Added',body:'',parents:[sv.refs.main],tree,lane:'showTable',n:this.tick,t:LOG_NOW-86400e3,author:'Tonni',email:'tonni@kathal.example'};sv.refs.showTable=sh}
+    if(br&&!sv.refs[br])return fail(`fatal: Remote branch ${br} not found in upstream origin`);
+    const b=br||'main';push(`Cloning into '${name}'...\nremote: Enumerating objects: 6, done.\nReceiving objects: 100% (6/6), done.`);
+    this.mk(dest);const r=this.newRepo(dest);r.head=b;r.refs[b]=sv.refs[b];r.remotes.origin=url;r.upstream[b]=1;
+    const t=this.commits[sv.refs[b]].tree;Object.entries(t).forEach(([k,c])=>this.put(dest+'/'+k,c));r.index={...t};this.sync(r);C4.knownSync.call(this,r);C4.log.call(this,r,`clone: from ${url}`,sv.refs[b]);
+    this.fly=[{t:name,from:3,to:0}];
+  }
+}
+function res_ls(items,push){items.forEach(i=>push(i.x,i.d?'b':''))}
+
+/* ============ terminal UI ============ */
+function Terminal(cfg,onChange){
+  const sim=new Sim();
+  const root=h(`<div></div>`);
+  const hist=[];let hp=0;
+  const term=h(`<div class="term" aria-label="অনুশীলনের টার্মিনাল">
+    <div class="term-bar"><i></i><i></i><i></i><span>অনুশীলনের টার্মিনাল</span><button type="button" class="reset">আবার শুরু</button></div>
+    <div class="t-out" tabindex="0"></div>
+    <div class="t-line"><label></label><input autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="কমান্ড লেখো" placeholder="এখানে কমান্ড লিখে Enter চাপো"></div>
+  </div>`);
+  const out=$('.t-out',term),inp=$('input',term),lab=$('label',term);
+  root.append(term);
+  const prompt=()=>`rafi@kathal:${sim.cwd.replace(sim.home,'~')}$`;
+  const setPrompt=()=>{lab.textContent=prompt();const id='t'+cfg.id;inp.id=id;lab.htmlFor=id};
+  const print=(t,c)=>{const s=document.createElement('span');if(c)s.className=c;s.textContent=t+'\n';if(c==='m')s.textContent=t;out.append(s)};
+  const scroll=()=>{out.scrollTop=out.scrollHeight};
+  function setup(){(cfg.setup||[]).forEach(l=>sim.exec(l))}
+  setup();
+  if(cfg.intro)print(cfg.intro,'m');
+  setPrompt();
+  function after(cmd,fly){onChange&&onChange(sim,cmd,sim.ok,fly);scroll();setPrompt()}
+  function run(line){
+    print(prompt()+' ','pr');out.lastChild.textContent=prompt()+' ';
+    const e=document.createElement('span');e.textContent=line+'\n';out.append(e);
+    if(line.trim()){hist.push(line);hp=hist.length}
+    const r=sim.exec(line);
+    if(r.clear)out.textContent='';
+    r.out.forEach(o=>print(o.t,o.c));
+    const fly=sim.fly;
+    if(r.editor)return openEditor(r.editor,line,fly);
+    after(line,fly);
+  }
+  function openEditor(ed,line){
+    const box=h(`<div class="editor">
+      <div class="ehead"></div>
+      <textarea spellcheck="false" aria-label="ফাইল এডিটর"></textarea>
+      <div class="ehelp"></div>
+      <div class="ebar"></div></div>`);
+    const ta=$('textarea',box),hd=$('.ehead',box),help=$('.ehelp',box),bar=$('.ebar',box);
+    ta.value=ed.init;hd.textContent=(ed.kind==='vim'?'VIM  ':'GNU nano 7.2  ')+ed.name;
+    let mode='normal';
+    const close=(save)=>{
+      box.remove();
+      let extra=null;
+      if(save)extra=ed.onSave(ta.value&&!ta.value.endsWith('\n')?ta.value+'\n':ta.value);
+      if(ed.commit&&!save)print('Aborting commit due to empty commit message.','r');
+      if(Array.isArray(extra))extra.forEach(o=>print(o.t,o.c));
+      const fly=sim.fly;after(line,fly);inp.focus();
+    };
+    if(ed.kind==='vim'){
+      bar.innerHTML=`<span class="mode"></span><button type="button" data-a="i">i</button><button type="button" data-a="esc">Esc</button><span>:</span><input aria-label="vim কমান্ড" placeholder="wq"><button type="button" data-a="wq">:wq সেভ</button><button type="button" data-a="q">:q! বাদ</button>`;
+      help.textContent='ধাপ: i চাপো (লেখার মোড), লেখো, Esc চাপো, তারপর :wq লিখে Enter। ক্লাসের মতো :x দিলেও সেভ হবে।';
+      const ml=$('.mode',bar),cl=$('input',bar);
+      const set=(m)=>{mode=m;ml.textContent=m==='insert'?'-- INSERT --':'NORMAL';ta.readOnly=m!=='insert';ta.classList.toggle('normal',m!=='insert')};
+      set('normal');
+      const cmdRun=(v)=>{v=v.replace(/^:/,'').trim();if(v==='wq'||v==='x'||v==='w'){close(true)}else if(v==='q!'||v==='q'){close(false)}else{cl.value='';help.textContent=`"${v}" চেনা গেল না। সেভ করতে wq, বাদ দিতে q! লেখো।`}};
+      ta.addEventListener('keydown',e=>{
+        if(e.key==='Escape'){e.preventDefault();set('normal');return}
+        if(mode==='normal'){
+          if(e.key==='i'||e.key==='a'||e.key==='o'){e.preventDefault();set('insert');if(e.key==='o'){ta.setRangeText('\n',ta.selectionEnd,ta.selectionEnd,'end')}}
+          else if(e.key===':'){e.preventDefault();cl.focus()}
+          else if(!e.ctrlKey&&!e.metaKey&&e.key.length===1)e.preventDefault();
+        }
+      });
+      cl.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();cmdRun(cl.value)}if(e.key==='Escape'){cl.value='';ta.focus()}});
+      bar.addEventListener('click',e=>{const a=e.target.dataset&&e.target.dataset.a;if(!a)return;if(a==='i'){set('insert');ta.focus()}if(a==='esc'){set('normal');ta.focus()}if(a==='wq')close(true);if(a==='q')close(false)});
+    }else{
+      bar.innerHTML=`<button type="button" data-a="s">^X সেভ করে বের হও</button><button type="button" data-a="c">বাদ দাও</button>`;
+      help.textContent=ed.commit?'# চিহ্ন ছাড়া একটা লাইনে commit message লেখো। তারপর Ctrl+X, অথবা নিচের বোতাম।':'লেখো। তারপর Ctrl+X, অথবা নিচের বোতাম।';
+      ta.addEventListener('keydown',e=>{if(e.ctrlKey&&(e.key==='x'||e.key==='X')){e.preventDefault();close(true)}});
+      bar.addEventListener('click',e=>{const a=e.target.dataset&&e.target.dataset.a;if(a==='s')close(true);if(a==='c')close(false)});
+      if(ed.commit){ta.setSelectionRange(0,0)}
+    }
+    term.append(box);ta.focus();
+  }
+  inp.addEventListener('keydown',e=>{
+    if(e.key==='Enter'){const v=inp.value;inp.value='';run(v);return}
+    if(e.key==='ArrowUp'){e.preventDefault();if(hp>0){hp--;inp.value=hist[hp]}return}
+    if(e.key==='ArrowDown'){e.preventDefault();if(hp<hist.length-1){hp++;inp.value=hist[hp]}else{hp=hist.length;inp.value=''}return}
+    if(e.key==='l'&&e.ctrlKey){e.preventDefault();out.textContent='';return}
+    if(e.key==='Tab'){
+      e.preventDefault();const parts=inp.value.split(' '),last=parts[parts.length-1];
+      const slash=last.lastIndexOf('/'),dir=slash>=0?last.slice(0,slash+1):'',pre=last.slice(slash+1),base=sim.norm(dir||'.');
+      const m=(sim.isDir(base)?sim.kids(base):[]).filter(x=>x.startsWith(pre));
+      if(m.length===1&&parts.length>1){parts[parts.length-1]=dir+m[0]+(sim.isDir(base+'/'+m[0])?'/':'');inp.value=parts.join(' ')}
+    }
+  });
+  term.addEventListener('click',e=>{if(!window.getSelection().toString()&&!e.target.closest('button,.editor'))inp.focus()});
+  $('.reset',term).addEventListener('click',()=>{cfg.onReset&&cfg.onReset()});
+  return {el:root,sim,type(v){inp.value=v;inp.focus()},run};
+}
+
+/* ============ zones + graph (live picture of the repo) ============ */
+function zonesView(){
+  const w=h(`<div class="zones-wrap">
+    <div class="zones">
+      <div class="zone z1"><h5>Working Directory</h5><small>কাজের টেবিল</small><div class="zc"></div></div>
+      <div class="zone z2"><h5>Staging Area</h5><small>ছবির লাইন</small><div class="zc"></div></div>
+      <div class="zone z3"><h5>Local Repo</h5><small>নিজের অ্যালবাম</small><div class="zc"></div></div>
+      <div class="zone z4"><h5>Remote Repo</h5><small>GitHub-এর অ্যালবাম</small><div class="zc"></div></div>
+    </div></div>`);
+  const zs=[...w.querySelectorAll('.zc')];zs.forEach(z=>{z.style.cssText='display:grid;gap:3px;min-width:0'});
+  const chip=(t,c)=>`<div class="fc ${c||''}">${esc(t)}</div>`;
+  return {el:w,render(sim){
+    const r=sim.repo;
+    if(!r){zs[0].innerHTML=sim.kids(sim.cwd).filter(x=>!x.startsWith('.')).map(x=>chip(x)).join('')||'<small>খালি</small>';zs[1].innerHTML=zs[2].innerHTML=zs[3].innerHTML='<small>git init হয়নি</small>';return}
+    const s=sim.status(r),wt=sim.wt(r);
+    const red=new Set([...s.ut,...s.un.map(x=>x[1])]),grn=new Set(s.st.map(x=>x[1]));
+    const f=Object.keys(wt).filter(k=>!sim.ignored(r,k)).sort();
+    zs[0].innerHTML=f.map(k=>chip(k,red.has(k)?'red':(grn.has(k)?'grn':''))).join('')||'<small>খালি</small>';
+    zs[1].innerHTML=s.st.map(([k,p])=>chip((k==='deleted'?'✕ ':'')+p,'grn')).join('')||'<small>খালি</small>';
+    const cm=r.refs[r.head]?[...sim.anc(r.refs[r.head])].map(x=>sim.commits[x]).sort((a,b)=>b.n-a.n):[];
+    zs[2].innerHTML=`<small>branch: <b>${esc(r.head)}</b></small>`+(cm.slice(0,5).map(c=>chip(c.sha.slice(0,7)+' '+c.msg)).join('')||'<small>কোনো commit নেই</small>');
+    const url=r.remotes.origin,sv=url&&sim.servers[url];
+    if(!url)zs[3].innerHTML='<small>এখনো কোনো remote নেই</small>';
+    else{const rs=sv.refs[r.head];const rc=rs?[...sim.anc(rs)].map(x=>sim.commits[x]).sort((a,b)=>b.n-a.n):[];
+      zs[3].innerHTML=`<small style="overflow-wrap:anywhere">${esc(url.replace('https://',''))}</small>`+(rc.slice(0,5).map(c=>chip(c.sha.slice(0,7)+' '+c.msg)).join('')||'<small>এখনো push হয়নি</small>');}
+  },flyAnim(items){
+    if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+    const boxes=[...w.querySelectorAll('.zone')],base=w.getBoundingClientRect();
+    items.forEach((it,i)=>{
+      const a=boxes[it.from].getBoundingClientRect(),b=boxes[it.to].getBoundingClientRect();
+      const d=h(`<div class="flyer">${esc(it.t)}</div>`);d.style.left=(a.left-base.left+8)+'px';d.style.top=(a.top-base.top+40+i*20)+'px';w.append(d);
+      requestAnimationFrame(()=>requestAnimationFrame(()=>{d.style.left=(b.left-base.left+8)+'px';d.style.top=(b.top-base.top+40+i*20)+'px';d.style.opacity='0'}));
+      setTimeout(()=>d.remove(),900);
+    });
+  }};
+}
+function graphSvg(sim){
+  const r=sim.repo;if(!r)return '';
+  const set=new Set();Object.values(r.refs).forEach(s=>sim.anc(s).forEach(x=>set.add(x)));
+  const l=[...set].map(x=>sim.commits[x]).sort((a,b)=>a.n-b.n);if(!l.length)return '<svg width="300" height="30"><text x="6" y="19">এখনো কোনো commit নেই</text></svg>';
+  const lanes=[];l.forEach(c=>{if(!lanes.includes(c.lane))lanes.push(c.lane)});
+  const pos={};l.forEach((c,i)=>pos[c.sha]={x:34+i*92,y:30+lanes.indexOf(c.lane)*66});
+  const colors=['var(--teal)','var(--pink)','var(--orange)','var(--good)','var(--sun)'];
+  const W=Math.max(360,70+l.length*92+50),H=46+lanes.length*66;let s=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="branch আর commit-এর ছবি">`;
+  l.forEach(c=>c.parents.forEach(p=>{if(pos[p]){const a=pos[p],b=pos[c.sha];s+=`<path d="M${a.x} ${a.y} C${a.x+45} ${a.y},${b.x-45} ${b.y},${b.x} ${b.y}" fill="none" stroke="var(--ink)" stroke-width="2.5"/>`}}));
+  l.forEach(c=>{const p=pos[c.sha];s+=`<circle cx="${p.x}" cy="${p.y}" r="10" fill="${colors[lanes.indexOf(c.lane)%5]}" stroke="var(--ink)" stroke-width="2.5"/><text x="${p.x-24}" y="${p.y+24}">${c.sha.slice(0,7)}</text>`});
+  const tags={};Object.entries(r.refs).forEach(([b,x])=>{(tags[x]=tags[x]||[]).push(b)});
+  Object.entries(tags).forEach(([x,bs])=>{if(!pos[x])return;const p=pos[x];const t=bs.map(b=>b===r.head?'HEAD→'+b:b).join(', ');s+=`<text x="${p.x-14}" y="${p.y-14}" style="font-weight:700;fill:var(--pink)">${esc(t)}</text>`});
+  return s+'</svg>';
+}
+
+/* ============ comic stage ============ */
+const INK='#1B1A3D';
+const drawers={
+  person:o=>`<ellipse cx="0" cy="2" rx="27" ry="5" fill="#000" opacity=".16"/><g class="inner">
+    <path d="M-23 0 v-44 q0-20 23-20 q23 0 23 20 v44 z" fill="${o.c}" stroke="${INK}" stroke-width="3.5"/>
+    <circle cx="0" cy="-85" r="22" fill="#F2C9A0" stroke="${INK}" stroke-width="3.5"/>
+    <path d="M-22 -87 q2-23 22-23 q20 0 22 23 q-11-11-22-9 q-13 2-22 9z" fill="${o.h||INK}" stroke="${INK}" stroke-width="2"/>
+    <g class="blink"><circle cx="-8" cy="-84" r="3" fill="${INK}"/><circle cx="8" cy="-84" r="3" fill="${INK}"/></g>
+    <path d="M-7 -74 q7 6 14 0" stroke="${INK}" stroke-width="2.5" fill="none" stroke-linecap="round"/></g>
+    <text class="lab" y="20" text-anchor="middle" font-size="15">${o.n||''}</text>`,
+  server:o=>`<rect x="-36" y="-118" width="72" height="118" rx="6" fill="#3B3A6B" stroke="${INK}" stroke-width="3.5"/>${[0,1,2].map(i=>`<rect x="-27" y="${-108+i*36}" width="54" height="26" rx="3" fill="#57568C"/><circle class="led" cx="-16" cy="${-95+i*36}" r="4"/><rect x="-5" y="${-98+i*36}" width="25" height="5" fill="#8E8DC2"/>`).join('')}<text class="lab" y="20" text-anchor="middle" font-size="14">${o.n||'server'}</text>`,
+  file:o=>`<g class="inner"><path class="paper" d="M-26 -70 h36 l16 16 v54 h-52z" fill="#fff" stroke="${INK}" stroke-width="3"/><path d="M10 -70 v16 h16" fill="none" stroke="${INK}" stroke-width="3"/><path d="M-16 -44 h32 M-16 -32 h32 M-16 -20 h20" stroke="${INK}" stroke-width="2.5"/></g><text class="lab" y="18" text-anchor="middle" font-size="14">${o.n||''}</text>`,
+  box:o=>`<path d="M-55 -56 h110 v56 h-110z" fill="#D9A35B" stroke="${INK}" stroke-width="3.5"/><path d="M-55 -56 l-16 -18 h110 l16 18 M55 -56 l16 -18 h-30" fill="#C48B44" stroke="${INK}" stroke-width="3"/><text class="lab" y="20" text-anchor="middle" font-size="14">${o.n||''}</text>`,
+  shelf:o=>`<rect x="-62" y="-122" width="124" height="122" rx="4" fill="${o.c||'#0B7F7B'}" stroke="${INK}" stroke-width="3.5"/>${[0,1,2].map(i=>`<rect x="-52" y="${-112+i*37}" width="104" height="30" rx="2" fill="#fff" opacity=".85" stroke="${INK}" stroke-width="2"/><circle cx="0" cy="${-97+i*37}" r="4" fill="${INK}"/>`).join('')}<text class="lab" y="20" text-anchor="middle" font-size="14">${o.n||''}</text>`,
+  cloud:o=>`<g class="inner"><path d="M-70 -18 q-30-2-28-30 q2-26 32-24 q10-30 44-26 q30 2 40 26 q40-4 44 26 q2 28-30 28z" fill="#fff" stroke="${INK}" stroke-width="3.5"/><text x="0" y="-44" text-anchor="middle" font-size="19">${o.t||'GitHub'}</text></g><text class="lab" y="4" text-anchor="middle" font-size="14">${o.n||''}</text>`,
+  desk:o=>`<rect x="-90" y="-46" width="180" height="11" fill="#9A6133" stroke="${INK}" stroke-width="3"/><path d="M-78 -35 v35 M78 -35 v35" stroke="${INK}" stroke-width="7"/><rect x="-30" y="-92" width="60" height="42" rx="3" fill="#25234C" stroke="${INK}" stroke-width="3"/><path d="M-38 -48 h76" stroke="${INK}" stroke-width="5"/><path d="M-22 -80 h22 M-22 -70 h34" stroke="#5BE09A" stroke-width="3"/><text class="lab" y="20" text-anchor="middle" font-size="14">${o.n||''}</text>`,
+  phone:o=>`<g class="ring"><rect x="-17" y="-58" width="34" height="58" rx="6" fill="${INK}"/><rect x="-13" y="-52" width="26" height="42" fill="#FFD25E"/></g><text class="lab" y="18" text-anchor="middle" font-size="14">${o.n||''}</text>`,
+  moon:o=>`<circle cx="0" cy="0" r="24" fill="#FFE28A" stroke="${INK}" stroke-width="3"/><circle cx="10" cy="-6" r="20" fill="#2B2A5C"/>`,
+  sun:o=>`<circle cx="0" cy="0" r="24" fill="#F4B400" stroke="${INK}" stroke-width="3"/>`,
+  tag:o=>{const t=o.n||'',w=Math.max(70,t.length*(/[a-zA-Z]/.test(t[0])?8.6:9.6)+24);return `<g class="inner"><rect x="${-w/2}" y="-17" width="${w}" height="34" rx="9" fill="${o.c||'#FFD25E'}" stroke="${INK}" stroke-width="3"/><text class="lab" y="6" text-anchor="middle" font-size="16" ${o.fg?`style="fill:${o.fg}"`:''}>${t}</text></g>`},
+  branchline:o=>`<path d="M-140 0 h280" stroke="${o.c||INK}" stroke-width="7" stroke-linecap="round"/><text class="lab" x="-140" y="-13" font-size="15">${o.n||''}</text>`,
+  dot:o=>`<circle r="14" fill="${o.c||'#CF1F6B'}" stroke="${INK}" stroke-width="3.5"/><text class="lab" y="32" text-anchor="middle" font-size="13">${o.n||''}</text>`,
+};
+const PEOPLE={rafi:{c:'#CF1F6B',n:'রাফি'},tonni:{c:'#0B7F7B',n:'তন্বী',h:'#3B1B10'},jamil:{c:'#E8622A',n:'জামিল',h:'#5B4632'}};
+function Scene(sc){
+  const box=h(`<div class="stage-box">
+     <svg class="stage" viewBox="0 0 800 290" role="img" aria-label="গল্পের দৃশ্য"></svg>
+     <div class="zig"></div>
+     <div class="bubble" aria-live="polite"></div>
+     <div class="scene-ctl"><button type="button" class="btn pb">আগের দৃশ্য</button><button type="button" class="btn pri nb">পরের দৃশ্য</button><button type="button" class="btn ab">নিজে চলুক</button><span class="count"></span></div>
+     <details class="all"><summary>পুরো গল্প একসাথে পড়ো</summary><ol></ol></details></div>`);
+  const svg=$('svg',box),bub=$('.bubble',box),cnt=$('.count',box),pb=$('.pb',box),nb=$('.nb',box),ab=$('.ab',box);
+  const names={};
+  let bg=`<rect width="800" height="290" fill="${sc.night?'#2B2A5C':'var(--sky)'}"/>`;
+  // Dhaka skyline
+  [[0,70,90],[75,110,70],[150,50,80],[235,95,60],[300,60,70],[375,120,90],[470,70,60],[535,100,80],[620,60,70],[695,105,105]].forEach(([x,hh,w],i)=>{
+    bg+=`<rect x="${x}" y="${252-hh-40}" width="${w}" height="${hh+40}" fill="${sc.night?'#1E1D46':'#fff'}" opacity="${sc.night?1:.5}"/>`;
+    for(let k=0;k<3;k++)bg+=`<rect x="${x+12+k*20}" y="${252-hh-28}" width="9" height="11" fill="${sc.night?'#F4B400':'#1B1A3D'}" opacity="${sc.night?.7:.13}"/>`;
+  });
+  bg+=`<rect y="252" width="800" height="38" fill="#0B7F7B"/><path d="M0 252 h800" stroke="${INK}" stroke-width="4"/>`;
+  svg.innerHTML=bg;
+  const ac={};
+  Object.entries(sc.a).forEach(([id,[type,x,y,o]])=>{
+    o=o||{};const base=PEOPLE[id]||{};const opt={...base,...o};
+    if(PEOPLE[id]){names[id]=base.n}else if(o.n)names[id]=o.n;
+    const g=document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.setAttribute('class','actor '+(o.hide?'hide ':'')+(o.cls||''));
+    g.innerHTML=drawers[type](opt);
+    svg.append(g);ac[id]={g,x,y,s:1,hide:!!o.hide,cls:o.cls||'',lab:opt.n||''};
+    g.style.transform=`translate(${x}px,${y}px)`;
+  });
+  const base=JSON.parse(JSON.stringify(Object.fromEntries(Object.entries(ac).map(([k,v])=>[k,{x:v.x,y:v.y,s:v.s,hide:v.hide,cls:v.cls,lab:v.lab}]))));
+  const list=$('ol',box);sc.b.forEach(b=>{const li=document.createElement('li');li.textContent=(b.s&&names[b.s]?names[b.s]+': ':'')+b.t;list.append(li)});
+  let i=0,timer=null;
+  function apply(){
+    const st=JSON.parse(JSON.stringify(base));
+    for(let k=0;k<=i;k++){Object.entries(sc.b[k].m||{}).forEach(([id,m])=>Object.assign(st[id],m))}
+    Object.entries(st).forEach(([id,v])=>{
+      const a=ac[id];a.g.style.transform=`translate(${v.x}px,${v.y}px) scale(${v.s})`;
+      a.g.setAttribute('class','actor '+(v.hide?'hide ':'')+(v.cls||'')+(sc.b[i].s===id?' talk':''));
+      const l=a.g.querySelector('.lab');if(l&&v.lab!==undefined&&l.textContent!==v.lab)l.textContent=v.lab;
+    });
+    const b=sc.b[i];bub.innerHTML=(b.s&&names[b.s]?`<b>${esc(names[b.s])}</b>`:'')+`<p>${esc(b.t)}</p>`;
+    cnt.textContent=`দৃশ্য ${bn(i+1)} / ${bn(sc.b.length)}`;
+    pb.disabled=i===0;nb.disabled=i===sc.b.length-1;
+  }
+  const stop=()=>{clearInterval(timer);timer=null;ab.textContent='নিজে চলুক'};
+  pb.onclick=()=>{stop();if(i>0){i--;apply()}};
+  nb.onclick=()=>{stop();if(i<sc.b.length-1){i++;apply()}};
+  ab.onclick=()=>{
+    if(timer)return stop();
+    if(i===sc.b.length-1){i=0;apply()}
+    ab.textContent='থামাও';
+    timer=setInterval(()=>{if(i<sc.b.length-1){i++;apply()}if(i===sc.b.length-1)stop()},5200);
+  };
+  apply();
+  return box;
+}
+
+/* ============ widgets ============ */
+const W={
+  modules(){
+    const m=[['১','Version Control ও Git-এর শুরু','আজকের ক্লাস: VCS, diff, setup, workflow'],['২','Git Local: মূল কমান্ড','add, commit, status, log, branch, merge'],['৩','Remote Repo (GitHub)','push, pull, fetch, Pull-Merge-Push'],['৪','Advanced Git','GitFlow, rebase, merge conflict'],['৫','Collaboration','দলের সাথে কাজ'],['৬','Best Practices','ভালো অভ্যাস'],['৭','Troubleshooting','সমস্যা সমাধান']];
+    return h(`<div class="route">${m.map((x,i)=>`<div class="rt" style="grid-template-columns:50px minmax(0,1fr)"><span class="n" ${i===0?'style="background:var(--pink)"':''}>${x[0]}</span><div><b>${x[1]}</b><small>${x[2]}</small></div></div>`).join('')}</div>`);
+  },
+  dns(){
+    const v=[
+      {who:'তন্বী',when:'সোমবার ১০:০২',why:'নতুন ওয়েব সার্ভার চালু',f:['www   IN A   10.0.0.5','mail  IN A   10.0.0.9'],ch:[]},
+      {who:'জামিল',when:'মঙ্গলবার ১৪:৩০',why:'পেমেন্ট সার্ভারের নাম যোগ',f:['www   IN A   10.0.0.5','mail  IN A   10.0.0.9','pay   IN A   10.0.0.12'],ch:[['+','pay   IN A   10.0.0.12']]},
+      {who:'রাফি',when:'বৃহস্পতিবার ০১:৪৮',why:'ওয়েব সার্ভার বদল (ভুল IP!)',f:['www   IN A   10.0.0.55','mail  IN A   10.0.0.9','pay   IN A   10.0.0.12'],ch:[['-','www   IN A   10.0.0.5'],['+','www   IN A   10.0.0.55']],bad:1},
+      {who:'রাফি',when:'বৃহস্পতিবার ০২:০৫',why:'revert: আগের ঠিক IP-তে ফেরা',f:['www   IN A   10.0.0.5','mail  IN A   10.0.0.9','pay   IN A   10.0.0.12'],ch:[['-','www   IN A   10.0.0.55'],['+','www   IN A   10.0.0.5']]},
+    ];
+    const e=h(`<div class="card" style="display:grid;gap:8px">
+      <h4>সময়ের স্লাইডার টানো: DNS zone file-এর ইতিহাস</h4>
+      <input id="dnsrange" type="range" min="0" max="3" step="1" value="2" aria-label="ভার্সন বাছো">
+      <div class="meta"></div><div class="dns"></div></div>`);
+    const ren=()=>{const x=v[+$('input',e).value];
+      $('.meta',e).innerHTML=`<b>ভার্সন</b><span>${bn(+$('input',e).value+1)} / ৪ ${x.bad?'<strong style="color:var(--bad)">(এখানেই সাইট পড়ে গিয়েছিল)</strong>':''}</span><b>কে</b><span>${x.who}</span><b>কখন</b><span>${x.when}</span><b>কেন</b><span>${x.why}</span>`;
+      const rm=x.ch.filter(c=>c[0]==='-').map(c=>`<span class="del">- ${esc(c[1])}</span>`);
+      $('.dns',e).innerHTML=[...rm,...x.f.map(l=>x.ch.some(c=>c[0]==='+'&&c[1]===l)?`<span class="add">+ ${esc(l)}</span>`:`  ${esc(l)}`)].join('\n')};
+    $('input',e).oninput=ren;ren();return e;
+  },
+  diffread(){
+    const L=[['--- filename.txt  2025-03-06 22:45:02','পুরোনো ফাইল। `-` চিহ্ন মানে এই ফাইল থেকে কিছু গেলে সেটা এভাবে দেখাবে। সাথে সময়ও লেখা থাকে।'],['+++ filename-new.txt  2025-03-06 22:47:24','নতুন ফাইল। `+` চিহ্ন মানে এই ফাইলে নতুন কিছু এসেছে।'],['@@ -1 +1,2 @@','ঠিকানা: পুরোনো ফাইলের ১ নম্বর লাইন মিলিয়ে দেখো, নতুনে সেটা ১ নম্বর থেকে ২টা লাইন।'],[' This is my first line of code','শুরুতে ফাঁকা ঘর মানে এই লাইন বদলায়নি। শুধু প্রসঙ্গ বোঝাতে আছে।'],['+This is my fix','শুরুতে + মানে নতুন লাইন যোগ হয়েছে। এটাই আসল বদল!']];
+    const e=h(`<div class="card" style="display:grid;gap:7px"><h4>change.diff পড়তে শেখো (যেকোনো লাইনে চাপো)</h4><div class="dl">${L.map((x,i)=>`<button type="button" data-i="${i}" style="color:${x[0][0]==='+'&&i>1?'var(--termg)':'var(--termfg)'}">${esc(x[0])}</button>`).join('')}</div><p class="exp"></p></div>`);
+    const bs=[...e.querySelectorAll('.dl button')],ex=$('.exp',e);
+    const sel=i=>{bs.forEach((b,k)=>b.classList.toggle('on',k===i));ex.innerHTML=fmt(L[i][1])};
+    bs.forEach((b,i)=>b.onclick=()=>sel(i));sel(4);return e;
+  },
+  dotgit(){
+    const F={'HEAD':'এখন তুমি কোন branch-এ আছ, তার ঠিকানা। যেমন: ref: refs/heads/master। branch বদলালে এই ফাইল বদলায়।','config':'এই repo-র নিজস্ব সেটিং। remote-এর ঠিকানাও এখানে লেখা থাকে।','description':'repo-র ছোট বর্ণনা। সাধারণত ব্যবহার হয় না।','objects/':'আসল ভাণ্ডার! প্রতিটা ফাইলের কনটেন্ট আর commit এখানে compress করে hash নামে রাখা হয়। ক্লাসে cat দিয়ে খুলে হিজিবিজি দেখানো হয়েছিল।','refs/':'প্রতিটা branch কোন commit-এ দাঁড়িয়ে আছে, তার তালিকা (refs/heads/...)।','hooks/':'স্বয়ংক্রিয় স্ক্রিপ্ট। যেমন commit-এর আগে test চালানো। CI/CD-তে এই ধারণা কাজে লাগে।','info/':'এই মেশিনের নিজস্ব ignore তালিকা (info/exclude)।','branches/':'পুরোনো দিনের ফোল্ডার। এখন প্রায় খালিই থাকে।'};
+    const k=Object.keys(F);
+    const e=h(`<div class="card"><h4>.git ফোল্ডারের ভেতরে কী আছে? (চেপে দেখো)</h4><div class="files">${k.map((x,i)=>`<button type="button" data-i="${i}">${x}</button>`).join('')}</div><p class="exp"></p><p class="note" style="margin-top:8px">.git মুছে ফেললে পুরো ইতিহাস শেষ। তাই এই ফোল্ডারে হাত দিয়ে কিছু বদলাবে না, শুধু দেখবে।</p></div>`);
+    const bs=[...e.querySelectorAll('.files button')],ex=$('.exp',e);const sel=i=>{bs.forEach((b,x)=>b.classList.toggle('on',x===i));ex.textContent=F[k[i]]};
+    bs.forEach((b,i)=>b.onclick=()=>sel(i));sel(3);return e;
+  },
+  tools(){
+    const T={Windows:{gui:'Sourcetree, TortoiseGit',ins:'https://git-scm.com/downloads অথবা desktop.github.com',note:'ক্লাসে বলা হয়েছে Windows ব্যবহারকারীদের Linux-এর জন্য virtual machine লাগবে। শুধু Git শিখতে Git Bash-ও চলে, যেটা Git for Windows-এর সাথে আসে।'},Mac:{gui:'GitHub Desktop, SourceTree, Tower (paid)',ins:'desktop.github.com অথবা git-scm.com/download/mac',note:'Terminal থেকে ক্লাসের কমান্ডগুলো একইভাবে চলবে।'},Linux:{gui:'GitKraken, Tower (paid)',ins:'sudo apt install git',note:'ক্লাসে শিক্ষক এটাই ব্যবহার করেছেন (Ubuntu)। কোর্সের ফোকাসও Linux।'}};
+    const e=h(`<div class="card" style="display:grid;gap:6px"><h4>তোমার মেশিন কোনটা?</h4><div class="tabs">${Object.keys(T).map((k,i)=>`<button type="button" class="tab ${i===0?'on':''}" data-k="${k}">${k}</button>`).join('')}</div><div class="meta"></div><p class="exp"></p></div>`);
+    const ren=k=>{e.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.k===k));$('.meta',e).innerHTML=`<b>ইনস্টল</b><code style="overflow-wrap:anywhere">${T[k].ins}</code><b>GUI টুল</b><span>${T[k].gui}</span>`;$('.exp',e).textContent=T[k].note};
+    e.querySelectorAll('.tab').forEach(t=>t.onclick=()=>ren(t.dataset.k));ren('Windows');return e;
+  },
+  seq(){
+    const steps={add:{f:0,t:1,l:'git add',d:'ফাইলকে টেবিল থেকে ছবির লাইনে তোলে। মানে: "এই বদলটা পরের ছবিতে থাকবে।"'},commit:{f:1,t:2,l:'git commit',d:'লাইনে যারা আছে, তাদের ছবি তুলে নিজের অ্যালবামে রাখে। ইন্টারনেট লাগে না।'},push:{f:2,t:3,l:'git push',d:'নিজের অ্যালবামের নতুন ছবি GitHub-এ পাঠায়। এবার দলের সবাই দেখতে পাবে।'},pull:{f:3,t:2,l:'git pull',d:'GitHub-এ অন্যরা যা পাঠিয়েছে, সেটা নিজের কাছে নামিয়ে আনে।'},checkout:{f:2,t:0,l:'git checkout',d:'অ্যালবাম থেকে একটা branch-এর ছবি বের করে টেবিলে সাজিয়ে দেয়।'}};
+    const X=[95,265,435,625],Y={add:95,commit:135,push:175,pull:215,checkout:255};
+    const col=['#3F5BB5','#0B7F7B','#4E9A3B','#E8622A'],nm=[['working','directory'],['staging','area'],['local','repo'],['remote','repo']];
+    let s=`<svg viewBox="0 0 720 290" role="img" aria-label="Git workflow-এর চার ধাপের ছবি"><rect x="530" y="0" width="190" height="290" fill="var(--suntint)"/><text x="265" y="17" text-anchor="middle" font-size="17" style="fill:var(--ink)">Local</text><text x="625" y="17" text-anchor="middle" font-size="17" style="fill:var(--ink)">Remote</text>`;
+    X.forEach((x,i)=>{s+=`<path d="M${x} 66 V282" stroke="var(--mute)" stroke-width="2"/><rect x="${x-58}" y="26" width="116" height="42" rx="9" fill="${col[i]}"/><text x="${x}" y="43" text-anchor="middle" font-size="13.5" style="fill:#fff">${nm[i][0]}</text><text x="${x}" y="60" text-anchor="middle" font-size="13.5" style="fill:#fff">${nm[i][1]}</text>`});
+    Object.entries(steps).forEach(([k,o])=>{const a=X[o.f],b=X[o.t],y=Y[k],dir=b>a?1:-1;const lo=Math.min(a,b),hi=Math.max(a,b);
+      const pts=dir>0?`${lo},${y-13} ${hi-16},${y-13} ${hi},${y} ${hi-16},${y+13} ${lo},${y+13}`:`${hi},${y-13} ${lo+16},${y-13} ${lo},${y} ${lo+16},${y+13} ${hi},${y+13}`;
+      s+=`<g class="arr" data-k="${k}" tabindex="0" role="button" style="cursor:pointer"><polygon points="${pts}" fill="#CF1F6B" stroke="#1B1A3D" stroke-width="2"/><text x="${(a+b)/2}" y="${y+5}" text-anchor="middle" font-size="14" style="fill:#fff">${o.l}</text></g>`});
+    s+=`<g id="tok"><rect x="-32" y="-11" width="64" height="22" rx="5" fill="#F4B400" stroke="#1B1A3D" stroke-width="2"/><text y="5" text-anchor="middle" font-size="12" style="fill:#1B1A3D;font-family:var(--mono)">file.txt</text></g></svg>`;
+    const e=h(`<div style="display:grid;gap:8px"><div class="seq">${s}</div><div class="tabs">${Object.entries(steps).map(([k,o])=>`<button type="button" class="tab" data-k="${k}">${o.l}</button>`).join('')}</div><p class="exp"></p></div>`);
+    const tok=$('#tok',e);tok.style.transition='transform .85s cubic-bezier(.4,0,.2,1)';tok.style.transform=`translate(${X[0]}px,75px)`;
+    const go=k=>{const o=steps[k],y=Y[k];e.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.k===k));$('.exp',e).textContent=o.d;
+      tok.style.transition='none';tok.style.transform=`translate(${X[o.f]}px,${y}px)`;
+      requestAnimationFrame(()=>requestAnimationFrame(()=>{tok.style.transition='transform .85s cubic-bezier(.4,0,.2,1)';tok.style.transform=`translate(${X[o.t]}px,${y}px)`}))};
+    e.querySelectorAll('.tab').forEach(t=>t.onclick=()=>go(t.dataset.k));
+    e.querySelectorAll('.arr').forEach(g=>{g.onclick=()=>go(g.dataset.k);g.onkeydown=ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();go(g.dataset.k)}}});
+    setTimeout(()=>{$('.exp',e).textContent=steps.add.d;e.querySelector('.tab').classList.add('on')},0);
+    return e;
+  },
+  flow(){
+    return h(`<div class="seq"><svg viewBox="0 0 720 230" role="img" aria-label="main, dev, feature আর hotfix branch-এর সম্পর্ক">
+      <text x="10" y="50" font-size="14" style="fill:var(--ink)">main (production)</text>
+      <path d="M150 45 H700" stroke="var(--teal)" stroke-width="7"/>
+      <text x="10" y="115" font-size="14" style="fill:var(--ink)">dev (staging)</text>
+      <path d="M150 110 H700" stroke="var(--pink)" stroke-width="7"/>
+      <text x="10" y="180" font-size="14" style="fill:var(--ink)">feature/new-feature</text>
+      <path d="M270 110 C300 110,300 175,330 175 H450 C480 175,480 110,510 110" stroke="var(--orange)" stroke-width="6" fill="none"/>
+      <path d="M200 45 C225 45,225 10,250 10 H320 C345 10,345 45,370 45" stroke="var(--bad)" stroke-width="6" fill="none"/>
+      <text x="255" y="27" font-size="13" style="fill:var(--bad)">hotfix/fix-name</text>
+      <path d="M580 110 C605 110,605 45,630 45" stroke="var(--ink)" stroke-width="4" stroke-dasharray="6 5" fill="none"/>
+      <text x="610" y="84" font-size="12" style="fill:var(--ink)">test পাস হলে merge</text>
+      ${[200,370,630].map(x=>`<circle cx="${x}" cy="45" r="9" fill="var(--teal)" stroke="var(--ink)" stroke-width="3"/>`).join('')}
+      ${[190,270,510,580].map(x=>`<circle cx="${x}" cy="110" r="9" fill="var(--pink)" stroke="var(--ink)" stroke-width="3"/>`).join('')}
+      ${[350,420].map(x=>`<circle cx="${x}" cy="175" r="8" fill="var(--orange)" stroke="var(--ink)" stroke-width="3"/>`).join('')}
+    </svg></div>`);
+  },
+  ignore(){
+    const pats=['composer.lock','*.log','vendor/','public/storage','storage/*.key'];
+    const ex=['composer.lock','debug.log','logs/app.log','vendor/autoload.php','public/storage/a.png','public/index.php','storage/secret.key','storage/note.txt','app.sh'];
+    const e=h(`<div class="card" style="display:grid;gap:8px"><h4>.gitignore পরীক্ষাগার</h4><p>ক্লাসের স্লাইডের পাঁচটা নিয়ম নিচে আছে। ইচ্ছেমতো বদলাও, অথবা নিজের ফাইলের নাম লেখো।</p>
+      <label for="ignp"><b>.gitignore ফাইল</b></label><textarea id="ignp" class="txt" rows="5" spellcheck="false">${pats.join('\n')}</textarea>
+      <label for="ignf"><b>আরেকটা ফাইলের নাম</b></label><input id="ignf" class="txt" placeholder="যেমন: error.log" autocomplete="off"><div class="ign"></div></div>`);
+    const ren=()=>{const P=$('textarea',e).value.split('\n').map(x=>x.trim()).filter(x=>x&&!x.startsWith('#'));const v=$('#ignf',e).value.trim();
+      $('.ign',e).innerHTML=(v?[v]:[]).concat(ex).map(f=>{const y=P.find(p=>Sim.match(p,f));return `<div><span style="overflow-wrap:anywhere">${esc(f)}</span>${y?`<span class="tagy">push হবে না (${esc(y)})</span>`:'<span class="tagn">git দেখবে</span>'}</div>`}).join('')};
+    $('textarea',e).oninput=ren;$('#ignf',e).oninput=ren;ren();return e;
+  },
+};
+
+/* ============ Class 5 widgets ============ */
+W.rebaseVsMerge=function(){
+  const K={merge:{t:'git merge origin/main',art:'আগে:\n      D---E      feature\n     /\nA---B---C      main\n\nপরে:\n      D---E\n     /     \\\nA---B---C---M  feature',d:'দুই ইতিহাস এক হয়, M নামে নতুন commit। কিছুই বদলায় না। shared branch-এ নিরাপদ।',w:'যে branch অন্যরাও ব্যবহার করে।'},rebase:{t:'git rebase origin/main',art:'আগে:\n      D---E      feature\n     /\nA---B---C      main\n\nপরে:\nA---B---C---D\'---E\'  feature',d:'তোমার commit-গুলো main-এর মাথায় নতুন করে বসে। রেখা সোজা, কিন্তু D আর E-এর hash বদলে যায়।',w:'শুধু নিজের, push না করা branch।'}};
+  const e=h(`<div class="card" style="display:grid;gap:8px"><h4>একই অবস্থা, দুই রাস্তা</h4><div class="tabs"></div><div class="dns t-a"></div><p class="t-d"></p><p class="exp t-w"></p></div>`);
+  const tabs=$('.tabs',e);Object.entries(K).forEach(([k,o])=>tabs.append(h(`<button type="button" class="tab" data-k="${k}">${o.t}</button>`)));
+  const ren=k=>{e.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.k===k));$('.t-a',e).textContent=K[k].art;$('.t-d',e).textContent=K[k].d;$('.t-w',e).textContent='কোথায়: '+K[k].w};
+  tabs.onclick=ev=>{const b=ev.target.closest('.tab');if(b)ren(b.dataset.k)};ren('merge');return e;
+};
+W.yamlTour=function(){
+  const L=[['name: Update on Push and Merge','Workflow-এর নাম। Actions পাতায় এটাই দেখা যায়।'],['on:\n  push:\n    branches:\n      - main','কখন চলবে: main-এ push হলে। pull_request বা workflow_dispatch (হাতে চালানো) দিয়েও হয়।'],['jobs:\n  deploy:\n    runs-on: ubuntu-22.04','একটা কাজ, GitHub-এর দেওয়া Ubuntu মেশিনে চলবে।'],['    steps:\n      - name: Checkout code\n        uses: actions/checkout@v3','প্রথম ধাপ: repo-র কোড নামানো। uses মানে তৈরি করা action।'],['      - name: Setup SSH Key\n        run: |\n          echo "$SSH_PRIVATE_KEY" > private_key\n          chmod 600 private_key','run মানে নিজের shell কমান্ড। গোপন চাবি আসে GitHub Secrets থেকে, কোডে লেখা থাকে না।'],['      - name: Deploy\n        run: |\n          scp -r ./build/* user@server:/var/www/app\n          ssh user@server "sudo systemctl restart nginx"','আসল deploy: build ফাইল সার্ভারে কপি, তারপর Nginx restart।']];
+  const e=h(`<div class="card" style="display:grid;gap:7px"><h4>.github/workflows/cd.yml (অংশে চাপো; সরল করা উদাহরণ)</h4><div class="dl">${L.map((x,i)=>`<button type="button" data-i="${i}" style="white-space:pre-wrap">${esc(x[0])}</button>`).join('')}</div><p class="exp"></p></div>`);
+  const bs=[...e.querySelectorAll('.dl button')],ex=$('.exp',e);const sel=i=>{bs.forEach((b,k)=>b.classList.toggle('on',k===i));ex.textContent=L[i][1]};bs.forEach((b,i)=>b.onclick=()=>sel(i));sel(0);return e;
+};
+W.issueBoard=function(){
+  const C=['Planned','To do','In progress','Done'];const items=[{t:'GitHub Actions basics documentation',c:0},{t:'Bug: login পাতা খুলছে না',c:1,l:'bug'},{t:'Portfolio page review',c:2}];
+  const e=h(`<div class="card" style="display:grid;gap:8px"><h4>Project board: কার্ড বানাও, এক ঘর এগিয়ে দাও</h4><form style="display:flex;gap:6px;flex-wrap:wrap"><label for="isT" hidden>Issue title</label><input id="isT" class="txt" style="flex:1;min-width:160px" placeholder="নতুন issue-র শিরোনাম" autocomplete="off"><label for="isL" hidden>Label</label><select id="isL" class="txt" style="width:auto"><option value="">label নেই</option><option>bug</option><option>enhancement</option><option>documentation</option></select><button class="btn pri">Create</button></form><div class="zones" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr))"></div></div>`);
+  const ren=()=>{$('.zones',e).innerHTML=C.map((c,i)=>`<div class="zone"><h5>${c}</h5>${items.filter(x=>x.c===i).map(x=>`<button type="button" class="opt" data-t="${esc(x.t)}" style="font-size:13.5px;line-height:1.3;padding:3px 6px">${esc(x.t)}${x.l?` <b style="color:var(--bad)">${esc(x.l)}</b>`:''}${i<3?' →':''}</button>`).join('')}</div>`).join('')};
+  $('form',e).onsubmit=ev=>{ev.preventDefault();const t=$('#isT',e).value.trim();if(!t)return;items.push({t,c:0,l:$('#isL',e).value});$('#isT',e).value='';ren()};
+  $('.zones',e).onclick=ev=>{const b=ev.target.closest('.opt');if(!b)return;const x=items.find(i=>i.t===b.dataset.t);if(x&&x.c<3){x.c++;ren()}};ren();return e;
+};
+W.secTools=function(){
+  const T=[['Dependabot','পুরোনো বা ঝুঁকিপূর্ণ লাইব্রেরি খুঁজে আপডেটের PR খোলে।','Settings → Code security → Dependabot alerts'],['Code scanning (CodeQL)','কোডে দুর্বলতা খোঁজে, PR-এই সতর্ক করে।','Security → Code scanning → Configure'],['Secret scanning','ভুলে push হওয়া token, key ধরে।','Settings → Code security → Secret Protection'],['Secrets and variables','CI/CD-র পাসওয়ার্ড এনক্রিপ্টেড রাখে; কোডে লিখতে হয় না।','Settings → Secrets and variables → Actions'],['Environments','production, staging-এর আলাদা secret ও অনুমোদনের নিয়ম।','Settings → Environments'],['Insights','Commit history, contributor, traffic-এর হিসাব।','Insights ট্যাব'],['Code Owners','নির্দিষ্ট ফোল্ডারের রিভিউয়ার ঠিক করে দেয়।','repo-তে CODEOWNERS ফাইল'],['SonarQube','কোডের মান ও নিরাপত্তা বিশ্লেষণের আলাদা টুল (GitHub-এর না)। Actions-এ যুক্ত করা যায়।','ক্লাসে Actions-এর Security তালিকায় দেখানো']];
+  const Q=[['একটা library-তে নিরাপত্তা ত্রুটি ধরা পড়েছে','Dependabot'],['কেউ ভুলে API key push করেছে','Secret scanning'],['কোড merge-এর আগে SQL injection খুঁজতে চাই','Code scanning (CodeQL)'],['Action-এ সার্ভারের SSH চাবি দরকার','Secrets and variables']];
+  const e=h(`<div style="display:grid;gap:10px"><div class="duo">${T.map(([t,d,p])=>`<div class="card"><h4>${esc(t)}</h4><p>${esc(d)}</p><small style="color:var(--mute);display:block">${esc(p)}</small></div>`).join('')}</div><div class="card" style="display:grid;gap:5px"><h4>কোন পরিস্থিতিতে কোনটা? (আগে ভাবো)</h4>${Q.map(([q,a])=>`<button type="button" class="opt qq" style="display:grid"><span>${esc(q)}</span><b class="ans" hidden style="color:var(--pink)">${esc(a)}</b></button>`).join('')}</div></div>`);
+  e.querySelectorAll('.qq').forEach(b=>b.onclick=()=>{const x=$('.ans',b);x.hidden=!x.hidden});return e;
+};
+
+W.relFlow=function(){
+  const S=[['ধাপ ১: ফিচার',['Dev Branch','Feature branch','Commit changes','Checkout Dev Branch','Merge to dev branch','Delete feature branch']],['ধাপ ২: Release প্রস্তুতি',['Checkout dev branch','Create release branch (release/1.0.0)','Add version specific file','Commit changes in release branch']],['ধাপ ৩: Production',['Checkout main branch','Merge release branch','Add release tag','Push tag to upstream']],['ধাপ ৪: গোছানো',['Checkout dev branch','Merge release branch','Delete release branch']]];
+  return h(`<div style="display:grid;gap:7px">${S.map(([t,l])=>`<div class="card"><h4>${t}</h4><div class="chips">${l.map((x,i)=>`<span class="chip" style="font-family:var(--body);font-size:14px">${i?'→ ':''}${esc(x)}</span>`).join('')}</div></div>`).join('')}</div>`);
+};
+
+
+/* ============ Class 5 chapters ============ */
+const ID=['git config --global user.name "Rafi Ahmed"','git config --global user.email "rafi@kathal.example"'];
+const REPO=[...ID,'mkdir gitpage','cd gitpage','git init','echo "<h1>DIPTI Batch 5</h1>" > index.html','git add .','git commit -m "Starting for Batch 5"','git branch -M main','git remote add origin git@github.com:rafi/rafi.github.io.git','git push -u origin main','git checkout -b dev','git push -u origin dev'];
+const ok=(f)=>s=>{try{return !!f(s)}catch(e){return false}};
+const CH=[
+{id:'week-five',title:'পঞ্চম সপ্তাহ: GitHub-এর দুনিয়া',topic:'আজকের লক্ষ্য, GitHub কী, ক্লাসের প্রজেক্ট',time:'00:00 – 05:00',cmds:['git clone','git push','git pull'],
+ scene:{a:{rafi:['person',130,252],tonni:['person',670,252],cloud:['cloud',400,140,{t:'GitHub',n:''}],t:['tag',400,235,{n:'Git ≠ GitHub',c:'#FFD25E'}]},
+  b:[{s:'tonni',t:'রাফি, এতদিন Git শিখলে। আজ GitHub-কে কাজে লাগাবে: একটা আসল ওয়েবসাইট, দলবেঁধে বানাবে।'},
+     {s:'rafi',t:'GitHub তো শুধু কোড রাখার জায়গা, না?'},
+     {s:'tonni',t:'তার চেয়ে অনেক বেশি। Pull Request, Issue, Project board, Actions, নিরাপত্তা। একটা পুরো কর্মশালা।',m:{t:{n:'PR · Issue · Actions · Security'}}},
+     {s:'rafi',t:'আমাদের কাজটা কী?'},
+     {s:'tonni',t:'দলের GitHub Pages সাইটে নিজের নামে একটা পাতা। branch বানাও, পাতা বানাও, dev-এ merge করো, conflict মেটাও, তারপর main-এ পাঠাও।',m:{t:{n:'নিজের পাতা → সাইটে লাইভ',c:'#BDF2D2'}}}]},
+ why:'আসল চাকরির কাজ এটাই: একই repo-তে অনেকে, প্রত্যেকের আলাদা branch, এক জায়গায় মেলানো। ক্লাসে এটা সত্যিকারের একটা সাইটে করে দেখানো হয়েছে।',
+ where:'অফিসের সব প্রজেক্ট। GitHub-এর বিকল্প হিসেবে BitBucket আর GitLab-ও আছে; ধারণা একই।',
+ cards:[{t:'আজকের লক্ষ্য (স্লাইড ২)',l:['GitHub কী, এর সাথে কীভাবে কাজ করবে','Remote repository কী','Remote repo ব্যবহার, নতুন বদল fetch, local আপডেট','Pull-merge-push দিয়ে conflict সামলানো','Remote branch push: সহকর্মীরা দেখবে ও পরীক্ষা করবে','Rebasing কী','Git workflow: Git ব্যবহারের একটা মান পদ্ধতি','GitHub-এর collaboration ও CI/CD ফিচার']},
+  {t:'ক্লাসের Task (repo-র README)',l:['ধাপ ১: নিজের নামে branch বানাও','ধাপ ২: sample.html কপি করো','ধাপ ৩: পাতায় My Name-এর জায়গায় নিজের নাম দাও','ধাপ ৪: branch-কে dev-এ merge করো, conflict মেটাও','ধাপ ৫: index.html-এ নিজের পাতার লিংক দাও','ধাপ ৬: branch push করে main-এ merge, upstream-এ push। হোম পেজে নতুন লিংক দেখা যাবে']}],
+ quiz:[{q:'কোনটা GitHub-এর মতো সেবা?',o:['BitBucket ও GitLab','Nginx ও Apache','Linux ও Windows'],a:0,e:'স্লাইডে এই তিনটার নাম আছে।'},
+  {q:'`git pull` কী করে?',o:['রিমোটের নতুন কাজ এনে local আপডেট করে','local কাজ রিমোটে পাঠায়','repo মুছে ফেলে'],a:0,e:'push পাঠায়, pull আনে।'}]},
+
+{id:'remote-anatomy',title:'রিমোটের ঠিকুজি',topic:'remote -v, .git/config, remote show, branch -r, cache',time:'06:30 – 10:00',cmds:['git remote -v','git remote show origin','git branch -r','cat .git/config','git config --global credential.helper cache'],
+ scene:{a:{rafi:['person',120,252],shelf:['shelf',300,252,{n:'.git/config'}],cloud:['cloud',610,130,{n:'origin'}],t:['tag',440,240,{n:'url = git@github.com:...',c:'#FFD25E'}]},
+  b:[{s:'rafi',t:'origin বলি, কিন্তু আসলে কম্পিউটার জানে কোথায় পাঠাতে হবে কীভাবে?'},
+     {t:'.git/config ফাইলে লেখা আছে! [remote "origin"] আর তার নিচে url। ক্লাসে cat দিয়ে খুলে দেখানো হয়েছে।'},
+     {t:'[branch "main"] অংশে লেখা: remote = origin, merge = refs/heads/main। তাই শুধু git push দিলেই চলে।',m:{t:{n:'[branch "main"] remote = origin'}}},
+     {s:'rafi',t:'রিমোটে কী কী branch আছে? git branch -r।'},
+     {s:'rafi',t:'আর একসাথে সব: git remote show origin। কোনটা ট্র্যাক হচ্ছে, কোনটা পুরোনো, সব লেখা।',m:{t:{n:'git remote show origin',c:'#BDF2D2'}}},
+     {t:'HTTPS-এ প্রতিবার token দিতে বিরক্ত? git config --global credential.helper cache কিছুক্ষণের জন্য মনে রাখে।'}]},
+ why:'যখন push অন্য জায়গায় যাচ্ছে বা branch ট্র্যাক হচ্ছে না, উত্তর এখানেই থাকে। ফাইলটা খোলার সাহস থাকলে Git অনেক কম রহস্যময় লাগে।',
+ where:'সার্ভারে clone করা repo ঠিক কোন remote থেকে এসেছে দেখা, HTTPS থেকে SSH-এ বদলানো, CI-তে credential সমস্যা খোঁজা।',
+ commands:[['git remote -v','fetch ও push-এর ঠিকানা'],['git remote show origin','রিমোটের পুরো বিবরণ'],['git branch -r','শুধু রিমোটের branch'],['git branch -a','সব branch'],['git remote update','সব remote থেকে খবর আনে'],['git config --global credential.helper cache','HTTPS-এর পরিচয় কিছুক্ষণ মনে রাখে']],
+ note:'স্লাইডের Study guide: git remote তালিকা দেখায়, -v বিস্তারিত দেখায়, git remote show নাম একটার তথ্য দেখায়, git remote update আপডেট আনে, git fetch অন্য repo থেকে objects ও refs আনে, git branch -r রিমোটের branch দেখায়।',
+ term:{zones:0,setup:[...REPO,'__remote feature/header-section header.html "Add header" "<header>" Jamil'],missions:[
+  ['ঠিকানা দেখো','git remote -v',/^git remote -v/],
+  ['.git-এর ভেতরে দেখো','ls .git',/^(ls|ll).*\.git/],
+  ['config ফাইল পড়ো','cat .git/config',/^cat \.git\/config/],
+  ['রিমোটের বিবরণ দেখো (new লেখা branch খেয়াল করো)','git remote show origin',/^git remote show/],
+  ['খবর আনো','git fetch origin',ok(s=>s.repo.known['feature/header-section'])],
+  ['রিমোটের branch দেখো','git branch -r',/^git branch -r/],
+  ['credential cache চালু করো','git config --global credential.helper cache',s=>s.cfg['credential.helper']==='cache']]},
+ quiz:[{q:'remote-এর URL আসলে কোথায় লেখা থাকে?',o:['.git/config','README.md','.gitignore'],a:0,e:'cat .git/config দিয়ে দেখা যায়।'},
+  {q:'`git branch -r` কী দেখায়?',o:['রিমোটের branch','মুছে ফেলা branch','শুধু নিজের branch'],a:0,e:'-a দিলে সব।'}]},
+
+{id:'pull-merge-push',title:'নিয়ম: আগে আনো, পরে পাঠাও',topic:'fetch, log origin/main, merge, pull, Best practices',time:'06:30, 15:00, 39:30',cmds:['git log -p -1','git log origin/main','git merge origin/main','git pull','git pull origin main'],
+ scene:{a:{rafi:['person',110,252],jamil:['person',700,252],cloud:['cloud',400,120,{n:'origin/main'}],t:['tag',400,225,{n:'push rejected',c:'#FFC7C7',hide:1}]},
+  b:[{s:'rafi',t:'সকালে এসেই কাজ শুরু করলাম, বিকালে push দিলাম। rejected!',m:{t:{hide:false}}},
+     {t:'জামিল সকালে push করেছিল। রাফির ইতিহাস পুরোনো। স্লাইডের প্রথম নিয়ম: নিজের কাজ শুরুর আগে branch মিলিয়ে নাও।'},
+     {s:'jamil',t:'আগে git fetch। তারপর git log origin/main দিয়ে দেখো কী এসেছে, মেলানোর আগেই।',m:{t:{n:'git fetch + git log origin/main',c:'#FFD25E'}}},
+     {s:'rafi',t:'ঠিক আছে। git merge origin/main। conflict নেই, সব মিলে গেল।',m:{t:{n:'git merge origin/main',c:'#BDF2D2'}}},
+     {t:'git pull হলো fetch আর merge একসাথে। দেখে নিতে না চাইলে এক কমান্ডে হয়।',m:{t:{n:'pull = fetch + merge'}}},
+     {s:'rafi',t:'এবার git push। গেছে! এটাই Pull-Merge-Push।'}]},
+ why:'দলে কাজে সবচেয়ে বেশি যে সমস্যা, সেটার ওষুধ এই অভ্যাস। ছোট ছোট বদল, নিয়মিত pull: conflict ছোট থাকে।',
+ where:'প্রতিটা কাজের শুরুতে আর push-এর আগে। ক্লাসে একজন শিক্ষার্থী নিজের Windows মেশিন থেকে (Git Bash) ঠিক এভাবে push করে দেখিয়েছেন; Windows-এও কমান্ড একই।',
+ commands:[['git log -p -1','সর্বশেষ commit-এর পরিবর্তন'],['git log origin/main','রিমোটের main-এর ইতিহাস'],['git merge origin/main','রিমোটের কাজ বর্তমান branch-এ'],['git pull','fetch + merge'],['git pull origin main','নির্দিষ্ট branch থেকে'],['git rebase origin/main','merge-এর বিকল্প (পরের অধ্যায়ে)']],
+ cards:[{t:'Best practices for collaboration (স্লাইড ১০)',l:['কাজের আগে branch মিলিয়ে নাও: git pull origin, তারপর git rebase origin/main অথবা git pull origin main','অনেক ফাইল ছুঁয়ে যাওয়া বিশাল বদল এড়িয়ে চলো','ছোট ছোট commit করো','Feature branch-কে শেষে সহজে মেলাতে main-এর বদল নিয়মিত feature-এ আনো: git rebase origin/main বা git merge origin/main']}],
+ term:{zones:1,graph:1,setup:REPO,missions:[
+  ['dev-এ একটা বদল commit করো','echo "<p>Rafi</p>" >> index.html && git commit -am "Add my line"',ok(s=>s.commits[s.repo.refs.dev].msg==='Add my line')],
+  ['push করো: জামিল এর মধ্যে push করেছে','git push',(s,c)=>/^git push$/.test(c)&&!s.ok,'__remote dev jamil.html "Jamil page" "<p>Jamil</p>" Jamil'],
+  ['খবর আনো','git fetch origin',ok(s=>s.repo.known.dev)],
+  ['status দেখো','git status',/^git status/],
+  ['রিমোটের ইতিহাস দেখো, মেলানোর আগেই','git log origin/dev --oneline',/^git log.*origin\/dev/],
+  ['মেলাও','git merge origin/dev',ok(s=>s.f('jamil.html')!=null)],
+  ['সর্বশেষ commit-এর পরিবর্তন দেখো','git log -p -1',/^git log -p -1/],
+  ['এবার push','git push',ok(s=>s.servers[s.repo.remotes.origin].refs.dev===s.repo.refs.dev)],
+  ['গ্রাফ দেখো','git log --oneline --graph',/^git log.*--graph/]]},
+ quiz:[{q:'কাজ শুরুর আগে প্রথম করণীয়?',o:['রিমোটের সাথে branch মিলিয়ে নেওয়া','push --force','branch মোছা'],a:0,e:'স্লাইডের প্রথম Best practice।'},
+  {q:'merge করার আগে রিমোটের কাজ দেখতে?',o:['git fetch, তারপর git log origin/main','git push','git reset --hard'],a:0,e:'pull দিলে সাথে সাথে মিলে যায়, দেখার সুযোগ পাও না।'},
+  {q:'স্লাইড অনুযায়ী কোনটা ভালো অভ্যাস?',o:['ছোট ছোট commit','সপ্তাহে একটা বিশাল commit','main-এ সরাসরি সব'],a:0,e:'ছোট বদল রিভিউ ও merge সহজ করে।'}]},
+
+{id:'site-task',title:'নিজের নামে একটা পাতা',topic:'ক্লাসের Task: branch, পাতা, লিংক, dev হয়ে main, GitHub Pages',time:'15:00 – 21:00, 33:00 – 38:00',cmds:['git checkout -b xyz','cp sample.html','git push origin xyz','git merge --no-ff xyz','git push origin dev'],
+ scene:{a:{rafi:['person',90,252],a1:['tag',260,70,{n:'rafi (branch)',c:'#FBC8DD'}],a2:['tag',440,140,{n:'dev',c:'#FFD8C2',hide:1}],a3:['tag',620,200,{n:'main → সাইট লাইভ',c:'#BDF2D2',hide:1}],f:['file',260,252,{n:'rafi.html',cls:'gold'}]},
+  b:[{t:'দলের সাইট, সবাই একটা করে পাতা যোগ করবে। রাফি নিজের নামে branch বানাল, sample.html কপি করে নাম দিল rafi.html।'},
+     {s:'rafi',t:'VS Code-এ খুলে My Name বদলালাম। git add, commit, git push origin rafi।'},
+     {t:'Terminal-এ একটা লিংক এল: "Create a pull request for rafi on GitHub by visiting..."। GitHub নিজেই বলে দিচ্ছে পরের ধাপ।',m:{a2:{hide:false}}},
+     {s:'rafi',t:'dev-এ গিয়ে git merge --no-ff rafi। তারপর git push origin dev।',m:{a1:{x:440,y:90,s:.8}}},
+     {s:'rafi',t:'এবার index.html-এর মেনুতে আমার লিংক দিতে হবে। কিন্তু সবাই তো ওই একই জায়গায় লিখবে!',m:{f:{cls:'bad',n:'index.html',x:440,y:252}}},
+     {t:'তাই index.html-এ ADD YOUR PAGE LINK BELOW চিহ্নিত অংশে সবাই লিখেছে, আর conflict এলে হাতে মিটিয়েছে। এটাই ধাপ ৪-এর "Resolve conflict if any"।',m:{f:{cls:'good'}}},
+     {s:'rafi',t:'শেষে main-এ merge করে push। GitHub Pages নিজে থেকে আপডেট হলো। সাইটের মেনুতে আমার নাম!',m:{a3:{hide:false}}}]},
+ why:'একসাথে সব শেখা হয়: branch, merge, conflict, push, আর push করলেই সাইট আপডেট, যেটা CI/CD-র সহজতম রূপ।',
+ where:'যেকোনো দলের ওয়েব প্রজেক্ট। তুমি এখন যে পাতায় আছ, সেটাও GitHub Pages-এই চলছে!',
+ commands:[['git checkout -b xyz','নিজের নামে branch'],['cp sample.html xyz.html','নমুনা পাতা কপি'],['git push origin xyz','নিজের branch রিমোটে'],['git checkout dev  তারপর git merge --no-ff xyz','dev-এ আনা'],['git push origin dev','dev রিমোটে'],['git checkout main  তারপর git merge --no-ff dev  তারপর git push','production-এ']],
+ note:'ক্লাসের লাইভ শিক্ষা: dev-এ শুধু git push দিয়ে "fatal: The current branch dev has no upstream branch" এসেছিল, git push origin dev দিয়ে ঠিক হয়েছে। আরেক জায়গায় git branch dev দিয়ে "a branch named dev already exists" এসেছে: বানাতে নয়, যেতে চাইলে checkout। এক শিক্ষার্থী HTTPS-এ username ও password চাইতে দেখেছিলেন; তখন token লাগে।',
+ term:{zones:1,graph:1,setup:[...REPO,'echo "<h1>My Name</h1>" > sample.html','git add .','git commit -m "Sample page added"','git push'],missions:[
+  ['নিজের নামে branch বানাও','git checkout -b xyz',ok(s=>s.repo.head==='xyz')],
+  ['নমুনা কপি করো','cp sample.html xyz.html',s=>s.f('xyz.html')!=null],
+  ['পাতায় নিজের নাম দাও','echo "<h1>Rafi Ahmed</h1>" > xyz.html',s=>(s.f('xyz.html')||'').includes('Rafi')],
+  ['add ও commit করো','git add . && git commit -m "XYZ page added"',ok(s=>'xyz.html' in s.tree(s.repo))],
+  ['নিজের branch push করো: PR-এর লিংক দেখো','git push origin xyz',ok(s=>s.servers[s.repo.remotes.origin].refs.xyz)],
+  ['dev-এ যাও','git checkout dev',ok(s=>s.repo.head==='dev')],
+  ['--no-ff দিয়ে আনো','git merge --no-ff xyz',ok(s=>s.repo.refs.dev!==s.repo.refs.xyz&&s.f('xyz.html')!=null)],
+  ['dev push করো','git push origin dev',ok(s=>s.servers[s.repo.remotes.origin].refs.dev===s.repo.refs.dev)],
+  ['সহপাঠীও index.html বদলেছে: তোমার লিংক লিখে commit করো','echo "<a href=xyz.html>Rafi</a>" >> index.html && git commit -am "Add my link"',ok(s=>s.commits[s.repo.refs.dev].msg==='Add my link')],
+  ['খবর আনো','git fetch origin',ok(s=>s.repo.known.dev!==s.repo.refs.dev),'__remote dev index.html "Add Shahed link" "<a href=shahed.html>Shahed</a>" Shahed'],
+  ['মেলাও: conflict!','git merge origin/dev',ok(s=>s.repo.merge&&s.repo.merge.conf.length)],
+  ['দুটো লিংকই রেখে ফাইল ঠিক করো','echo "<a href=xyz.html>Rafi</a><a href=shahed.html>Shahed</a>" > index.html',ok(s=>!/<<<<<<</.test(s.f('index.html')))],
+  ['add ও commit করো','git add . && git commit -m "Resolve menu conflict"',ok(s=>!s.repo.merge)],
+  ['dev push করো','git push origin dev',ok(s=>s.servers[s.repo.remotes.origin].refs.dev===s.repo.refs.dev)],
+  ['main-এ আনো','git checkout main && git merge --no-ff dev',ok(s=>s.repo.head==='main'&&s.f('xyz.html')!=null)],
+  ['সাইট লাইভ করো: main push','git push',ok(s=>s.servers[s.repo.remotes.origin].refs.main===s.repo.refs.main)]]},
+ quiz:[{q:'"The current branch dev has no upstream branch" এলে?',o:['git push origin dev (বা -u দিয়ে)','git init','repo মুছে আবার clone'],a:0,e:'-u দিলে পরের বার শুধু git push চলে।'},
+  {q:'`git branch dev` দিলে "already exists"। dev-এ যেতে চাইলে?',o:['git checkout dev','git branch -D dev','git push'],a:0,e:'git branch বানায়, checkout যায়।'}]},
+
+{id:'rebase-line',title:'রেখা সোজা করা',topic:'git rebase, conflict সহ --continue, নিরাপত্তার নিয়ম',time:'10:30, 21:00, 32:30',cmds:['git rebase main','git rebase origin/main','git rebase --continue','git rebase --abort','git log --graph --oneline --all','git push --delete origin'],
+ scene:{a:{rafi:['person',90,252],m:['branchline',440,90,{n:'main',c:'#0B7F7B'}],f:['branchline',480,190,{n:'refactor',c:'#CF1F6B'}],a1:['dot',350,90,{c:'#0B7F7B',n:'B'}],a2:['dot',500,90,{c:'#0B7F7B',n:'C'}],d1:['dot',450,190,{c:'#CF1F6B',n:'D'}],e1:['dot',560,190,{c:'#CF1F6B',n:'E'}]},
+  b:[{s:'rafi',t:'refactor branch-এ D আর E করলাম। এর মধ্যে main-এ C এসেছে। merge দিলে গ্রাফে একটা শাখা-প্রশাখা তৈরি হবে।'},
+     {t:'Rebase ভিন্নভাবে ভাবে: "আমি যেন আজকের main থেকেই কাজটা শুরু করেছিলাম।" তোমার commit খুলে নিয়ে main-এর মাথায় আবার বসায়।'},
+     {s:'rafi',t:'git checkout refactor, তারপর git rebase main।',m:{d1:{x:610,y:90},e1:{x:710,y:90},f:{hide:true}}},
+     {t:'রেখা সোজা! কিন্তু D আর E এখন নতুন commit, hash আলাদা। তাই শেষে main-এ merge দিলে Fast-forward হয়।'},
+     {s:'rafi',t:'যদি মাঝপথে conflict হয়?'},
+     {t:'Git থামে। ফাইল ঠিক করো, git add করো, তারপর git rebase --continue। ভয় পেলে git rebase --abort।'},
+     {t:'সোনার নিয়ম: অন্যরা যে branch নিয়ে কাজ করছে, সেটা rebase করো না। তাদের ইতিহাসের সাথে আর মিলবে না।'}]},
+ why:'সোজা ইতিহাস পড়া, bug খোঁজা আর রিভিউ সহজ করে। তবে ইতিহাস বদলায়, তাই ভুল জায়গায় দিলে দলের সমস্যা হয়।',
+ where:'নিজের feature branch-কে main-এর সাথে হালনাগাদ রাখা, PR-এর আগে গোছানো। GitHub-এর "Rebase and merge" বোতামও এই ধারণা।',
+ commands:[['git checkout refactor  তারপর git rebase main','refactor-এর commit main-এর মাথায়'],['git log --graph --oneline --all','সব branch-এর ছবি'],['git checkout main  তারপর git merge refactor','এবার Fast-forward'],['git push --delete origin refactor','রিমোটের branch মোছে'],['git branch -d refactor','local branch মোছে'],['git rebase origin/main','রিমোটের main-এর ওপর বসায়'],['git add ফাইল  তারপর git rebase --continue','conflict মিটিয়ে এগোয়']],
+ widget:'rebaseVsMerge',widgetTitle:'Merge বনাম Rebase',
+ tip:'ক্লাসে dev-এ git rebase origin/dev চালিয়ে "Successfully rebased and updated refs/heads/dev" দেখানো হয়েছে। তার পরে শুধু git push দিতে গেলে রিমোটের সাথে ইতিহাস আলাদা হলে rejected হয় (ক্লাসের বাইরের কথা), তখন --force-with-lease লাগে; তাই নিজের branch ছাড়া rebase নয়।',
+ term:{zones:0,graph:1,setup:[...REPO.slice(0,8),'git branch -M main','echo "def check(): pass" > health_checks.py','git add .','git commit -m "Add health checks"','git remote add origin git@github.com:rafi/ops.git','git push -u origin main','git checkout -b refactor','echo "a" > a.py','git add .','git commit -m "Refactor D"','echo "b" > b.py','git add .','git commit -m "Refactor E"','git checkout main','echo "c" > c.py','git add .','git commit -m "Main C"'],missions:[
+  ['main আপ-টু-ডেট করো','git pull',/^git pull/],
+  ['সব branch-এর ছবি দেখো','git log --graph --oneline --all',/^git log.*--graph/],
+  ['refactor-এ যাও','git checkout refactor',ok(s=>s.repo.head==='refactor')],
+  ['main-এর ওপর বসাও','git rebase main',ok(s=>s.commits[s.repo.refs.refactor].parents[0]!==undefined&&s.anc(s.repo.refs.refactor).has(s.repo.refs.main))],
+  ['ছবি দেখো: সোজা','git log --graph --oneline --all',/^git log.*--graph/],
+  ['main-এ ফিরে আনো: Fast-forward','git checkout main && git merge refactor',ok(s=>s.repo.head==='main'&&s.repo.refs.main===s.repo.refs.refactor)],
+  ['branch মুছে দাও','git branch -d refactor',ok(s=>!s.repo.refs.refactor)],
+  ['push করো','git push',ok(s=>s.servers[s.repo.remotes.origin].refs.main===s.repo.refs.main)],
+  ['স্লাইডের দ্বিতীয় উদাহরণ: health_checks.py বদলাও','echo "def check(): return 1" > health_checks.py && git commit -am "Add a simple network connectivity check"',ok(s=>s.commits[s.repo.refs.main].msg.startsWith('Add a simple'))],
+  ['খবর আনো: জামিলও একই ফাইল বদলেছে','git fetch',ok(s=>s.repo.known.main!==s.repo.refs.main),'__remote main health_checks.py "Jamil check" "def check(): return 2" Jamil'],
+  ['rebase করো: conflict','git rebase origin/main',ok(s=>s.repo.rb&&s.repo.rb.conf)],
+  ['ফাইল ঠিক করো','echo "def check(): return 2 or 1" > health_checks.py',ok(s=>!/<<<<<<</.test(s.f('health_checks.py')))],
+  ['add করো','git add health_checks.py',ok(s=>!/<<<<<<</.test(s.repo.index['health_checks.py']))],
+  ['এগিয়ে যাও','git rebase --continue',ok(s=>!s.repo.rb)],
+  ['ছবি দেখো','git log --graph --oneline',/^git log.*--graph/],
+  ['push করো','git push',ok(s=>s.servers[s.repo.remotes.origin].refs.main===s.repo.refs.main)]]},
+ quiz:[{q:'Rebase-এর পর commit-এর hash-এর কী হয়?',o:['বদলে যায়','একই থাকে','মুছে যায়'],a:0,e:'তাই shared branch-এ rebase ঝুঁকিপূর্ণ।'},
+  {q:'Rebase-এ conflict মিটিয়ে পরের কমান্ড?',o:['git add, তারপর git rebase --continue','git commit --amend','git merge --abort'],a:0,e:'ভয় পেলে --abort।'},
+  {q:'কোন branch-এ rebase করা ঠিক না?',o:['যেটা অন্যরাও ব্যবহার করছে','নিজের অপ্রকাশিত branch','কোনোটাই না'],a:0,e:'অন্যদের ইতিহাসের সাথে অমিল হয়।'}]},
+
+{id:'ssh-key',title:'দরজার চাবি',topic:'SSH key: বানানো, agent, GitHub-এ যোগ, HTTPS বনাম SSH',time:'07:30, 23:00, 39:00',cmds:['ssh-keygen','eval "$(ssh-agent -s)"','ssh-add','pbcopy','ssh -T git@github.com'],
+ scene:{a:{rafi:['person',110,252],k:['tag',300,190,{n:'id_rsa (গোপন)',c:'#FFC7C7',hide:1}],p:['tag',300,110,{n:'id_rsa.pub',c:'#BDF2D2',hide:1}],cloud:['cloud',620,130,{n:'GitHub'}],t:['tag',450,250,{n:'প্রতিবার token?',c:'#FFD25E'}]},
+  b:[{s:'rafi',t:'প্রতিবার token দিতে দিতে ক্লান্ত। শিক্ষকের push-এ তো কিছুই চায় না!'},
+     {t:'কারণ SSH key। একজোড়া চাবি: একটা গোপন (id_rsa), একটা প্রকাশ্য (id_rsa.pub)।',m:{k:{hide:false},p:{hide:false},t:{n:'ssh-keygen'}}},
+     {s:'rafi',t:'প্রকাশ্য চাবি GitHub-এ দিলে চুরি হবে না?'},
+     {t:'না। প্রকাশ্য চাবি শুধু তালা, খুলতে পারে কেবল তোমার গোপন চাবি। গোপনটা কখনো কাউকে দেবে না।',m:{p:{x:620,y:190,s:.8},t:{n:'.pub যায় GitHub-এ'}}},
+     {s:'rafi',t:'ssh-add দিয়ে agent-এ দিলাম, GitHub-এ .pub বসালাম। ssh -T git@github.com: Hi rafi!',m:{t:{n:'successfully authenticated',c:'#BDF2D2'}}}]},
+ why:'SSH key একবার বসালে আর পরিচয় দিতে হয় না, আর পাসওয়ার্ডের চেয়ে নিরাপদ। সার্ভারের কাজে প্রায় সবখানে SSH।',
+ where:'নিজের ল্যাপটপ, deploy সার্ভার, CI/CD। ক্লাসে দেখানো cd.yml-ও SSH দিয়ে সার্ভারে deploy করে।',
+ commands:[['ssh-keygen -t rsa -b 4096 -C "your_email@example.com"','চাবির জোড়া বানায়; GitHub-এর ইমেইল দাও'],['eval "$(ssh-agent -s)"','SSH agent চালু করে'],['ssh-add ~/.ssh/id_rsa','গোপন চাবি agent-এ দেয়'],['pbcopy < ~/.ssh/id_rsa.pub','(macOS) প্রকাশ্য চাবি কপি। Linux-এ cat দিয়ে দেখে কপি করো'],['GitHub → Settings → SSH and GPG keys','New SSH key-তে paste করো'],['ssh -T git@github.com','সংযোগ পরীক্ষা (ক্লাসের বাইরের কমান্ড, কিন্তু দরকারি)']],
+ note:'ক্লাসের বাইরের কথা: GitHub এখন ed25519 key সুপারিশ করে: ssh-keygen -t ed25519 -C "email"। স্লাইডের RSA 4096-ও চলে। সিমুলেটরে আসল চাবি তৈরি হয় না, GitHub-এ key বসানোর ধাপটা আলাদা কমান্ড (gh-add-key) দিয়ে অভিনয় করা হয়েছে।',
+ term:{zones:0,setup:ID,missions:[
+  ['GitHub-এ চেষ্টা করো: হবে না','ssh -T git@github.com',(s,c)=>/^ssh -T/.test(c)&&!s.ok],
+  ['চাবি বানাও','ssh-keygen -t rsa -b 4096 -C "rafi@kathal.example"',s=>s.isFile(s.norm('~/.ssh/id_rsa'))],
+  ['ফোল্ডার দেখো','ls ~/.ssh',/^(ls|ll).*\.ssh/],
+  ['প্রকাশ্য চাবি পড়ো','cat ~/.ssh/id_rsa.pub',/^cat .*id_rsa\.pub/],
+  ['agent চালু করো','eval "$(ssh-agent -s)"',s=>s.agent],
+  ['চাবি agent-এ দাও','ssh-add ~/.ssh/id_rsa',s=>s.keyAdded],
+  ['প্রকাশ্য চাবি কপি করো','pbcopy < ~/.ssh/id_rsa.pub',s=>s.copied],
+  ['GitHub-এ বসাও (অভিনয়)','gh-add-key',s=>s.ghKey],
+  ['আবার পরীক্ষা করো','ssh -T git@github.com',(s,c)=>/^ssh -T/.test(c)&&s.ok]]},
+ quiz:[{q:'GitHub-এ কোন ফাইলের লেখা দেবে?',o:['id_rsa.pub','id_rsa','.git/config'],a:0,e:'.pub প্রকাশ্য। id_rsa কখনো না।'},
+  {q:'`git@github.com:user/repo.git` কোন ধরনের ঠিকানা?',o:['SSH','HTTPS','FTP'],a:0,e:'এতে key লাগে, password নয়।'}]},
+
+{id:'pr-issue',title:'Issue থেকে Merge',topic:'Pull Request, Compare, Issues, Labels, Assignee, branch from issue',time:'20:00, 40:00 – 46:00, 57:00',cmds:['Pull requests','Issues','Compare'],
+ scene:{a:{rafi:['person',110,252],jamil:['person',690,252],i:['file',300,252,{n:'Issue #13',cls:'bad'}],p:['file',480,252,{n:'Pull Request',cls:'gold',hide:1}],t:['tag',400,60,{n:'bug: রাফিকে assign',c:'#FFC7C7'}]},
+  b:[{s:'jamil',t:'রাফি, লগইন পাতায় একটা সমস্যা পেলাম। মুখে না বলে Issue খুলছি: শিরোনাম, বর্ণনা, label bug, assignee তুমি।'},
+     {t:'Issue হলো কাজের রসিদ। নম্বর পায় (#13), আলোচনা হয়, কে করছে দেখা যায়।'},
+     {s:'rafi',t:'Issue-র পাশেই "Create a branch"! এতে branch-এর নামও Issue থেকে আসে।',m:{t:{n:'13-login-fix',c:'#FFD25E'}}},
+     {s:'rafi',t:'ঠিক করে push দিলাম। GitHub-এ Compare & pull request বোতাম এসে গেছে।',m:{p:{hide:false}}},
+     {t:'Base: dev, Compare: 13-login-fix। Files changed-এ সবুজ-লালে পরিবর্তন। জামিল মন্তব্য করল, অনুমোদন দিল।',m:{t:{n:'Review',c:'#FFD25E'}}},
+     {s:'jamil',t:'Merge pull request। Issue-ও বন্ধ হয়ে গেল, কারণ বর্ণনায় Fixes #13 ছিল।',m:{i:{cls:'good'},p:{cls:'good'},t:{n:'Closed #13',c:'#BDF2D2'}}}]},
+ why:'মুখের কথা হারায়, Issue আর PR থেকে যায়। ছয় মাস পরে "এই কোড কেন?" প্রশ্নের উত্তর এখানেই মেলে।',
+ where:'প্রায় সব প্রতিষ্ঠান। Jira থাকলেও PR আর রিভিউ GitHub-এই হয়। Infra বদলও PR হয়ে যায়।',
+ commands:[['Compare & pull request','push-এর পর আসা হলুদ বোতাম'],['Pull requests → New pull request','base আর compare বেছে PR'],['Issues → New issue','শিরোনাম, বর্ণনা, Assignee, Label'],['Fixes #13','PR-এর বর্ণনায় দিলে merge-এ Issue বন্ধ হয় (ক্লাসের বাইরের টিপস)'],['Issue → Development → Create a branch','Issue-র সাথে যুক্ত branch']],
+ cards:[{t:'Collaboration (স্লাইড ১১)',l:['Pull Requests: merge-এর আগে রিভিউ ও আলোচনা','Issues Tracking: bug, enhancement ও project task','Discussions: দলের আলোচনা ও brainstorming','Branch Protections: PR রিভিউ, status check বাধ্যতামূলক করা','Merge Strategies: merge commit, rebase and merge, squash and merge']},{t:'ক্লাসে দেখা ডিফল্ট Label',l:['bug: কিছু কাজ করছে না','documentation: ডকুমেন্টে উন্নতি','duplicate: আগেই আছে','enhancement: নতুন ফিচার','good first issue: নতুনদের জন্য','help wanted: সাহায্য দরকার','invalid, question, wontfix']}],
+ quiz:[{q:'PR-এ "base" মানে?',o:['যে branch-এ কাজ যাবে','যে branch থেকে আসছে','প্রথম commit'],a:0,e:'compare থেকে base-এ।'},
+  {q:'একটা bug রিপোর্ট কোথায় লিখবে?',o:['Issues','README','.gitignore'],a:0,e:'label bug দিয়ে।'}]},
+
+{id:'project-board',title:'কাজের বোর্ড',topic:'GitHub Projects: Board, Planned, To do, In progress, Done',time:'54:00 – 58:30',cmds:['Projects'],
+ scene:{a:{rafi:['person',110,252],a:['tag',300,70,{n:'Planned',c:'#BDF2D2'}],b:['tag',420,70,{n:'To do',c:'#FFD25E'}],c:['tag',540,70,{n:'In progress',c:'#FFD8C2'}],d:['tag',670,70,{n:'Done',c:'#FBC8DD'}],card:['file',300,200,{n:'কাজ',cls:'gold'}]},
+  b:[{s:'rafi',t:'দলে কে কী করছে, কতদূর এগোল, প্রতিদিন জিজ্ঞেস করতে হয়।'},
+     {t:'GitHub Projects: কলামের বোর্ড। প্রতিটা কাজ একটা কার্ড।'},
+     {t:'কার্ড শুরু করলে To do থেকে In progress-এ টেনে আনো।',m:{card:{x:540}}},
+     {t:'শেষ হলে Done। ক্লাসে নিজের "Learn and earn" প্রজেক্ট দেখানো হয়েছে, Planned থেকে Done পর্যন্ত।',m:{card:{x:670,cls:'good'}}},
+     {s:'rafi',t:'আগে থেকে তৈরি Template-ও আছে: Team planning, Kanban, Bug tracker, Feature release!'},
+     {t:'কার্ডে Assignee, Priority, Size, Estimate, Iteration, Start ও End date দেওয়া যায়। Draft থেকে Issue-তেও রূপান্তর করা যায়।'}]},
+ why:'কোড আর কাজের হিসাব এক জায়গায় থাকলে আলাদা টুলের ঝামেলা কমে। Issue আর PR কার্ডের সাথে নিজে থেকে যুক্ত থাকে।',
+ where:'ছোট দল বা freelance কাজে Jira-র বিকল্প। ক্যাপশনে Jira আর project management tool-এর তুলনার প্রসঙ্গও এসেছে। DevOps-এর infra-র কাজের তালিকাও এভাবে রাখা যায়।',
+ widget:'issueBoard',widgetTitle:'নিজে চালাও',
+ quiz:[{q:'কাজ শুরু হলে কার্ডটা কোন কলামে?',o:['In progress','Done','Planned'],a:0,e:'শেষ হলে Done।'},
+  {q:'Draft কার্ডকে কী করা যায়?',o:['Issue-তে রূপান্তর','branch-এ রূপান্তর','tag-এ রূপান্তর'],a:0,e:'ক্লাসে Convert to issue অপশন দেখা গেছে।'}]},
+
+{id:'actions-cicd',title:'স্বয়ংক্রিয় কর্মী',topic:'GitHub Actions: workflow YAML, CI, CD, Marketplace',time:'49:30 – 53:30, 58:30 – 60:30',cmds:['.github/workflows/','Actions'],
+ scene:{a:{rafi:['person',100,252],f:['file',270,252,{n:'git push',cls:'gold'}],t:['tag',400,60,{n:'on: push',c:'#FFD25E'}],gear:['tag',450,170,{n:'Build → Test',c:'#FBC8DD',hide:1}],server:['server',680,252,{n:'server'}]},
+  b:[{s:'rafi',t:'প্রতিবার push করার পর সার্ভারে ঢুকে হাতে deploy! ভুলও হয়, সময়ও যায়।'},
+     {t:'.github/workflows/ ফোল্ডারে একটা YAML ফাইল রাখো। GitHub নিজেই পড়বে।'},
+     {t:'on: push: main-এ push হলে চালু হবে। GitHub একটা Ubuntu মেশিন দেবে, runs-on: ubuntu-22.04।',m:{f:{x:450,y:252,s:.7}}},
+     {t:'steps: কোড নামাও, build করো, test করো। ব্যর্থ হলে লাল, পাস হলে সবুজ। এটাই CI।',m:{gear:{hide:false}}},
+     {t:'তারপর scp দিয়ে সার্ভারে পাঠাও, Nginx restart। এটাই CD। পাসওয়ার্ড থাকে GitHub Secrets-এ।',m:{f:{x:680,y:165},t:{n:'CI + CD',c:'#BDF2D2'}}},
+     {s:'rafi',t:'আর আমি শুধু git push দিলাম!'}]},
+ why:'DevOps-এর হৃদয়। Git আর CI/CD-র যোগসূত্র এখানেই। ক্লাস ১-এর "commit করলেই deploy" এই ক্লাসে চোখে দেখা গেল।',
+ where:'Test চালানো, Docker image বানানো, সার্ভারে deploy, এমনকি project board আপডেট। ক্লাসে project-automation.yml আর একটা React অ্যাপের cd.yml দেখানো হয়েছে; পরের ক্লাসগুলোতে এ নিয়ে আরও আসতে পারে।',
+ commands:[['.github/workflows/cd.yml','workflow ফাইলের জায়গা'],['on: push / pull_request / workflow_dispatch','কখন চলবে'],['runs-on: ubuntu-22.04','কোন মেশিনে'],['uses: actions/checkout@v3','Marketplace-এর তৈরি action'],['run: |','নিজের shell কমান্ড'],['${{ secrets.NAME }}','Secret ব্যবহার']],
+ widget:'yamlTour',widgetTitle:'একটা workflow-এর ভেতরে',
+ cards:[{t:'Actions (স্লাইড ১২, ক্লাসে দেখানো)',l:['Actions ট্যাব: প্রতিটা run-এর ফল, সবুজ বা লাল','New workflow: তৈরি নমুনা। Jekyll, Node.js, Deno, Docker...','নিচে Security (CodeQL, SonarQube), CI, Automation বিভাগ','Marketplace: অন্যদের বানানো action','Pull request merge হলেও চালানো যায় (types: closed)']}],
+ quiz:[{q:'Workflow ফাইল কোথায় থাকে?',o:['.github/workflows/','.git/hooks/','/etc/nginx/'],a:0,e:'repo-র ভেতরেই, তাই এরও ইতিহাস থাকে।'},
+  {q:'সার্ভারের SSH চাবি কোথায় রাখবে?',o:['GitHub Secrets-এ','YAML ফাইলে সরাসরি','README-তে'],a:0,e:'কোডে গোপন তথ্য কখনো না।'},
+  {q:'CI আর CD-র মোটা পার্থক্য?',o:['CI: build ও test, CD: deploy','দুটো একই','CI শুধু Windows-এ'],a:0,e:'ক্লাস ১-এর ৮ জায়গার একটা।'}]},
+
+{id:'security-insights',title:'পাহারা আর হিসাব',topic:'Code scanning, Dependabot, Secrets, Environments, Insights, Code Owners',time:'60:30 – 72:30',cmds:['Security','Settings → Code security'],
+ scene:{night:1,a:{moon:['moon',720,50],rafi:['person',110,252],f:['file',300,252,{n:'.env',cls:'bad'}],t:['tag',420,70,{n:'API key ভুলে push!',c:'#FFC7C7'}],s:['shelf',640,252,{n:'Security'}]},
+  b:[{s:'rafi',t:'আপা! ভুলে .env commit করে push করে দিয়েছি। ভেতরে key!'},
+     {s:'tonni',t:'Secret scanning এটাই ধরে। চালু থাকলে এমন push-এই আটকে দেয়। আর ফাঁস হওয়া key সাথে সাথে বদলাও: ইতিহাস থেকে মুছলেই নিরাপদ হয় না।',m:{t:{n:'key rotate করো',c:'#FFD25E'}}},
+     {s:'rafi',t:'আর কোডের দুর্বলতা?'},
+     {s:'tonni',t:'Code scanning, CodeQL দিয়ে। PR-এই সতর্ক করে। পুরোনো লাইব্রেরি ধরে Dependabot, আর নিজেই আপডেটের PR খোলে।',m:{t:{n:'CodeQL · Dependabot',c:'#BDF2D2'},f:{cls:'good',n:'নিরাপদ'}}},
+     {s:'tonni',t:'ক্লাসে CodeQL চালু করতেই Security ট্যাবে সংখ্যা দেখা গেছে: repo-র ভেতরে লুকানো সমস্যা!'},
+     {s:'rafi',t:'তাহলে এগুলো একদম শুরুতেই চালু করা উচিত।'}]},
+ why:'DevSecOps। নিরাপত্তা শেষে যোগ করার জিনিস না। বিনা খরচে পাওয়া এই টুলগুলো সবচেয়ে সাধারণ দুর্ঘটনা আটকায়।',
+ where:'প্রতিটা নতুন repo-র সেটআপে। Insights দিয়ে টিমের অবদান, Code Owners দিয়ে কোন ফোল্ডার কে রিভিউ করবে।',
+ widget:'secTools',widgetTitle:'স্লাইড ১৩ ও ক্লাসে দেখানো টুল',
+ note:'ক্লাসে Codespaces-এর secret পাতাও দেখানো হয়েছে, আর SonarQube Google করে দেখানো হয়েছে; ক্যাপশনে Secret "bread and butter" কথাটা এসেছে। সব পরিকল্পনায় সব ফিচার সমান পাওয়া যায় না; private repo-তে কিছু সীমিত হতে পারে (ক্লাসের বাইরের কথা)।',
+ quiz:[{q:'পুরোনো, ঝুঁকিপূর্ণ library খোঁজে কোনটা?',o:['Dependabot','Code Owners','Discussions'],a:0,e:'আপডেটের PR-ও খোলে।'},
+  {q:'Key ভুলে push হয়ে গেলে সবচেয়ে জরুরি কাজ?',o:['key বদলে ফেলা','শুধু commit মোছা','কিছু না করা'],a:0,e:'ইতিহাসে বা অন্যের কপিতে থেকে যেতে পারে।'},
+  {q:'নির্দিষ্ট ফোল্ডারের রিভিউয়ার ঠিক করে?',o:['Code Owners','Insights','Actions'],a:0,e:'স্লাইড ১৩।'}]},
+
+{id:'gitflow-release',title:'GitFlow: পূর্ণ Release',topic:'Git workflow, CHANGELOG, tag -a, push --tags, Releases',time:'72:30 – 84:00, 86:30, 104:30 – 111:30',cmds:['git checkout -b release/1.0.0','git tag -a v1.1.0 -m','git push --tags','git tag'],
+ scene:{a:{rafi:['person',90,252],d:['tag',250,70,{n:'develop',c:'#FBC8DD'}],r:['tag',440,130,{n:'release/1.0.0',c:'#FFD25E',hide:1}],m:['tag',620,70,{n:'master/main',c:'#BDF2D2'}],t:['tag',620,180,{n:'v1.1.0',c:'#FFD8C2',hide:1}],h:['tag',250,190,{n:'hotfix',c:'#FFC7C7',hide:1}]},
+  b:[{t:'Vincent Driessen-এর GitFlow, সহযোগিতামূলক কাজের জনপ্রিয় মডেল। দুই মূল branch: main-এ production-ready কোড, develop-এ চলমান কাজের সমন্বয়।'},
+     {s:'rafi',t:'feature শেষে develop-এ git merge --no-ff feature/my-feature, তারপর branch মুছে দিই।'},
+     {t:'Release-এর সময় develop থেকে release/1.0.0। এখানে version, CHANGELOG.md লেখা। ক্লাসে লেখা হয়েছিল: ### Release 1.0.0, Shahed\'s Page added।',m:{r:{hide:false}}},
+     {s:'rafi',t:'git commit -am "Bump release 1.0.0"। তারপর main-এ --no-ff merge, push।',m:{r:{x:620,y:130,s:.7}}},
+     {s:'rafi',t:'git tag -a v1.0.0 -m "Release 1.0.0"। fatal: tag \'v1.0.0\' already exists!',m:{t:{hide:false,n:'v1.0.0 আগেই আছে',}}},
+     {t:'ক্লাসেও এটাই হয়েছিল! নাম পুনরায় ব্যবহার করা যায় না। v1.1.0 দিয়ে git push --tags।',m:{t:{n:'v1.1.0'}}},
+     {t:'GitHub-এ Tags পাতায় zip ও tar.gz সহ দেখা গেল। Create release দিয়ে Release 1.1.0 প্রকাশ করা হলো। Linux-এর repo-ও এভাবেই v6.15-rc2 দেখায়।'},
+     {t:'আর হঠাৎ production-এ সমস্যা? main থেকে hotfix branch, ঠিক করে main আর develop দুটোতেই merge।',m:{h:{hide:false}}}]},
+ why:'Release-এর মানে কোন কোড কখন production-এ গেল তার প্রমাণ। সমস্যা হলে নির্দিষ্ট tag-এ ফেরা যায়, আর ব্যবহারকারী জানে কোন ভার্সনে কী এসেছে।',
+ where:'সফটওয়্যার release, Docker image-এর ভার্সন, CI/CD-তে tag push হলে production deploy। Semantic version: v1.2.3।',
+ commands:[['git checkout develop  তারপর git pull origin develop','release-এর শুরু'],['git checkout -b release/1.0.0','release branch'],['git add ফাইল  তারপর git commit -am "Bump release 1.0.0"','version ও changelog'],['git merge --no-ff release/1.0.0','main ও develop দুটোতেই'],['git tag -a v1.1.0 -m "Release 1.1.0"','বার্তাসহ tag'],['git push --tags','সব tag রিমোটে'],['git tag','tag-এর তালিকা'],['GitHub → Releases → Draft a new release','tag থেকে Release']],
+ widget:'relFlow',widgetTitle:'স্লাইড ১৪: Git workflow',
+ tip:'ক্লাসের ছোট শিক্ষা: git tag -a v1.0.0 দিলে পুরোনো tag থাকায় error এসেছে। git log --oneline-এ দেখা গেছে (HEAD -> main, tag: v1.1.0, origin/main, origin/HEAD)। এক শিক্ষার্থীর MobaXterm-এ git add একা দিলে "Nothing specified, nothing added" এসেছিল, Git নিজেই বলেছে git add . দাও। GitHub-এর Tagging suggestions-এ আছে: ভার্সনের আগে v দেওয়া সাধারণ রীতি।',
+ term:{zones:1,graph:1,setup:[...REPO,'git checkout -b feature/shahed','echo "<h1>Shahed</h1>" > shahed.html','git add .','git commit -m "Team member Shahed Page added"','git checkout dev','git merge --no-ff feature/shahed','git branch -d feature/shahed','git push','git checkout main','git tag -a v1.0.0 -m "Old release"','git push --tags','git checkout dev'],missions:[
+  ['দেখো কোথায় আছ','git branch',/^git branch$/],
+  ['release branch বানাও','git checkout -b release/1.0.0',ok(s=>s.repo.head==='release/1.0.0')],
+  ['CHANGELOG লেখো','echo "### Release 1.0.0" > CHANGELOG.md && git add .',ok(s=>'CHANGELOG.md' in s.repo.index)],
+  ['commit করো','git commit -m "Bump release 1.0.0"',ok(s=>'CHANGELOG.md' in s.tree(s.repo))],
+  ['main-এ আনো','git checkout main && git merge --no-ff release/1.0.0',ok(s=>s.repo.head==='main'&&s.f('CHANGELOG.md')!=null)],
+  ['push করো','git push',ok(s=>s.servers[s.repo.remotes.origin].refs.main===s.repo.refs.main)],
+  ['ক্লাসের ভুলটা করো','git tag -a v1.0.0 -m "Release 1.0.0"',(s,c)=>/^git tag -a v1\.0\.0/.test(c)&&!s.ok],
+  ['নতুন নামে tag দাও','git tag -a v1.1.0 -m "Release 1.1.0"',ok(s=>s.repo.tags['v1.1.0'])],
+  ['tag-এর তালিকা দেখো','git tag',/^git tag$/],
+  ['সব tag পাঠাও','git push --tags',ok(s=>s.servers[s.repo.remotes.origin].tags['v1.1.0'])],
+  ['log দেখো','git log --oneline',/^git log --oneline/],
+  ['dev-এও আনো','git checkout dev && git merge --no-ff release/1.0.0',ok(s=>s.repo.head==='dev'&&s.f('CHANGELOG.md')!=null)],
+  ['release মুছে দাও','git branch -d release/1.0.0',ok(s=>!s.repo.refs['release/1.0.0'])],
+  ['hotfix: main থেকে branch','git checkout -b hotfix/urgent main',ok(s=>s.repo.head==='hotfix/urgent')],
+  ['ঠিক করে commit করো','echo "fix" > fix.txt && git add . && git commit -m "Urgent fix"',ok(s=>'fix.txt' in s.tree(s.repo))],
+  ['main-এ আনো','git checkout main && git merge --no-ff hotfix/urgent',ok(s=>s.repo.head==='main'&&s.f('fix.txt')!=null)],
+  ['dev-এও আনো','git checkout dev && git merge --no-ff hotfix/urgent',ok(s=>s.repo.head==='dev'&&s.f('fix.txt')!=null)],
+  ['গ্রাফ দেখো','git log --oneline --graph',/^git log.*--graph/]]},
+ quiz:[{q:'GitFlow-এ hotfix কোথা থেকে বের হয়?',o:['main/master','develop','feature'],a:0,e:'স্লাইড: production কোডের জরুরি ঠিক, main ও develop দুটোতেই merge।'},
+  {q:'`git tag -a v1 -m "..."`-এর -a কী?',o:['Annotated tag: বার্তা, লেখক, সময়সহ','সব tag মুছে দেয়','সব branch-এ বসায়'],a:0,e:'Release-এর জন্য এটাই রীতি।'},
+  {q:'Tag push করতে?',o:['git push --tags','git tag --push','git commit --tags'],a:0,e:'অথবা git push origin v1.1.0।'}]},
+
+{id:'class-five-wrap',title:'দলের একদিন: চূড়ান্ত চ্যালেঞ্জ',topic:'শিক্ষার্থীদের লাইভ চর্চা, রিসোর্স, চ্যালেঞ্জ',time:'85:30 – 125:53',cmds:[],
+ scene:{a:{rafi:['person',130,252],tonni:['person',670,252],t:['tag',400,70,{n:'সবাই লাইভ করছে',c:'#FFD25E'}],f:['file',400,252,{n:'Quiz 3',cls:'gold'}]},
+  b:[{s:'tonni',t:'এবার তোমরাই স্ক্রিন শেয়ার করো। Windows-এ Git Bash বা MobaXterm, যে যেটায় পারো। আসল repo-তে করো।'},
+     {s:'rafi',t:'একজনের push আটকে গেল: username, password চাইছে!'},
+     {s:'tonni',t:'HTTPS-এ token লাগে, মনে আছে? আসল সমস্যায় পড়াই সবচেয়ে ভালো শিক্ষা।'},
+     {s:'rafi',t:'ক্লাসের শিটে Quiz 3-ও যোগ হয়েছে।'},
+     {s:'tonni',t:'এবার নিজের চ্যালেঞ্জ: পুরো একদিনের কাজ। আসল GitHub-এও একবার করে দেখো।',m:{t:{n:'চূড়ান্ত চ্যালেঞ্জ',c:'#BDF2D2'}}}]},
+ why:'এই ক্লাসের সব কৌশল এক কাজে। একবার হাতে করলে আসল repo-তে ভয় থাকে না।',
+ where:'এখনই নিজের GitHub Pages সাইট বানিয়ে দেখতে পারো।',
+ cards:[{t:'Study guide: Git Remotes (স্লাইড ১৬)',l:['git remote: repo-র তালিকা','git remote -v: সাথে URL','git remote show নাম: একটার তথ্য','git remote update: আপডেট আনে','git fetch: objects ও refs আনে','git branch -r: রিমোটের branch']},
+  {t:'রিসোর্স',html:`<ul><li><a href="https://docs.github.com/en/get-started/getting-started-with-git/caching-your-github-credentials-in-git" target="_blank" rel="noopener">Credential cache</a></li><li><a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh" target="_blank" rel="noopener">SSH দিয়ে GitHub</a></li><li><a href="https://docs.github.com/en/actions" target="_blank" rel="noopener">GitHub Actions</a></li><li><a href="https://docs.github.com/en/code-security" target="_blank" rel="noopener">Secure coding</a> (ক্লাসে দেখানো)</li><li><a href="https://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener">Vincent Driessen-এর GitFlow</a></li><li><a href="https://asad6426.github.io/git-golpo/class-4/" target="_blank" rel="noopener">গিটের গল্প: ক্লাস ৪</a></li></ul>`},
+  {t:'যা ক্লাসে হয়েছে কিন্তু এখানে নেই',l:['প্রায় ৯০ থেকে ১০৩ মিনিট: শিক্ষার্থীদের নিজের মেশিনে লাইভ চর্চা ও সমস্যা','১১৩ মিনিটের পর স্ক্রিনে কিছু ছিল না']}],
+ term:{zones:1,graph:1,setup:[],intro:'চূড়ান্ত চ্যালেঞ্জ: একটা সাইটে নিজের পাতা, rebase, release।\n',missions:[
+  ['পরিচয় দিয়ে site repo বানাও','git config --global user.name "Rafi Ahmed" && git config --global user.email "rafi@kathal.example" && git init site && cd site',s=>s.cwd.endsWith('/site')&&!!s.repo],
+  ['index.html commit করো, branch main, remote যোগ, push','echo "<h1>Team</h1>" > index.html && git add . && git commit -m "Init" && git branch -M main && git remote add origin git@github.com:rafi/site.git && git push -u origin main',ok(s=>s.repo.upstream.main)],
+  ['নিজের branch-এ পাতা বানাও','git checkout -b rafi && echo "<h1>Rafi</h1>" > rafi.html && git add . && git commit -m "Add my page"',ok(s=>s.repo.head==='rafi'&&'rafi.html' in s.tree(s.repo))],
+  ['main-এ জামিলের কাজ এসেছে: খবর আনো','git fetch origin',ok(s=>s.repo.known.main!==s.repo.refs.main),'__remote main jamil.html "Add Jamil page" "<h1>Jamil</h1>" Jamil'],
+  ['নিজের কাজ main-এর মাথায় বসাও','git rebase origin/main',ok(s=>s.f('jamil.html')!=null&&s.f('rafi.html')!=null&&!s.repo.rb)],
+  ['branch push করো','git push origin rafi',ok(s=>s.servers[s.repo.remotes.origin].refs.rafi)],
+  ['main আপডেট করে আনো','git checkout main && git pull && git merge --no-ff rafi',ok(s=>s.repo.head==='main'&&s.f('rafi.html')!=null)],
+  ['tag দিয়ে push করো','git tag -a v1.0.0 -m "First release" && git push && git push --tags',ok(s=>s.servers[s.repo.remotes.origin].tags&&s.servers[s.repo.remotes.origin].tags['v1.0.0'])],
+  ['ছবি দেখো','git log --oneline --graph',/^git log.*--graph/]]},
+ quiz:[{q:'HTTPS-এ push-এ password চাইলে কী দেবে?',o:['Personal Access Token','অ্যাকাউন্টের password','SSH private key'],a:0,e:'অথবা SSH ঠিকানায় বদলাও।'},
+  {q:'`git add` একা দিলে Git কী বলে?',o:['Nothing specified, nothing added','সব add করে','repo মুছে ফেলে'],a:0,e:'Git হিন্ট দেয়: git add .'}]},
+];
+const TABLE=[
+ ['Remote',[['git remote -v','ঠিকানা',1],['git remote show origin','পুরো বিবরণ',1],['git branch -r','রিমোটের branch',1],['git remote update','খবর আনে',1],['git config --global credential.helper cache','পরিচয় মনে রাখে',1],['git log origin/main','রিমোটের ইতিহাস',2],['git merge origin/main','রিমোটের কাজ আনে',2],['git pull origin main','নির্দিষ্ট branch থেকে',2],['git push origin xyz','নিজের branch পাঠায়',3]]],
+ ['Rebase',[['git rebase main','main-এর মাথায় বসায়',4],['git rebase --continue / --abort','এগোনো / বাতিল',4],['git log --graph --oneline --all','সব branch-এর ছবি',4],['git push --delete origin x','রিমোটের branch মোছে',4]]],
+ ['SSH',[['ssh-keygen -t rsa -b 4096 -C "email"','চাবির জোড়া',5],['eval "$(ssh-agent -s)"','agent চালু',5],['ssh-add ~/.ssh/id_rsa','agent-এ চাবি',5],['ssh -T git@github.com','সংযোগ পরীক্ষা',5]]],
+ ['Release',[['git checkout -b release/1.0.0','release branch',10],['git tag -a v1.1.0 -m "..."','বার্তাসহ tag',10],['git push --tags','সব tag পাঠায়',10]]],
+ ['GitHub',[['Pull requests, Issues','রিভিউ ও কাজের হিসাব',6],['Projects','কাজের বোর্ড',7],['.github/workflows/*.yml','CI/CD',8],['Security, Dependabot, Secrets','নিরাপত্তা',9]]],
+];
+
+/* ============ app shell ============ */
+const view=$('#view');
+let done=store.get('git-golpo5-done',{});
+const chEls={};
+function chips(a){return a.length?`<div class="chips">${a.map(c=>`<span class="chip">${esc(c)}</span>`).join('')}</div>`:''}
+function renderTop(cur){
+  $('#dots').innerHTML=CH.map((c,i)=>`<button type="button" class="dot ${done[c.id]?'done':''} ${cur===c.id?'on':''}" data-id="${c.id}" title="${esc(c.title)}" aria-label="অধ্যায় ${bn(i)}: ${esc(c.title)}">${bn(i)}</button>`).join('');
+  $('#meter').textContent=`${bn(Object.keys(done).filter(k=>done[k]).length)} / ${bn(CH.length)} শেষ`;
+}
+$('#dots').addEventListener('click',e=>{const b=e.target.closest('.dot');if(b)location.hash=b.dataset.id});
+$('#home').onclick=()=>{location.hash='summary'};
+function renderMap(){
+  const m=h(`<div>
+    <section class="hero">
+      <h1>গিটের গল্প: ৫</h1>
+      <p class="lead">Git &amp; GitHub ক্লাস ৫-এর পুরো ২ ঘণ্টা ৬ মিনিট, গল্পে আর হাতে-কলমে। রাফির পঞ্চম সপ্তাহ: দলবেঁধে একটা আসল সাইট, rebase, SSH, Issue থেকে PR, Project board, Actions, নিরাপত্তা, আর GitFlow Release।</p>
+      <div class="how"><span>গল্প</span><i>→</i><span>কেন শিখব</span><i>→</i><span>কোথায় লাগে</span><i>→</i><span>কমান্ড</span><i>→</i><span>নিজে চালাও</span><i>→</i><span>কুইজ</span></div>
+      <button type="button" class="cta" id="startBtn">প্রথম অধ্যায় শুরু করো</button>
+    </section>
+    <div class="zig"></div>
+    <section class="block"><h2>কী কী শিখবে</h2><p>পাশের সময়গুলো ভিডিওর আনুমানিক সময়। শেখার সুবিধার জন্য কিছু অংশ একসাথে এনেছি, তাই একটা অধ্যায়ে কখনো দুটো সময় আছে।</p>
+      <div class="route" id="route"></div></section>
+    <section class="block"><h2>সব কমান্ড এক জায়গায়</h2><p>ডান পাশের নম্বর হলো অধ্যায়। সারিতে চাপলে সেখানে চলে যাবে। আগের কমান্ড: <a href="https://asad6426.github.io/git-golpo/" target="_blank" rel="noopener">ক্লাস ১</a>, <a href="https://asad6426.github.io/git-golpo/class-2/" target="_blank" rel="noopener">২</a>, <a href="https://asad6426.github.io/git-golpo/class-3/" target="_blank" rel="noopener">৩</a>, <a href="https://asad6426.github.io/git-golpo/class-4/" target="_blank" rel="noopener">৪</a>।</p>
+      <div class="tbl"><table><thead><tr><th>কমান্ড</th><th>কী করে</th><th>অধ্যায়</th></tr></thead><tbody id="ctable"></tbody></table></div></section>
+    <section class="block"><h2>ক্লাসটা কীভাবে পড়ানো হয়েছে</h2><p>শিক্ষক Md. Sanaullah Asif-এর এই ক্লাসের ধরন। এই পাতাও একই ছন্দে সাজানো।</p>
+      <div class="style-list">
+        <div><b>আসল প্রজেক্ট</b>GitHub Pages-এর একটা সাইটে সবাই নিজের পাতা যোগ করেছে, ফল সাথে সাথে ব্রাউজারে।</div>
+        <div><b>শিক্ষার্থীর স্ক্রিন</b>একজন Git Bash, আরেকজন MobaXterm থেকে নিজের হাতে push করে দেখিয়েছেন।</div>
+        <div><b>GitHub-এর পাতায় ঘোরা</b>Issues, Projects, Actions, Security, Settings: প্রতিটা পাতা খুলে দেখিয়েছেন।</div>
+        <div><b>স্লাইডে তত্ত্ব, repo-তে প্রমাণ</b>স্লাইডের "How?" লিংক ধরে সরাসরি repo-র সংশ্লিষ্ট পাতায় গেছেন।</div>
+        <div><b>বড় উদাহরণ</b>Linux kernel repo-তে tag ও release দেখিয়েছেন।</div>
+        <div><b>GitFlow ডকুমেন্ট</b>আলাদা ডকুমেন্ট ধরে release-এর ধাপগুলো টার্মিনালে করেছেন।</div>
+      </div></section>
+    <section class="block"><h2>কোথা থেকে নেওয়া, আর কী বাদ</h2>
+      <p class="note" id="srcNote">কমান্ড ও স্লাইডের তথ্য ভিডিওর স্ক্রিন থেকে নেওয়া (প্রতি ৩০ সেকেন্ডের ছবি)। শিক্ষকের কথা এসেছে Meet ক্যাপশন থেকে, যা খুব টুকরো টুকরো; তাই ব্যাখ্যা ও প্রশ্নোত্তর এখানে পুরো নেই। দেখানো YAML ছোট ও সরল করে লেখা, ক্লাসের সার্ভারের ঠিকানা ইচ্ছা করেই রাখিনি। গল্প, চরিত্র আর উদাহরণ বানানো। GitHub-এর পাতার চেহারা সময়ের সাথে বদলাতে পারে। এখানকার টার্মিনাল একটা সিমুলেটর, আসল Git না; SSH চাবিও আসল না।</p>
+    </section></div>`);
+  $('#startBtn',m).onclick=()=>{location.hash=CH[0].id};
+  const rt=$('#route',m);
+  CH.forEach((c,i)=>{
+    const b=h(`<button type="button" class="rt ${done[c.id]?'done':''}"><span class="n">${done[c.id]?'✓':bn(i)}</span><span><b>${esc(c.title)}</b><small>${esc(c.topic)}</small>${chips(c.cmds)}</span><span class="ts">${esc(c.time)}</span></button>`);
+    b.onclick=()=>{location.hash=c.id};rt.append(b);
+  });
+  const tb=$('#ctable',m);
+  TABLE.forEach(([g,rows])=>{
+    tb.append(h(`<table><tr class="grp"><td colspan="3">${g}</td></tr></table>`).querySelector('tr'));
+    rows.forEach(([c,d,n])=>{const tr=h(`<table><tr style="cursor:pointer"><td><code>${esc(c)}</code></td><td>${esc(d)}</td><td>${bn(n)}</td></tr></table>`).querySelector('tr');tr.onclick=()=>{location.hash=CH[n].id};tb.append(tr)});
+  });
+  return m;
+}
+function checkDone(c,st){
+  if(st.quiz.size>=c.quiz.length&&(!c.term||st.mi>=c.term.missions.length)){
+    if(!done[c.id]){done[c.id]=1;store.set('git-golpo5-done',done);renderTop(c.id)}
+  }
+}
+function buildChapter(c,idx){
+  const st={mi:0,quiz:new Set()};
+  const e=h(`<article>
+    <div class="chap-head"><div class="eyebrow">অধ্যায় ${bn(idx)} · ভিডিওতে <span class="mono">${esc(c.time)}</span></div><h2>${esc(c.title)}</h2><p>${esc(c.topic)}</p></div>
+    <div class="scene-slot"></div>
+    <div class="part"><h3>কেন শিখব, কোথায় লাগবে</h3>
+      <div class="duo"><div class="card pink"><h4>কেন শিখব</h4><p>${fmt(c.why)}</p></div><div class="card teal"><h4>বাস্তবে কোথায় লাগে</h4><p>${fmt(c.where)}</p></div></div></div>
+  </article>`);
+  $('.scene-slot',e).append(Scene(c.scene));
+  const add=(n)=>e.append(n);
+  if(c.cards){const p=h(`<div class="part"><h3>ক্লাসের মূল কথা</h3><div class="duo"></div></div>`);
+    c.cards.forEach(k=>$('.duo',p).append(h(`<div class="card ${k.c||''}"><h4>${esc(k.t)}</h4>${k.html||`<ul>${k.l.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`}</div>`)));add(p)}
+  if(c.commands){const p=h(`<div class="part"><h3>কমান্ডগুলো</h3><div class="cmdlist">${c.commands.map(x=>`<div class="cmd"><code>${esc(x[0])}</code><span>${esc(x[1])}</span></div>`).join('')}</div></div>`);add(p)}
+  if(c.note)add(h(`<p class="note">${esc(c.note)}</p>`));
+  if(c.widget){const p=h(`<div class="part"><h3>${esc(c.widgetTitle)}</h3></div>`);p.append(W[c.widget]());add(p)}
+  if(c.tip)add(h(`<p class="note">${esc(c.tip)}</p>`));
+  if(c.term)add(buildLab(c,st));
+  const qz=h(`<div class="part"><h3>নিজেকে যাচাই করো</h3><div class="quiz"></div></div>`);
+  c.quiz.forEach((q,qi)=>{
+    const d=h(`<div class="q"><p>${fmt(q.q)}</p><div class="opts">${q.o.map((o,i)=>`<button type="button" class="opt" data-i="${i}">${fmt(o)}</button>`).join('')}</div></div>`);
+    d.addEventListener('click',ev=>{
+      const b=ev.target.closest('.opt');if(!b||b.disabled)return;
+      const i=+b.dataset.i;
+      if(i===q.a){b.classList.add('yes');d.querySelectorAll('.opt').forEach(x=>x.disabled=true);d.append(h(`<p class="exp" style="font-weight:400">ঠিক! ${fmt(q.e)}</p>`));st.quiz.add(qi);checkDone(c,st)}
+      else{b.classList.add('no');b.disabled=true}
+    });
+    $('.quiz',qz).append(d);
+  });
+  add(qz);
+  const nav=h(`<nav class="foot-nav"></nav>`);
+  const prev=CH[idx-1],next=CH[idx+1];
+  nav.innerHTML=(prev?`<button type="button" class="btn" data-go="${prev.id}">আগের: ${esc(prev.title)}</button>`:`<button type="button" class="btn" data-go="summary">সারসংক্ষেপে ফেরো</button>`)+(next?`<button type="button" class="cta" data-go="${next.id}">পরের: ${esc(next.title)}</button>`:`<button type="button" class="cta" data-go="summary">সারসংক্ষেপে ফেরো</button>`);
+  nav.addEventListener('click',ev=>{const b=ev.target.closest('[data-go]');if(b)location.hash=b.dataset.go});
+  add(nav);
+  return e;
+}
+function buildLab(c,st){
+  const t=c.term;const p=h(`<div class="part"><h3>এবার নিজে চালাও</h3><div class="labslot"></div></div>`);
+  const slot=$('.labslot',p);
+  function mount(){
+    slot.innerHTML='';st.mi=0;
+    const lab=h(`<div class="lab"><div class="lab-left" style="display:grid;gap:8px;min-width:0"></div><div class="miss"><h4>কাজের তালিকা</h4><ol></ol><div class="win" hidden>সব কাজ শেষ! এবার কুইজটা করো।</div></div></div>`);
+    const ol=$('ol',lab);
+    const lis=t.missions.map((m,i)=>{
+      const li=h(`<li><span class="tick">${bn(i+1)}</span><div><span>${esc(m[0])}</span><button type="button" class="hintbtn" hidden>হিন্ট দেখাও</button></div></li>`);
+      ol.append(li);return li;
+    });
+    const zv=t.zones?zonesView():null;const gr=t.graph?h(`<div class="graph"></div>`):null;
+    let term;
+    const refresh=(sim)=>{if(zv)zv.render(sim);if(gr)gr.innerHTML=graphSvg(sim)};
+    const mark=()=>{
+      lis.forEach((li,i)=>{li.classList.toggle('ok',i<st.mi);li.classList.toggle('cur',i===st.mi);
+        const hb=$('.hintbtn',li);hb.hidden=i!==st.mi;if(i<st.mi)$('.tick',li).textContent='✓';});
+      $('.win',lab).hidden=st.mi<t.missions.length;
+    };
+    const hook=()=>{const m=t.missions[st.mi];if(m&&m[3]){term.sim.exec(m[3]);term.sim.ok=true;refresh(term.sim)}};
+    const onCh=(sim,cmd,ok,fly)=>{
+      refresh(sim);if(zv&&fly&&fly.length)zv.flyAnim(fly);
+      const line=cmd.trim();
+      for(let g=0;g<4&&st.mi<t.missions.length;g++){
+        const m=t.missions[st.mi],chk=m[2];let pass=false;
+        if(chk instanceof RegExp){pass=g===0&&ok&&line.split(/\s*&&\s*/).some(x=>chk.test(x))}
+        else pass=!!chk(sim,line);
+        if(pass){st.mi++;hook();}else break;
+      }
+      mark();checkDone(c,st);
+    };
+    term=Terminal({id:c.id,setup:t.setup,intro:t.intro,onReset:mount},onCh);
+    lis.forEach((li,i)=>{$('.hintbtn',li).onclick=function(){
+      const b=h(`<button type="button" class="hintcmd" title="টার্মিনালে বসাও">${esc(t.missions[i][1])}</button>`);
+      b.onclick=()=>term.type(t.missions[i][1]);this.replaceWith(b)}});
+    const left=$('.lab-left',lab);left.append(term.el);if(zv)left.append(zv.el);if(gr)left.append(gr);
+    hook();refresh(term.sim);mark();slot.append(lab);
+  }
+  mount();return p;
+}
+function route(){
+  let id=location.hash.replace('#','');
+  const idx=CH.findIndex(c=>c.id===id);
+  view.textContent='';
+  if(idx<0){view.append(renderMap());renderTop('');window.scrollTo(0,0);return}
+  const c=CH[idx];
+  if(!chEls[id])chEls[id]=buildChapter(c,idx);
+  view.append(chEls[id]);renderTop(id);window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',route);
+route();
+</script>
+
+</body>
+</html>
