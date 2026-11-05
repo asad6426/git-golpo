@@ -228,7 +228,7 @@ input.txt{font:inherit;font-family:var(--mono);font-size:14px;padding:4px 9px;bo
   <header class="top">
     <button class="brand" id="home">গিটের গল্প</button>
     <div class="dots" id="dots"></div>
-    <div class="meter" id="meter"></div>
+    <div class="meter" id="meter"></div><a href="https://asad6426.github.io/git-golpo/" style="margin-left:auto;padding:3px 12px;border:2px solid var(--ink);border-radius:6px;text-decoration:none;color:var(--ink);font-size:15px;font-weight:600">সব ক্লাস</a>
   </header>
   <main id="view"></main>
 </div>
@@ -1489,7 +1489,7 @@ PORT=9090
  where:'এই ধারাটাই আসল চাকরির একটা দিন: branch বানাও, কাজ করো, push করো, PR খোলো, merge করো।',
  cards:[{t:'Hands on all (স্লাইড ১৪)',c:'pink',l:['নিজের Git profile শেয়ার করো','Repo বানিয়ে remote repo-তে push করো','Branch বানিয়ে remote-এ push করো','Branch merge করে পরিবর্তন রিভিউ করো']},
   {t:'Basic Exercises (যা পড়া গেছে)',l:['Exercise 2: Open-source repo clone করে status দেখো','Exercise 3: নতুন branch, commit, main-এ merge','Exercise 4: ইচ্ছা করে merge conflict বানিয়ে মেটাও','Exercise 5: Remote repo যোগ করে push','Exercise 1, 6, 7, 8: repo শুরু, pull/fetch, log/history সংক্রান্ত। পুরো লেখা ভিডিওর স্ক্রিনে স্পষ্ট দেখা যায়নি']},
-  {t:'রিসোর্স',html:`<ul><li><a href="https://git-scm.com/docs/git-branch" target="_blank" rel="noopener">git-branch ডকুমেন্টেশন</a> (ক্লাসে দেখানো)</li><li><a href="https://git-scm.com/docs/git-log" target="_blank" rel="noopener">git-log ডকুমেন্টেশন</a></li><li><a href="https://stackoverflow.com/questions/1057564/pretty-git-branch-graphs" target="_blank" rel="noopener">Pretty Git branch graphs</a></li><li><a href="https://asad6426.github.io/git-golpo/" target="_blank" rel="noopener">গিটের গল্প: ক্লাস ১</a></li></ul>`}],
+  {t:'রিসোর্স',html:`<ul><li><a href="https://git-scm.com/docs/git-branch" target="_blank" rel="noopener">git-branch ডকুমেন্টেশন</a> (ক্লাসে দেখানো)</li><li><a href="https://git-scm.com/docs/git-log" target="_blank" rel="noopener">git-log ডকুমেন্টেশন</a></li><li><a href="https://stackoverflow.com/questions/1057564/pretty-git-branch-graphs" target="_blank" rel="noopener">Pretty Git branch graphs</a></li><li><a href="https://asad6426.github.io/git-golpo/class-1/" target="_blank" rel="noopener">গিটের গল্প: ক্লাস ১</a></li></ul>`}],
  term:{zones:1,graph:1,setup:[],intro:'চূড়ান্ত চ্যালেঞ্জ। হিন্ট আছে, তবে আগে নিজে চেষ্টা করো।\n',missions:[
   ['নিজের পরিচয় দাও','git config --global user.name "Rafi Ahmed" && git config --global user.email "rafi@kathal.example"',s=>s.cfg['user.name']&&s.cfg['user.email']],
   ['final-task নামে repo বানাও','mkdir final-task && cd final-task && git init',s=>s.cwd.endsWith('/final-task')&&!!s.repo],
@@ -1538,7 +1538,7 @@ function renderMap(){
     <div class="zig"></div>
     <section class="block"><h2>কী কী শিখবে</h2><p>পাশের সময়গুলো ভিডিওর আনুমানিক সময়। শেখার সুবিধার জন্য কিছু অংশ একসাথে এনেছি, তাই একটা অধ্যায়ে কখনো দুটো সময় আছে।</p>
       <div class="route" id="route"></div></section>
-    <section class="block"><h2>সব কমান্ড এক জায়গায়</h2><p>ডান পাশের নম্বর হলো অধ্যায়। সারিতে চাপলে সেখানে চলে যাবে। ক্লাস ১-এর কমান্ডগুলো <a href="https://asad6426.github.io/git-golpo/" target="_blank" rel="noopener">গিটের গল্প ১</a>-এ আছে।</p>
+    <section class="block"><h2>সব কমান্ড এক জায়গায়</h2><p>ডান পাশের নম্বর হলো অধ্যায়। সারিতে চাপলে সেখানে চলে যাবে। ক্লাস ১-এর কমান্ডগুলো <a href="https://asad6426.github.io/git-golpo/class-1/" target="_blank" rel="noopener">গিটের গল্প ১</a>-এ আছে।</p>
       <div class="tbl"><table><thead><tr><th>কমান্ড</th><th>কী করে</th><th>অধ্যায়</th></tr></thead><tbody id="ctable"></tbody></table></div></section>
     <section class="block"><h2>ক্লাসটা কীভাবে পড়ানো হয়েছে</h2><p>শিক্ষক Md. Sanaullah Asif-এর এই ক্লাসের ধরন। এই পাতাও একই ছন্দে সাজানো।</p>
       <div class="style-list">

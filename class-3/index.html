@@ -228,7 +228,7 @@ input.txt{font:inherit;font-family:var(--mono);font-size:14px;padding:4px 9px;bo
   <header class="top">
     <button class="brand" id="home">গিটের গল্প</button>
     <div class="dots" id="dots"></div>
-    <div class="meter" id="meter"></div>
+    <div class="meter" id="meter"></div><a href="https://asad6426.github.io/git-golpo/" style="margin-left:auto;padding:3px 12px;border:2px solid var(--ink);border-radius:6px;text-decoration:none;color:var(--ink);font-size:15px;font-weight:600">সব ক্লাস</a>
   </header>
   <main id="view"></main>
 </div>
@@ -1616,7 +1616,7 @@ const CH=[
      {s:'tonni',t:'Merge-এর বাকি কৌশল, দলের সাথে GitHub-এর কাজ। আজ শেষ চ্যালেঞ্জটা করে ফেলো। এবার ইচ্ছা করে ভুল করবে, আর নিজে ঠিক করবে!',m:{t:{n:'চূড়ান্ত চ্যালেঞ্জ',c:'#FFD25E'}}}]},
  why:'এই চ্যালেঞ্জে একই সাথে ভুল করবে আর প্রতিটা ঘরের ওষুধ দেবে। একবার নিজের হাতে করলে আসল সময়ে হাত কাঁপবে না।',
  where:'আসল repo-তে এগুলো চালানোর আগে এখানে চর্চা করো। বিশেষত reset --hard, আসল প্রজেক্টে প্রথমবার দিতে যেও না।',
- cards:[{t:'রিসোর্স',html:`<ul><li><a href="https://git-scm.com/docs/gitignore" target="_blank" rel="noopener">gitignore ডকুমেন্টেশন</a> (ক্লাসে দেখানো)</li><li><a href="https://git-scm.com/docs/git-reset" target="_blank" rel="noopener">git-reset</a> ও <a href="https://git-scm.com/docs/git-revert" target="_blank" rel="noopener">git-revert</a></li><li><a href="https://git-scm.com/docs/git-stash" target="_blank" rel="noopener">git-stash</a></li><li><a href="https://asad6426.github.io/git-golpo/" target="_blank" rel="noopener">গিটের গল্প: ক্লাস ১</a></li><li><a href="https://asad6426.github.io/git-golpo/class-2/" target="_blank" rel="noopener">গিটের গল্প: ক্লাস ২</a></li></ul>`},{t:'ক্লাসের শেষ দিকের আলোচনা',l:['Windows-এ কমান্ড ও ফোল্ডার rename নিয়ে প্রশ্ন এসেছে','Practical কাজের ওপর জোর','স্ক্রিনে স্লাইড ছিল না, তাই এই অংশের বিস্তারিত এই পাতায় নেই']}],
+ cards:[{t:'রিসোর্স',html:`<ul><li><a href="https://git-scm.com/docs/gitignore" target="_blank" rel="noopener">gitignore ডকুমেন্টেশন</a> (ক্লাসে দেখানো)</li><li><a href="https://git-scm.com/docs/git-reset" target="_blank" rel="noopener">git-reset</a> ও <a href="https://git-scm.com/docs/git-revert" target="_blank" rel="noopener">git-revert</a></li><li><a href="https://git-scm.com/docs/git-stash" target="_blank" rel="noopener">git-stash</a></li><li><a href="https://asad6426.github.io/git-golpo/class-1/" target="_blank" rel="noopener">গিটের গল্প: ক্লাস ১</a></li><li><a href="https://asad6426.github.io/git-golpo/class-2/" target="_blank" rel="noopener">গিটের গল্প: ক্লাস ২</a></li></ul>`},{t:'ক্লাসের শেষ দিকের আলোচনা',l:['Windows-এ কমান্ড ও ফোল্ডার rename নিয়ে প্রশ্ন এসেছে','Practical কাজের ওপর জোর','স্ক্রিনে স্লাইড ছিল না, তাই এই অংশের বিস্তারিত এই পাতায় নেই']}],
  term:{zones:1,graph:1,setup:[],intro:'চূড়ান্ত চ্যালেঞ্জ: কাজ করো, ভুল করো, ঠিক করো।\n',missions:[
   ['পরিচয় দিয়ে undo-lab নামে repo বানাও','git config --global user.name "Rafi Ahmed" && git config --global user.email "rafi@kathal.example" && git init undo-lab && cd undo-lab',s=>s.cwd.endsWith('/undo-lab')&&!!s.repo&&s.cfg['user.name']],
   ['app.sh commit করো, branch main করো','echo "echo app" > app.sh && git add . && git commit -m "Add app" && git branch -M main',ok(s=>s.repo.head==='main'&&s.repo.refs.main)],
@@ -1663,7 +1663,7 @@ function renderMap(){
     <div class="zig"></div>
     <section class="block"><h2>কী কী শিখবে</h2><p>পাশের সময়গুলো ভিডিওর আনুমানিক সময়। শেখার সুবিধার জন্য কিছু অংশ একসাথে এনেছি, তাই একটা অধ্যায়ে কখনো দুটো সময় আছে।</p>
       <div class="route" id="route"></div></section>
-    <section class="block"><h2>সব কমান্ড এক জায়গায়</h2><p>ডান পাশের নম্বর হলো অধ্যায়। সারিতে চাপলে সেখানে চলে যাবে। আগের কমান্ডগুলো <a href="https://asad6426.github.io/git-golpo/" target="_blank" rel="noopener">ক্লাস ১</a> ও <a href="https://asad6426.github.io/git-golpo/class-2/" target="_blank" rel="noopener">ক্লাস ২</a>-এ আছে।</p>
+    <section class="block"><h2>সব কমান্ড এক জায়গায়</h2><p>ডান পাশের নম্বর হলো অধ্যায়। সারিতে চাপলে সেখানে চলে যাবে। আগের কমান্ডগুলো <a href="https://asad6426.github.io/git-golpo/class-1/" target="_blank" rel="noopener">ক্লাস ১</a> ও <a href="https://asad6426.github.io/git-golpo/class-2/" target="_blank" rel="noopener">ক্লাস ২</a>-এ আছে।</p>
       <div class="tbl"><table><thead><tr><th>কমান্ড</th><th>কী করে</th><th>অধ্যায়</th></tr></thead><tbody id="ctable"></tbody></table></div></section>
     <section class="block"><h2>ক্লাসটা কীভাবে পড়ানো হয়েছে</h2><p>শিক্ষক Md. Sanaullah Asif-এর এই ক্লাসের ধরন। এই পাতাও একই ছন্দে সাজানো।</p>
       <div class="style-list">

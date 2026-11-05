@@ -228,7 +228,7 @@ input.txt{font:inherit;font-family:var(--mono);font-size:14px;padding:4px 9px;bo
   <header class="top">
     <button class="brand" id="home">গিটের গল্প</button>
     <div class="dots" id="dots"></div>
-    <div class="meter" id="meter"></div>
+    <div class="meter" id="meter"></div><a href="https://asad6426.github.io/git-golpo/" style="margin-left:auto;padding:3px 12px;border:2px solid var(--ink);border-radius:6px;text-decoration:none;color:var(--ink);font-size:15px;font-weight:600">সব ক্লাস</a>
   </header>
   <main id="view"></main>
 </div>
@@ -1977,7 +1977,7 @@ const CH=[
  why:'সাত Practical এক ফাইলে। এটা চালাতে পারলে Git &amp; GitHub কোর্সের মূল লক্ষ্য পূরণ।'.replace('&amp;','&'),
  where:'নিজের GitHub-এ একটা React বা Node অ্যাপ বানিয়ে এটা বসাও। portfolio-তে দেখানোর মতো কাজ।',
  cards:[{t:'Task (repo-র README)',l:['actions/checkout দিয়ে কোড আনো','actions/setup-node দিয়ে Node.js','npm install ও npm test','deploy ধাপ যোগ করো (যেমন GitHub Pages বা AWS S3)']},
-  {t:'রিসোর্স',html:`<ul><li><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages" target="_blank" rel="noopener">Pages with custom workflows</a></li><li><a href="https://github.com/actions/setup-node" target="_blank" rel="noopener">actions/setup-node</a></li><li><a href="https://github.com/actions/cache" target="_blank" rel="noopener">actions/cache</a></li><li><a href="https://asad6426.github.io/git-golpo/class-6/" target="_blank" rel="noopener">গিটের গল্প: ক্লাস ৬</a></li><li><a href="https://asad6426.github.io/git-golpo/" target="_blank" rel="noopener">গিটের গল্প: ক্লাস ১ থেকে শুরু</a></li></ul>`}],
+  {t:'রিসোর্স',html:`<ul><li><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages" target="_blank" rel="noopener">Pages with custom workflows</a></li><li><a href="https://github.com/actions/setup-node" target="_blank" rel="noopener">actions/setup-node</a></li><li><a href="https://github.com/actions/cache" target="_blank" rel="noopener">actions/cache</a></li><li><a href="https://asad6426.github.io/git-golpo/class-6/" target="_blank" rel="noopener">গিটের গল্প: ক্লাস ৬</a></li><li><a href="https://asad6426.github.io/git-golpo/class-1/" target="_blank" rel="noopener">গিটের গল্প: ক্লাস ১ থেকে শুরু</a></li></ul>`}],
  wf:{file:'pipeline.yml',repoUI:1,pagesUI:1,pages:'actions',repo:PKG_OK,lock:'3',app:'Rafi CI/CD',start:Y_FINAL(false),missions:[
   {t:'test job চালাও',hint:'সবুজ বোতাম।',ev:'push|main|README.md',check:r=>r.status==='success'&&/Tests: 1 passed/.test(r.text||'')},
   {t:'deploy job যোগ করো, needs: test',hint:'আমার হয়ে বসিয়ে দাও।',yaml:Y_FINAL(true),check:r=>r.status==='success'&&!!r.pagesUrl},
@@ -2013,7 +2013,7 @@ function renderMap(){
     <div class="zig"></div>
     <section class="block"><h2>কী কী শিখবে</h2><p>পাশের সময়গুলো ভিডিওর আনুমানিক সময়। শেখার সুবিধার জন্য কিছু অংশ একসাথে এনেছি, তাই একটা অধ্যায়ে কখনো দুটো সময় আছে।</p>
       <div class="route" id="route"></div></section>
-    <section class="block"><h2>সব কমান্ড এক জায়গায়</h2><p>ডান পাশের নম্বর হলো অধ্যায়। সারিতে চাপলে সেখানে চলে যাবে। আগের ক্লাস: <a href="https://asad6426.github.io/git-golpo/" target="_blank" rel="noopener">১</a>, <a href="https://asad6426.github.io/git-golpo/class-2/" target="_blank" rel="noopener">২</a>, <a href="https://asad6426.github.io/git-golpo/class-3/" target="_blank" rel="noopener">৩</a>, <a href="https://asad6426.github.io/git-golpo/class-4/" target="_blank" rel="noopener">৪</a>, <a href="https://asad6426.github.io/git-golpo/class-5/" target="_blank" rel="noopener">৫</a>, <a href="https://asad6426.github.io/git-golpo/class-6/" target="_blank" rel="noopener">৬</a>।</p>
+    <section class="block"><h2>সব কমান্ড এক জায়গায়</h2><p>ডান পাশের নম্বর হলো অধ্যায়। সারিতে চাপলে সেখানে চলে যাবে। আগের ক্লাস: <a href="https://asad6426.github.io/git-golpo/class-1/" target="_blank" rel="noopener">১</a>, <a href="https://asad6426.github.io/git-golpo/class-2/" target="_blank" rel="noopener">২</a>, <a href="https://asad6426.github.io/git-golpo/class-3/" target="_blank" rel="noopener">৩</a>, <a href="https://asad6426.github.io/git-golpo/class-4/" target="_blank" rel="noopener">৪</a>, <a href="https://asad6426.github.io/git-golpo/class-5/" target="_blank" rel="noopener">৫</a>, <a href="https://asad6426.github.io/git-golpo/class-6/" target="_blank" rel="noopener">৬</a>।</p>
       <div class="tbl"><table><thead><tr><th>কমান্ড</th><th>কী করে</th><th>অধ্যায়</th></tr></thead><tbody id="ctable"></tbody></table></div></section>
     <section class="block"><h2>ক্লাসটা কীভাবে পড়ানো হয়েছে</h2><p>শিক্ষক Md. Sanaullah Asif-এর এই ক্লাসের ধরন। এই পাতাও একই ছন্দে সাজানো।</p>
       <div class="style-list">
